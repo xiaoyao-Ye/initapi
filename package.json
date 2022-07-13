@@ -1,0 +1,42 @@
+{
+  "name": "initapi",
+  "version": "1.0.0",
+  "description": "create entity.ts api.ts api.js",
+  "main": "lib/cjs/src/index.js",
+  "module": "lib/cjs/src/index.js",
+  "source": "src/index.ts",
+  "types": "src/cjs/typings/index.d.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin": {
+    "initapi": "./src/index.js"
+  },
+  "keywords": ["api", "entity"],
+  "author": "xiaoyao-Ye",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.27.2",
+    "chalk": "4.0.0",
+    "commander": "^9.3.0",
+    "fs-extra": "^10.1.0",
+    "inquirer": "8.0.0",
+    "openapi3-ts": "^2.0.2",
+    "ora": "5.4.1",
+    "prettier": "^2.7.1",
+    "semver": "^7.3.7",
+    "shelljs": "^0.8.5",
+    "swagger2openapi": "^7.0.8"
+  },
+  "devDependencies": {
+    "@esbuild-kit/esm-loader": "^2.4.1",
+    "@types/fs-extra": "^9.0.13",
+    "@types/inquirer": "^8.2.1",
+    "@types/node": "^18.0.3",
+    "@types/prettier": "^2.6.3",
+    "@types/semver": "^7.3.10",
+    "@types/shelljs": "^0.8.11",
+    "ts-node": "^10.8.2",
+    "typescript": "^4.7.4"
+  }
+}
