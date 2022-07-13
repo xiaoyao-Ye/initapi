@@ -40,12 +40,5 @@ export const useInquirer = async (): Promise<{ fileType: string, url: string }> 
     url = jsonUrl[jsonAddress];
   }
 
-  // const fileType = 'TypeScript';
-  // const fileType = 'JavaScript';
-  // const jsonAddress = 'staff';
-  // const jsonAddress = 'mg';
-  // const jsonAddress = 'test1';
-  // url = jsonUrl[jsonAddress];
-
   return { fileType, url }
 }
