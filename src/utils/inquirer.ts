@@ -31,6 +31,11 @@ const customAddressRule = [
  * @returns 
  */
 export const useInquirer = async (): Promise<{ fileType: string, url: string }> => {
+  // TODO: 配置文件
+  // const rootDir = resolve(process.cwd(), '.')
+  // Read build.config and package.json
+  // const buildConfig: BuildConfig = tryRequire('./build.config', rootDir) || {}
+
   let url;
   const { fileType, jsonAddress } = await inquirer.prompt(rule);
   if (jsonAddress === 'custom') {

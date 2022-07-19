@@ -1,6 +1,19 @@
 import { isAbsolute, join } from 'path'
 import fs from 'fs'
 
+// TODO: 配置文件
+// export function tryRequire (id: string, rootDir: string = process.cwd()) {
+//   const _require = jiti(rootDir, { interopDefault: true })
+//   try {
+//     return _require(id)
+//   } catch (err: any) {
+//     if (err.code !== 'MODULE_NOT_FOUND') {
+//       console.error(`Error trying import ${id} from ${rootDir}`, err)
+//     }
+//     return {}
+//   }
+// }
+
 /**
  * 读取json文件
  * @param url 文件路径
