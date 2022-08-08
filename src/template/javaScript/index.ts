@@ -23,7 +23,7 @@ export const createApiJS = (obj: { [className: string]: ApiInfo[] }) => {
         .map((e) => `${e.split(':')[0]}: ${e.split(':')[0]},`)
         .join('\n  ')
 
-      return apiTemplateStatic(apiInfo.url, mode, funcName, desc, args, req);
+      return apiTemplateStatic({ url: apiInfo.url, method: mode, funcName, desc, args, req });
     })
 
     template += apiTemplateClass(className, funcList.join('\n'))

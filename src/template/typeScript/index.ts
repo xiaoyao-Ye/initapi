@@ -32,7 +32,7 @@ export const createApiTS = (apiClassInfo: { [className: string]: ApiInfo[] }, en
         .map((e) => `${e}: ${e},`)
         .join('\n  ')
 
-      return apiTemplateStatic(apiInfo.url, mode, funcName, desc, args, req, res);
+      return apiTemplateStatic({ url: apiInfo.url, method: mode, funcName, desc, args, req, res });
     })
 
     const name = entityEnumNameList.includes(className) ? `${className}Api` : className;

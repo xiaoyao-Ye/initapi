@@ -3,17 +3,28 @@ import { defHttp } from 'zl-axios';
 import {${importNameList.join(', ')}} from './entity';
 `
 
+
+interface Args {
+  /** 请求路径 */
+  url: string;
+  /** 请求方法 */
+  method: string;
+  /** 函数名称 */
+  funcName: string;
+  /** 函数备注 */
+  desc: string;
+  /** 函数参数 */
+  args: string;
+  /** 请求参数 */
+  req: string;
+  /** 响应类型 */
+  res: string;
+}
 /**
  * 返回函数模板
- * @param url 请求路径
- * @param method 请求方法
- * @param funcName 函数名称
- * @param desc 函数备注
- * @param args 函数参数
- * @param req 请求参数
  * @returns 模板字符串
  */
-export const apiTemplateStatic = (url: string, method: string, funcName: string, desc: string, args: string, req: string, res: string) => `
+export const apiTemplateStatic = ({ url, method, funcName, desc, args, req, res }: Args) => `
 ${desc}
 static ${funcName}(${args}){
   return defHttp.request<${res}>({
