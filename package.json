@@ -7,8 +7,11 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "bin": {
-    "initapi": "./src/index.js"
+    "initapi": "./lib/src/index.js"
   },
+  "file": [
+    "lib"
+  ],
   "keywords": ["api", "entity"],
   "author": "xiaoyao-Ye",
   "repository": {
