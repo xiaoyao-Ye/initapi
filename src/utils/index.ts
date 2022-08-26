@@ -70,6 +70,23 @@ export const clearCRLF = (desc: string) => (desc ?? '').replace(/\r\n/g, '')
 }
 
 /**
+ * 根据openApi规则生成函数名称
+ * @param url api地址
+ * @param className api的class name
+ * @param method 请求方法
+ * @returns 函数名称
+ */
+export function getFuncNameByOpenApi(url: string, className: string, method: string): string {
+  // 移除url字符串中的花括号
+  const reg = /\{|\}/g
+  const urlStr = url.replace(reg, "")
+  const urlArr = urlStr.split('/')
+  const index = urlArr.findIndex((f) => f === className)
+  const name = urlArr.splice(index + 1).join('_')
+  return `${method}_${name}`;
+}
+
+/**
  * 传入注释字符串 不为空则返回 \/** desc *\/ 格式
  * @param desc 备注
  */
