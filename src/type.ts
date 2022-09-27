@@ -1,15 +1,15 @@
-import { SchemaObject } from "openapi3-ts";
+import { SchemaObject } from 'openapi3-ts'
 
 export type Indexable = { [prop: string]: any }
 
 /** 判读是否 ReferenceObject 类型 */
 export function isReferenceObject(obj: ReferenceObject | any): obj is ReferenceObject {
-  return obj.hasOwnProperty('$ref');
+  return obj.hasOwnProperty('$ref')
 }
 
 export class ReferenceObject {
   /** DTO地址 */
-  $ref?: string;
+  $ref?: string
 }
 
 export interface EntityPropInfo {
@@ -48,7 +48,6 @@ export class EnumInfo {
   enumList: string[] = []
 }
 
-
 export class ApiInfo {
   /** 后端的接口方法名 */
   funcName?: string | undefined = ''
@@ -76,7 +75,7 @@ export class Data {
   /** 在判断是否 ReferenceObject , 剩下 SchemaObject */
   schema?: SchemaObject | ReferenceObject
   /** data属性列表 */
-  propList?: { name: string, type: string, desc: string, nullable: boolean }[] = []
+  propList?: { name: string; type: string; desc: string; nullable: boolean }[] = []
 }
 
 /** path, params 的类型放在 schema 属性里面 */
@@ -90,4 +89,13 @@ export class Params {
   nullable: boolean = false
   /** 参数类型 */
   schema?: SchemaObject = undefined
+}
+
+export interface Config {
+  import?: string
+  swagger?: { [prop: string]: string }
+  /** TS entity的属性是否可空, false根据文档生成, true 会加上? */
+  nullable?: boolean
+  /** entity class construct */
+  /** api 返回类型默认值 Object.assign 或 new class(有一个问题是需要分辨是enum还是class) 理论上后端或者前端自行处理比较合理, api处理作用将不再单一 */
 }

@@ -8,11 +8,13 @@ const jsonUrl: { [prop: string]: string } = {
   file: 'http://192.168.1.57:4100/swagger/v1/swagger.json',
   test: 'https://petstore.swagger.io/v2/swagger.json',
   test1: 'https://tools.kalvinbg.cn/static/tmp/swagger.json',
+  mangosteen: 'http://127.0.0.1:3000/api-json'
 }
 
 const fileType = 'TypeScript';
 // const fileType = 'JavaScript';
-const jsonAddress = 'staff';
+// const jsonAddress = 'staff';
+const jsonAddress = 'mangosteen';
 // const jsonAddress = 'mg';
 // const jsonAddress = 'test1';
 let url = jsonUrl[jsonAddress];

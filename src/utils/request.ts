@@ -3,7 +3,7 @@ import { OpenAPIObject } from 'openapi3-ts';
 import { isHttp, readJson } from './index';
 import axios from 'axios';
 
-export const getInitData = async (url: string) => {
+export async function getInitData(url: string) {
   let data: OpenAPIObject;
   if (!isHttp(url)) {
     data = readJson(url)
