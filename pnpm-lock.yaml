@@ -13,6 +13,7 @@ specifiers:
   commander: ^9.3.0
   fs-extra: ^10.1.0
   inquirer: 8.0.0
+  jiti: ^1.16.0
   openapi3-ts: ^2.0.2
   ora: 5.4.1
   prettier: ^2.7.1
@@ -28,6 +29,7 @@ dependencies:
   commander: 9.3.0
   fs-extra: 10.1.0
   inquirer: 8.0.0
+  jiti: 1.16.0
   openapi3-ts: 2.0.2
   ora: 5.4.1
   prettier: 2.7.1
@@ -723,6 +725,11 @@ packages:
   /is-unicode-supported/0.1.0:
     resolution: {integrity: sha512-knxG2q4UC3u8stRGyAVJCOdxFmv5DZiRcdlIaAQXAbSfJya+OhopNotLQrstBhququ4ZpuKbDc/8S6mgXgPFPw==}
     engines: {node: '>=10'}
+    dev: false
+
+  /jiti/1.16.0:
+    resolution: {integrity: sha512-L3BJStEf5NAqNuzrpfbN71dp43mYIcBUlCRea/vdyv5dW/AYa1d4bpelko4SHdY3I6eN9Wzyasxirj1/vv5kmg==}
+    hasBin: true
     dev: false
 
   /jsonfile/6.1.0:
