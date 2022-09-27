@@ -5,7 +5,7 @@
       // 指定模块代码生成
       "module": "CommonJS",
       // 启用所有严格类型检查选项
-      "strict": true,
+      // "strict": true,
       // 禁用命名空间引用 (import * as fs from "fs") 启用 CJS/AMD/UMD 风格引用 (import fs from "fs")
       "esModuleInterop": true,
       // 不允许对同一个文件使用不一致格式的引用
