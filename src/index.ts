@@ -17,7 +17,6 @@ program
   .command('create')
   .description('create api and entity')
   .action(async () => {
-    // await new Main().bootstrap()
     main()
   })
 
