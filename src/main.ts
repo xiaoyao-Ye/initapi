@@ -35,7 +35,7 @@ import { getConfig } from './utils/config'
 
 export const main = async () => {
   // 获取配置文件
-  const { swagger, ...config } = await getConfig()
+  const { swagger, importAxios, useAxios, ...config } = await getConfig()
 
   // 命令行交互
   const { url, fileType, serviceName } = await useInquirer(swagger)
@@ -52,15 +52,17 @@ export const main = async () => {
   // 格式化api信息
   const apiClassInfo = formatApi(data.paths)
 
+  const templateInfo = { importAxios, useAxios }
+
   // 根据类型创建模板生成对应文件
   if (fileType === 'TypeScript') {
     const { entityInfoList, enumInfoList, entityNameList, enumNameList } = formatEntityEnum(data.components!.schemas!)
-    const templateApi = createApiTS(apiClassInfo, [...entityNameList, ...enumNameList])
+    const templateApi = createApiTS(templateInfo, apiClassInfo, [...entityNameList, ...enumNameList])
     const templateEntity = createEntityTS(entityInfoList, enumInfoList)
     outputFile(`${fileName}/api.${suffix}`, templateApi)
     outputFile(`${fileName}/entity.${suffix}`, templateEntity)
   } else {
-    const templateApi = createApiJS(apiClassInfo)
+    const templateApi = createApiJS(templateInfo, apiClassInfo)
     outputFile(`${fileName}/api.${suffix}`, templateApi)
   }
 }
