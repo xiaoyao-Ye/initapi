@@ -33,7 +33,7 @@ export const createApiTS = (
       const res = handleResType(apiInfo, importNameList)
 
       const mode = apiInfo.mode.toUpperCase()
-      const desc = Desc(`${apiInfo.summary}${apiInfo.desc ? '_' + apiInfo.desc : ''}`)
+      const desc = Desc(`${apiInfo.summary}${apiInfo.desc ? '-' + apiInfo.desc : ''}`)
       const args = [pathStr, withParams, withData].filter((f) => f).join(', ')
       const req = [withParams && 'params', withData && 'data']
         .filter((f) => f)

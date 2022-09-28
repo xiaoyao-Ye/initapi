@@ -22,7 +22,7 @@ export const createApiJS = (templateInfo: any, obj: { [className: string]: ApiIn
       const withData = hasHandleData(apiInfo)
 
       const mode = apiInfo.mode.toUpperCase()
-      const desc = Desc(apiInfo.desc)
+      const desc = Desc(`${apiInfo.summary}${apiInfo.desc ? '-' + apiInfo.desc : ''}`)
       const args = [withPath && 'path', withParams && 'params', withData && 'data'].filter((f) => f).join(', ')
       const req = [withParams ? 'params' : '', withData ? 'data' : '']
         .filter((f) => f)
