@@ -15,7 +15,7 @@ program
 
 program
   .command('create')
-  .description('创建api')
+  .description('create api and entity')
   .action(async () => {
     // await new Main().bootstrap()
     main()
