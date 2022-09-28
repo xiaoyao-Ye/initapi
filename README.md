@@ -15,6 +15,7 @@ import { defineConfig } from 'initapi'
 // you can use the `defineConfig` helper which should provide intellisense without the need for jsdoc annotations:
 export default defineConfig({
   // ...
+  // 路径相关配置都是基于 node.js 进程的当前工作目录
 })
 ```
 
