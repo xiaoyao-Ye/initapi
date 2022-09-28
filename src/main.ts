@@ -35,11 +35,10 @@ import { getConfig } from './utils/config'
 
 export const main = async () => {
   // 获取配置文件
-  const { swagger, importAxios, useAxios, ...config } = await getConfig()
+  const { swagger, importAxios, useAxios, outputDir } = await getConfig()
 
   // 命令行交互
   const { url, fileType, serviceName } = await useInquirer(swagger)
-  console.log({ config })
 
   // 获取 swagger/openapi 的json文件
   const data = await getInitData(url)
@@ -59,10 +58,10 @@ export const main = async () => {
     const { entityInfoList, enumInfoList, entityNameList, enumNameList } = formatEntityEnum(data.components!.schemas!)
     const templateApi = createApiTS(templateInfo, apiClassInfo, [...entityNameList, ...enumNameList])
     const templateEntity = createEntityTS(entityInfoList, enumInfoList)
-    outputFile(`${fileName}/api.${suffix}`, templateApi)
-    outputFile(`${fileName}/entity.${suffix}`, templateEntity)
+    outputFile(outputDir, `${fileName}/api.${suffix}`, templateApi)
+    outputFile(outputDir, `${fileName}/entity.${suffix}`, templateEntity)
   } else {
     const templateApi = createApiJS(templateInfo, apiClassInfo)
-    outputFile(`${fileName}/api.${suffix}`, templateApi)
+    outputFile(outputDir, `${fileName}/api.${suffix}`, templateApi)
   }
 }

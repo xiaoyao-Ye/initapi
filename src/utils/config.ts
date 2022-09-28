@@ -12,6 +12,7 @@ export interface UserConfig {
   swagger?: { [prop: string]: string }
   /** TS entity的属性是否可空, false根据文档生成, true 会加上? */
   nullable?: boolean
+  outputDir?: string
   /** entity class construct */
   /** api 返回类型默认值 Object.assign 或 new class(有一个问题是需要分辨是enum还是class) 理论上后端或者前端自行处理比较合理, api处理作用将不再单一 */
 }
@@ -31,11 +32,12 @@ const defaultOptions = () => ({
   swagger: {
     test: 'https://petstore.swagger.io/v2/swagger.json',
   },
+  outputDir: './api',
 })
 
 export const getConfig = async (): Promise<UserConfig> => {
   try {
-    const apiConfig: UserConfigExport = await tryRequire(`./api.config.ts`)
+    const apiConfig: UserConfigExport = await tryRequire(`./api.config`)
     let config: UserConfig = {}
     if (typeof apiConfig === 'function') {
       config = await apiConfig({})
