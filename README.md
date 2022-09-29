@@ -32,6 +32,7 @@ pnpm run create-api
 ## TODO
 
 - [ ] 可选属性
+- [ ] entity 使用 class 还是使用 interface 定义?
 - [ ] 根据 command 可以不进行 inquirer 交互
 - [x] defineConfig 类型
 - [ ] more...
