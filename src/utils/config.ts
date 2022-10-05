@@ -46,6 +46,7 @@ export const getConfig = async (): Promise<UserConfig> => {
     }
     return Object.assign(defaultOptions(), config)
   } catch (error) {
-    console.error(error)
+    console.error("try require error, please check 'api.config.ts' file.")
+    throw new Error(error);
   }
 }
