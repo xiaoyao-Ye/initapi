@@ -6,16 +6,16 @@ A tool for creating API and entity
 pnpm i initapi -D
 ```
 
-## use
+## usage
 
-> 配置 `api.config.ts`
+> configure `api.config.ts`
 
 ```ts
 import { defineConfig } from 'initapi'
 // you can use the `defineConfig` helper which should provide intellisense without the need for jsdoc annotations:
 export default defineConfig({
+  // Path related configurations are all based on the working directory of the nodejs process
   // ...
-  // 路径相关配置都是基于 node.js 进程的当前工作目录
 })
 ```
 
