@@ -7,4 +7,5 @@ export default defineConfig({
     mangosteen: 'http://127.0.0.1:3000/api-json',
   },
   outputDir: './src/api',
+  outputType: 'TypeScript'
 })
