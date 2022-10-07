@@ -8,10 +8,10 @@ import { getConfig } from './utils/config'
 
 export const main = async () => {
   // 获取配置文件
-  const { swagger, importAxios, useAxios, outputDir } = await getConfig()
+  const { swagger, importAxios, useAxios, outputDir, outputType } = await getConfig()
 
   // 命令行交互
-  const { url, fileType, serviceName } = await useInquirer(swagger)
+  const { url, fileType, serviceName } = await useInquirer(swagger, outputType)
 
   // 获取 swagger/openapi 的json文件
   const data = await getInitData(url)
