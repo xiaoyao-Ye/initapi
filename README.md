@@ -44,4 +44,10 @@ pnpm run create-api
 - [ ] 可使用 fetch 请求?
 - [ ] 适配 uni, 小程序 请求?
 - [ ] 可配置类型(ts,js,flutter)? 还是单独做ts+js, flutter
+- [ ] nestjs项目中, Dto 引用其他的 class 作为属性的类型, 这个属性会有一个 allOf 属性的第0个是$ref, 而正常的是直接有$ref属性
+- [ ] nestjs项目中, type: string 可能还有 enum 属性, enum+enumName后好像恢复正常了
 - [ ] more...
+
+## other
+
+  2023/03/01 将 "openapi3-ts": "^2.0.2", 升级至 "openapi3-ts": "^3.2.0",
