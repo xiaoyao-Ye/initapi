@@ -1,4 +1,4 @@
-import { SchemaObject } from 'openapi3-ts'
+import { SchemaObject, SchemaObjectType } from 'openapi3-ts/dist/mjs'
 
 export type Indexable = { [prop: string]: any }
 
@@ -7,21 +7,27 @@ export function isReferenceObject(obj: ReferenceObject | any): obj is ReferenceO
   return obj.hasOwnProperty('$ref')
 }
 
+/** 判断是否 SchemaObjectType[] 类型 */
+export const isSchemaObjectTypeArray = (type: SchemaObjectType | SchemaObjectType[]): type is SchemaObjectType[] => {
+  return Array.isArray(type)
+}
+
+
 export class ReferenceObject {
   /** DTO地址 */
   $ref?: string
 }
 
 export interface EntityPropInfo {
-  $ref: string
+  $ref?: string
   /** 属性名称 */
   name: string
   /** 属性类型 */
-  type: string
+  type?: string
   /** 属性备注 */
   desc: string
   /** 是否必填 */
-  nullable: boolean
+  nullable?: boolean
   /** type为Array的情况下数组value的类型, 只有 基础类型[] | DTO[] */
   items?: SchemaObject | ReferenceObject
   /** type为object的情况下会有,应是DTO为Map结构, 95%生成不存在 Map<string, additionalProp(基础类型 | DTO)> */
@@ -75,19 +81,32 @@ export class Data {
   /** 在判断是否 ReferenceObject , 剩下 SchemaObject */
   schema?: SchemaObject | ReferenceObject
   /** data属性列表 */
-  propList?: { name: string; type: string; desc: string; nullable: boolean }[] = []
+  propList?: {
+    $ref?: string
+    /** 参数名 */
+    name: string;
+    /** 备注 */
+    desc: string;
+    /** 属性类型 */
+    type?: string;
+    /** 是否必填(true 必填, false 可选) */
+    nullable: boolean
+  }[] = []
+  // propList?: (SchemaObject | ReferenceObject)[] = []
 }
 
 /** path, params 的类型放在 schema 属性里面 */
 export class Params {
-  $ref?: string
+  // $ref?: string
   /** 参数名 */
   name: string = ''
   /** 备注 */
   desc: string = ''
-  /** 是否必填 */
+  // TODO 与语义不符
+  /** 是否必填(true 必填, false 可选) */
   nullable: boolean = false
   /** 参数类型 */
-  schema?: SchemaObject = undefined
+  // schema?: SchemaObject = undefined
+  schema?: SchemaObject | ReferenceObject = {}
 }
 

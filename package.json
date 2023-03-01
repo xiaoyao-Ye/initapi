@@ -33,7 +33,7 @@
     "fs-extra": "^10.1.0",
     "inquirer": "8.0.0",
     "jiti": "^1.16.0",
-    "openapi3-ts": "^2.0.2",
+    "openapi3-ts": "^3.2.0",
     "ora": "5.4.1",
     "prettier": "^2.7.1",
     "semver": "^7.3.7",
