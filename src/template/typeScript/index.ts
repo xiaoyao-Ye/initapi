@@ -4,6 +4,7 @@ import { apiTemplateClass, apiTemplateImport, apiTemplateStatic } from './api'
 import { entityTemplate, entityTemplateClassProp } from './entity'
 
 export const createApiTS = (
+  // TODO: type
   templateInfo: any,
   apiClassInfo: { [className: string]: ApiInfo[] },
   entityEnumNameList: string[],
@@ -117,7 +118,7 @@ export const createEntityTS = (entityInfoList: EntityInfo[], enumInfoList: EnumI
 
 /**
  *
- * @param schema 类型过于复杂参考 EntityPropInfo
+ * @param schema 类型过于复杂参考 EntityPropInfo | SchemaObject | ReferenceObject
  * @param importNameList 记录DTO
  */
 export const transType = (schema: any = {}, importNameList?: string[]): string => {
@@ -127,6 +128,7 @@ export const transType = (schema: any = {}, importNameList?: string[]): string =
     return DTO_NAME
   }
 
+  // TODO: SchemaObjectType SchemaObjectFormat 类型可做参考
   const numberEnum = ['integer', 'long', 'float', 'double', 'number', 'int', 'int32', 'int64']
   if (schema.type === 'string') {
     return 'string'
@@ -142,6 +144,7 @@ export const transType = (schema: any = {}, importNameList?: string[]): string =
     }>`
     // return `{ [prop: string]: ${schema.additionalProperties ? transTypeTS(schema.additionalProperties, record) : 'any'} }`
   } else {
+    console.log('untreated type: 7', schema);
     return 'any'
   }
 }

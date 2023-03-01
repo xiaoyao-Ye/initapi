@@ -1,5 +1,5 @@
 import converter from 'swagger2openapi';
-import { OpenAPIObject } from 'openapi3-ts';
+import { OpenAPIObject } from 'openapi3-ts/dist/mjs';
 import { isHttp, readJson } from './index';
 import axios from 'axios';
 
