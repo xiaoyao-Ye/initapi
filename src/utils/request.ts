@@ -22,6 +22,6 @@ export async function getInitData(url: string) {
 }
 
 const transformOpenApi = async (data: OpenAPIObject) => {
-  const { openapi } = await (converter as any).convertObj(data, {});
+  const { openapi } = await (converter as any).convertObj(data, { patch: true, warnOnly: true });
   return openapi;
 }
