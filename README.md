@@ -44,8 +44,9 @@ pnpm run create-api
 - [ ] 可使用 fetch 请求?
 - [ ] 适配 uni, 小程序 请求?
 - [ ] 可配置类型(ts,js,flutter)? 还是单独做ts+js, flutter
-- [ ] nestjs项目中, Dto 引用其他的 class 作为属性的类型, 这个属性会有一个 allOf 属性的第0个是$ref, 而正常的是直接有$ref属性
-- [ ] nestjs项目中, type: string 可能还有 enum 属性, enum+enumName后好像恢复正常了
+- [x] nestjs项目中, Dto 引用其他的 class 作为属性的类型, 这个属性会有一个 allOf 属性的第0个是$ref, 而正常的是直接有$ref属性
+- [x] nestjs项目中, type: string 可能还有 enum 属性, enum+enumName后好像恢复正常了
+- [ ] 目前生成的entity是class, 可以增加功能选择生成class或者interface(interface是允许定义多个同名类型的, 使用的时候是所有同名interface都需要满足, class不允许重复定义)
 - [ ] more...
 
 ## other
