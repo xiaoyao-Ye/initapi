@@ -11,7 +11,7 @@ export async function useInquirer(swagger: { [prop: string]: string }, outputTyp
 }> {
   const serviceNameList = Object.keys(swagger)
   const rule = []
-  if (typeof outputType != 'undefined') {
+  if (typeof outputType === 'undefined') {
     rule.push({
       name: 'fileType',
       message: '请选择生成的api类型:',

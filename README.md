@@ -38,8 +38,6 @@ pnpm run create-api
 - [x] 当后端在 AppController(最外层) 编写接口, 并且没有设置(@ApiTags)时, AppController 里面的接口是没有tags的, 下面代码出现报错:
   - [ ] `formatApi.js:31 -> const API_CLASS_NAME = API.tags[0];`
   - [ ] 上面报错解决思路是所有没有 tags 的内容都加到一个公共的默认的 class 里面去, 负担就是className需要默认值?
-- [ ] outputType 属性不设置时, 不会弹出`? 请选择生成的api类型: (Use arrow keys)` 这个交互命令
-  - [ ] 猜测可能是`if (typeof outputType != 'undefined') {` 这行代码的判断逻辑问题
 - [ ] 可配置指定的 prettier 文件用于格式化?
 - [ ] 可使用 fetch 请求?
 - [ ] 适配 uni, 小程序 请求?
