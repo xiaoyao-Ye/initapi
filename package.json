@@ -2,6 +2,8 @@
   "name": "initapi",
   "version": "0.0.2-alpha",
   "description": "create entity.ts api.ts api.js",
+  "main": "src/index.js",
+  "types": "lib/index.d.ts",
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "test": "echo \"Error: no test specified\" && exit 1"

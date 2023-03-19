@@ -1,8 +1,6 @@
 import { tryRequire } from './index'
 import path from 'path'
 
-// export type DefineConfig = (config: UserConfigExport) => UserConfigExport
-
 export type UserConfigExport = UserConfig | UserConfigFn
 
 export type UserConfigFn = (env: UserConfig) => UserConfig | Promise<UserConfig>
