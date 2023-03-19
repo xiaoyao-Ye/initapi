@@ -1,6 +1,6 @@
 {
   "name": "initapi",
-  "version": "0.0.0-alpha",
+  "version": "0.0.1-alpha",
   "description": "create entity.ts api.ts api.js",
   "scripts": {
     "build": "tsc -p tsconfig.json",
