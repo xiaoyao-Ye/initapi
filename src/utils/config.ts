@@ -1,4 +1,5 @@
 import { tryRequire } from './index'
+import path from 'path'
 
 export type UserConfigExport = UserConfig | UserConfigFn
 
@@ -43,7 +44,7 @@ const defaultOptions = () => ({
 
 export const getConfig = async (): Promise<UserConfig> => {
   try {
-    const apiConfig: UserConfigExport = await tryRequire(`./api.config`)
+    const apiConfig: UserConfigExport = await tryRequire(path.join(process.cwd(), 'api.config'))
     let config: UserConfig = {}
     if (typeof apiConfig === 'function') {
       config = await apiConfig({})
