@@ -48,6 +48,7 @@ pnpm run create-api
 - [x] nestjs项目中, type: string 可能还有 enum 属性, enum+enumName后好像恢复正常了
 - [ ] 目前生成的entity是class, 可以增加功能选择生成class或者interface(interface是允许定义多个同名类型的, 使用的时候是所有同名interface都需要满足, class不允许重复定义)
 - [ ] 使用tsup打包()
+- [ ] api.config.ts 中导入 initapi 会找不到类型声明(@types/initapi ?)
 - [ ] more...
 
 ## other
