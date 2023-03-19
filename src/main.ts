@@ -17,9 +17,9 @@ export const main = async () => {
   const data = await getInitData(url)
 
   // 生成文件所需的 文件名 文件类型后缀
-  const FILE_TYPE: { [prop: string]: string } = { TypeScript: 'ts', JavaScript: 'js' }
+  const FILE_TYPE = { TypeScript: 'ts', JavaScript: 'js' }
   const suffix = FILE_TYPE[fileType]
-  const fileName = serviceName ?? toLowerCaseFirst(Object.keys(data.paths)[0].split('/')[1])
+  const fileName = serviceName || toLowerCaseFirst(Object.keys(data.paths)[0].split('/')[1])
 
   // 格式化api信息
   const apiClassInfo = formatApi(data.paths)
@@ -28,7 +28,7 @@ export const main = async () => {
 
   // 根据类型创建模板生成对应文件
   if (fileType === 'TypeScript') {
-    const { entityInfoList, enumInfoList, entityNameList, enumNameList } = formatEntityEnum(data.components!.schemas!)
+    const { entityInfoList, enumInfoList, entityNameList, enumNameList } = formatEntityEnum(data.components?.schemas ?? {})
     const templateApi = createApiTS(templateInfo, apiClassInfo, [...entityNameList, ...enumNameList])
     const templateEntity = createEntityTS(entityInfoList, enumInfoList)
     outputFile(outputDir, `${fileName}/api.${suffix}`, templateApi)
