@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+      "declaration": true,
       // 指定 ECMAScript 版本
       "target": "ES6",
       // 指定模块代码生成

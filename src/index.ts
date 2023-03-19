@@ -3,6 +3,7 @@ import { program } from 'commander'
 import { checkUpdate, pkgVersion } from './utils/checkUpdate'
 import { main } from './main'
 export { defineConfig } from './utils/config'
+// export type { DefineConfig } from './utils/config'
 
 program.name('initapi').version(pkgVersion, '-V, --version')
 
