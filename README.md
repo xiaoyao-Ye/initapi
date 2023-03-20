@@ -1,5 +1,7 @@
 # initapi
 
+<div align="center"><img src="https://xiaoyao-ye.github.io/blog/initApi/light.svg" /></div>
+
 A tool for creating API and entity
 
 ```bash
