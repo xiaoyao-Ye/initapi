@@ -46,7 +46,8 @@ pnpm run create-api
 - [x] 当后端在 AppController(最外层) 编写接口, 并且没有设置(@ApiTags)时, AppController 里面的接口是没有tags的, 下面代码出现报错:
   - [ ] `formatApi.js:31 -> const API_CLASS_NAME = API.tags[0];`
   - [ ] 上面报错解决思路是所有没有 tags 的内容都加到一个公共的默认的 class 里面去, 负担就是className需要默认值?
-- [ ] 可配置指定的 prettier 文件用于格式化?
+- [x] 可配置指定的 prettier 文件用于格式化?
+- [ ] 是否使用自定义prettier格式化, 默认否?
 - [ ] 可使用 fetch 请求?
 - [ ] 适配 uni, 小程序 请求?
 - [ ] 可配置类型(ts,js,flutter)? 还是单独做ts+js, flutter
@@ -61,3 +62,50 @@ pnpm run create-api
 ## other
 
   2023/03/01 将 "openapi3-ts": "^2.0.2", 升级至 "openapi3-ts": "^3.2.0",
+
+## default
+
+项目根目录有 .prettier 文件时默认会使用该配置进行文件格式化, 获取文件失败则使用内置的 prettier 格式化默认配置:
+
+```JavaScript
+const defaultOptions: prettier.Options = {
+  // 解析器
+  parser: 'typescript',
+  // 一行最多 100 字符
+  printWidth: 100,
+  // 使用 2 个空格缩进
+  tabWidth: 2,
+  // 不使用缩进符使用空格
+  useTabs: false,
+  // 行尾需要有分号
+  semi: true,
+  // 使用单引号
+  singleQuote: true,
+  // 对象的 key 仅在必要时用引号
+  quoteProps: 'as-needed',
+  // jsx 不使用单引号，而使用双引号
+  jsxSingleQuote: false,
+  // 尾随逗号
+  trailingComma: 'all',
+  // 大括号内的首尾需要空格
+  bracketSpacing: true,
+  bracketSameLine: false,
+  // jsx 标签的反尖括号需要换行
+  jsxBracketSameLine: false,
+  // 箭头函数，只有一个参数的时候，也需要括号always, avoid
+  arrowParens: 'avoid',
+  // 每个文件格式化的范围是文件的全部内容
+  rangeStart: 0,
+  rangeEnd: Infinity,
+  // 不需要写文件开头的 @prettier
+  requirePragma: false,
+  // 不需要自动在文件开头插入 @prettier
+  insertPragma: false,
+  // 使用默认的折行标准
+  proseWrap: 'preserve',
+  // 根据显示样式决定 html 要不要折行
+  htmlWhitespaceSensitivity: 'css',
+  // 换行符使用 auto, lf
+  endOfLine: 'auto',
+}
+```
