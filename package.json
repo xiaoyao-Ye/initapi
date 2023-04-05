@@ -2,8 +2,8 @@
   "name": "initapi",
   "version": "0.0.3-alpha",
   "description": "create entity.ts api.ts api.js",
-  "main": "src/index.js",
-  "types": "lib/index.d.ts",
+  "main": "./src/index.js",
+  "types": "./src/index.d.ts",
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -15,8 +15,11 @@
     "lib"
   ],
   "keywords": [
+    "initapi",
     "api",
-    "entity"
+    "entity",
+    "openapi",
+    "swagger"
   ],
   "author": "xiaoyao-Ye",
   "repository": {
