@@ -5,7 +5,12 @@ import { apiTemplateClass, apiTemplateStatic } from './api'
 export const createApiJS = (templateInfo: any, obj: { [className: string]: ApiInfo[] }) => {
   const { importAxios, useAxios } = templateInfo
 
-  let template = importAxios
+  let template =
+    `
+  /* eslint-disable */
+  // 该文件由 initAPI 自动生成，请勿手动修改！
+  ` + importAxios
+
   for (const className in obj) {
     const classInfo = obj[className]
     let nameRepeat: { [prop: string]: number } = {}
