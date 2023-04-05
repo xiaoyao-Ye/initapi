@@ -27,7 +27,7 @@ export const formatApi = (data: PathsObject) => {
         res: res
       }
 
-      const API_CLASS_NAME = API.tags![0];
+      const API_CLASS_NAME = API.tags?.[0] ?? "Common";
       if (!Array.isArray(apiClassInfo[API_CLASS_NAME])) apiClassInfo[API_CLASS_NAME] = [];
       apiClassInfo[API_CLASS_NAME].push(apiInfo);
     }
@@ -125,7 +125,7 @@ const useResponses = (obj: ResponsesObject) => {
     const item = obj[key];
     if (isReferenceObject(item)) return { $ref: item.$ref };
     if (!item.content) continue;
-    /** 
+    /**
      * 这里的可以是 text/plain application/json text/json 等:
      * 不管存在几个, 内容都是一致的, 取第一个即可
      */

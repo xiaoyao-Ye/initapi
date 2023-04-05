@@ -21,9 +21,6 @@ export const formatEntityEnum = (data: { [schema: string]: SchemaObject | Refere
     // entity
     if (obj.type === 'object') {
       entityNameList.push(schemaName)
-      if (schemaName == 'BillItemsVo') {
-        console.log('111');
-      }
       entityInfoList.push({
         name: schemaName,
         desc: clearCRLF(obj.description ?? ""),
@@ -50,11 +47,11 @@ const formatEntityPropList = (properties: { [propertyName: string]: SchemaObject
   const propList: Array<EntityPropInfo> = [];
   for (const propName in properties) {
     if (!properties.hasOwnProperty(propName)) continue;
-    // TODO: 为了便于类型转换成 propList 先强行转类型 
+    // TODO: 为了便于类型转换成 propList 先强行转类型
     const obj = properties[propName] as SchemaObject & ReferenceObject;
     let prop: EntityPropInfo;
 
-    // // ReferenceObject 类型优先处理(排除) 
+    // // ReferenceObject 类型优先处理(排除)
     // if (isReferenceObject(obj)) {
     //   prop = {
     //     $ref: obj.$ref,
