@@ -1,4 +1,7 @@
 export const apiTemplateImport = (importAxios: string, importNameList: string[]) => `
+/* eslint-disable */
+// 该文件由 initAPI 自动生成，请勿手动修改！
+
 ${importAxios}
 import {${importNameList.join(', ')}} from './entity';
 `

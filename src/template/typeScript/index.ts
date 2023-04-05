@@ -95,7 +95,10 @@ const handleResType = (apiInfo: ApiInfo, importNameList: string[]) => {
 }
 
 export const createEntityTS = (entityInfoList: EntityInfo[], enumInfoList: EnumInfo[]) => {
-  let template = ''
+  let template = `
+  /* eslint-disable */
+  // 该文件由 initAPI 自动生成，请勿手动修改！
+  `
   entityInfoList.forEach((item) => {
     const propList = item.propList.map((prop) => {
       const desc = Desc(prop.desc)
@@ -144,7 +147,7 @@ export const transType = (schema: any = {}, importNameList?: string[]): string =
     }>`
     // return `{ [prop: string]: ${schema.additionalProperties ? transTypeTS(schema.additionalProperties, record) : 'any'} }`
   } else {
-    console.log('untreated type: 7', schema);
+    console.log('untreated type: 7', schema)
     return 'any'
   }
 }
