@@ -27,7 +27,7 @@ interface Args {
  */
 export const apiTemplateStatic = ({ use, url, method, funcName, desc, args, req, res }: Args) => `
 ${desc}
-static ${funcName}(${args}){
+static async ${funcName}(${args}){
   return ${use}<${res}>({
     url: \`${url}\`,
     method: '${method}',

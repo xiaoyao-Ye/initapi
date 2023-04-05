@@ -1,7 +1,3 @@
-export const apiTemplateImport = () => `
-import { defHttp } from 'zl-axios';
-`
-
 interface Args {
   /** request方法 */
   use: string
@@ -24,7 +20,7 @@ interface Args {
  */
 export const apiTemplateStatic = ({ use, url, method, funcName, desc, args, req }: Args) => `
 ${desc}
-static ${funcName}(${args}){
+static async ${funcName}(${args}){
   return ${use}({
     url: \`${url}\`,
     method: '${method}',
