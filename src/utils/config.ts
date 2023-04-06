@@ -5,8 +5,6 @@ export type UserConfigExport = UserConfig | UserConfigFn
 
 export type UserConfigFn = (env: UserConfig) => UserConfig | Promise<UserConfig>
 
-export interface ConfigEnv {}
-
 export interface UserConfig {
   /** 导入请求函数 default: 'import axios from "axios";' */
   importAxios?: string
@@ -40,7 +38,6 @@ export interface UserConfig {
 /**
  * Type helper to make it easier to use api.config.ts
  * accepts a direct {@link UserConfig} object, or a function that returns it.
- * The function receives a {@link ConfigEnv} object that exposes two properties:
  */
 export function defineConfig(config: UserConfigExport): UserConfigExport {
   return config
