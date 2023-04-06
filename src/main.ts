@@ -24,7 +24,7 @@ export const main = async () => {
   const fileName = serviceName || toLowerCaseFirst(Object.keys(data.paths)[0].split('/')[1])
 
   // 格式化api信息
-  const apiClassInfo = formatApi(data.paths)
+  const apiTagInfo = formatApi(data.paths, data.tags)
 
   const templateInfo = { importAxios, useAxios }
 
@@ -32,13 +32,13 @@ export const main = async () => {
   if (fileType === 'TypeScript') {
     const indexableTemplate = indexable ? '[key: string]: any' : '';
     const { entityInfoList, enumInfoList, entityNameList, enumNameList } = formatEntityEnum(data.components?.schemas ?? {})
-    const { apiList, importEntityName } = createApiTS(templateInfo, apiClassInfo, [...entityNameList, ...enumNameList])
+    const { apiList, importEntityName } = createApiTS(templateInfo, apiTagInfo, [...entityNameList, ...enumNameList])
     const templateApi = await ejsRender('./template/typeScript/api.ejs', { apiList, importEntityName, importAxios })
     const templateEntity = await ejsRender('./template/typeScript/typings.d.ejs', { definition, enumMode, indexableTemplate, entityInfoList, enumInfoList, Desc, transType})
     outputFile(outputDir, `${fileName}/api.${suffix}`, templateApi)
     outputFile(outputDir, `${fileName}/typings.d.${suffix}`, templateEntity)
   } else {
-    const { apiList } = createApiJS(templateInfo, apiClassInfo)
+    const { apiList } = createApiJS(templateInfo, apiTagInfo)
     const templateApi = await ejsRender('./template/javaScript/api.ejs', { apiList, importAxios })
     outputFile(outputDir, `${fileName}/api.${suffix}`, templateApi)
   }

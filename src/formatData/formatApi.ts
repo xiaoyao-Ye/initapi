@@ -1,10 +1,12 @@
 
-import { PathItemObject, OperationObject, PathsObject, ParameterObject, ReferenceObject, RequestBodyObject, SchemaObject, ResponsesObject } from "openapi3-ts/dist/mjs";
+import { PathItemObject, OperationObject, PathsObject, ParameterObject, ReferenceObject, RequestBodyObject, SchemaObject, ResponsesObject, TagObject } from "openapi3-ts/dist/mjs";
 import { ApiInfo, Params, isReferenceObject, Data, isSchemaObjectTypeArray } from "../type";
 import { clearCRLF } from "../utils";
 
-export const formatApi = (data: PathsObject) => {
-  const apiClassInfo: { [className: string]: ApiInfo[] } = {};
+export const formatApi = (data: PathsObject, tags: TagObject[]) => {
+  // const apiClassInfo: { [className: string]: ApiInfo[] } = {};
+  const apiTagInfo: { [className: string]: { desc: string, tagInfo: ApiInfo[] } } = {};
+  // const apiTagInfo: { tagName: string, desc: string, tagInfo: ApiInfo}[] = [];
   for (const PATH in data) {
     const API_INFO: PathItemObject = data[PATH];
     for (const MODE in API_INFO) {
@@ -27,12 +29,15 @@ export const formatApi = (data: PathsObject) => {
         res: res
       }
 
-      const API_CLASS_NAME = API.tags?.[0] ?? "Common";
-      if (!Array.isArray(apiClassInfo[API_CLASS_NAME])) apiClassInfo[API_CLASS_NAME] = [];
-      apiClassInfo[API_CLASS_NAME].push(apiInfo);
+      const API_TAG_NAME = API.tags?.[0] ?? "Common";
+      if (!apiTagInfo[API_TAG_NAME]) {
+        const desc = tags.filter(f => f.name === API_TAG_NAME)[0]?.description
+        apiTagInfo[API_TAG_NAME] = {desc: clearCRLF(desc ?? ''), tagInfo: []};
+      }
+      apiTagInfo[API_TAG_NAME].tagInfo.push(apiInfo);
     }
   }
-  return apiClassInfo;
+  return apiTagInfo;
 }
 
 const useArgs = (args: (ParameterObject | ReferenceObject)[] = []) => {

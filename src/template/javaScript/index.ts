@@ -1,20 +1,22 @@
 import { ApiInfo, Indexable } from '../../type'
 import { Desc, getFuncNameByOpenApi, toLowerCaseFirst } from '../../utils'
 
-export const createApiJS = (templateInfo: any, apiClassInfo: { [className: string]: ApiInfo[] }) => {
+export const createApiJS = (
+  templateInfo: any,
+  apiTagInfo: { [className: string]: { desc: string, tagInfo: ApiInfo[] } },
+  ) => {
   const { useAxios } = templateInfo
 
   let apiList = []
 
-  for (const className in apiClassInfo) {
-    const classInfo = apiClassInfo[className]
+  for (const tagName in apiTagInfo) {
     let nameRepeat: { [prop: string]: number } = {}
-    const funcList = classInfo.map((apiInfo) => {
+    const funcList = apiTagInfo[tagName].tagInfo.map((apiInfo) => {
       // 后端没有返回正确函数名称的时候, 根据url生成
-      // let funcName = apiInfo.funcName ? toLowerCaseFirst(apiInfo.funcName) : getFuncName(apiInfo.url, className)
+      // let funcName = apiInfo.funcName ? toLowerCaseFirst(apiInfo.funcName) : getFuncName(apiInfo.url, tagName)
       let funcName = apiInfo.funcName
         ? toLowerCaseFirst(apiInfo.funcName)
-        : getFuncNameByOpenApi(apiInfo.url, className, apiInfo.mode)
+        : getFuncNameByOpenApi(apiInfo.url, tagName, apiInfo.mode)
       handleRepeatName(funcName, nameRepeat)
 
       const withPath = hasHandlePath(apiInfo)
@@ -33,13 +35,10 @@ export const createApiJS = (templateInfo: any, apiClassInfo: { [className: strin
       return {use: useAxios, url: apiInfo.url, method: mode, funcName, desc, args, req}
     })
 
-    // template += apiTemplateClass(className, funcList.join('\n'))
-    apiList.push({ className, funcList })
+    apiList.push({ tagName, desc: Desc(apiTagInfo[tagName].desc), funcList })
   }
 
-  // return await ejsRender('./template/javaScript/api.ejs', { apiList, importAxios })
   return { apiList }
-  // return template
 }
 
 /** 根据url生成的函数名称可能存在重复的情况, 防止api.ts报错, 重复名称统一处理成 `_[fnName]_[repeatCount]` */

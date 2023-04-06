@@ -1,11 +1,10 @@
-// import { ejsRender } from '../../main'
 import { ApiInfo, Indexable } from '../../type'
 import { Desc, getFuncNameByOpenApi, toLowerCaseFirst } from '../../utils'
 
 export const createApiTS = (
   // TODO: type
   templateInfo: any,
-  apiClassInfo: { [className: string]: ApiInfo[] },
+  apiTagInfo: { [className: string]: { desc: string, tagInfo: ApiInfo[] } },
   entityEnumNameList: string[],
 ) => {
   const { useAxios } = templateInfo
@@ -14,18 +13,15 @@ export const createApiTS = (
 
   let apiList = []
 
-  for (const className in apiClassInfo) {
-    const name = entityEnumNameList.includes(className) ? `${className}Api` : className
-
-    const classInfo = apiClassInfo[className]
-
+  for (let tagName in apiTagInfo) {
+    tagName = entityEnumNameList.includes(tagName) ? `${tagName}Api` : tagName
     let nameRepeat: { [prop: string]: number } = {}
-    const funcList = classInfo.map((apiInfo) => {
+    const funcList = apiTagInfo[tagName].tagInfo.map((apiInfo) => {
       // 后端没有返回正确函数名称的时候, 根据url生成
-      // let funcName = apiInfo.funcName ? toLowerCaseFirst(apiInfo.funcName) : getFuncName(apiInfo.url, className)
+      // let funcName = apiInfo.funcName ? toLowerCaseFirst(apiInfo.funcName) : getFuncName(apiInfo.url, tagName)
       let funcName = apiInfo.funcName
         ? toLowerCaseFirst(apiInfo.funcName)
-        : getFuncNameByOpenApi(apiInfo.url, className, apiInfo.mode)
+        : getFuncNameByOpenApi(apiInfo.url, tagName, apiInfo.mode)
       /** 根据url生成的函数名称可能存在重复的情况, 防止api.ts报错, 重复名称统一处理成 `_[fnName]_[repeatCount]` */
       handleRepeatName(funcName, nameRepeat)
 
@@ -44,8 +40,7 @@ export const createApiTS = (
 
       return { use: useAxios, url: apiInfo.url, method: mode, funcName, desc, args, req, res }
     })
-
-    apiList.push({ className: name, funcList })
+    apiList.push({ tagName, desc: Desc(apiTagInfo[tagName].desc), funcList })
   }
 
   let importEntityName = [...new Set(importNameList)].join(', ')
