@@ -10,7 +10,7 @@ import { resolve } from 'path'
 
 export const main = async () => {
   // 获取配置文件
-  const { swagger, importAxios, useAxios, outputDir, outputType, definition } = await getConfig()
+  const { swagger, importAxios, useAxios, outputDir, outputType, definition, indexable } = await getConfig()
 
   // 命令行交互
   const { url, fileType, serviceName } = await useInquirer(swagger, outputType)
@@ -30,10 +30,11 @@ export const main = async () => {
 
   // 根据类型创建模板生成对应文件
   if (fileType === 'TypeScript') {
+    const indexableTemplate = indexable ? '[key: string]: any' : '';
     const { entityInfoList, enumInfoList, entityNameList, enumNameList } = formatEntityEnum(data.components?.schemas ?? {})
     const { apiList, importEntityName } = createApiTS(templateInfo, apiClassInfo, [...entityNameList, ...enumNameList])
     const templateApi = await ejsRender('./template/typeScript/api.ejs', { apiList, importEntityName, importAxios })
-    const templateEntity = await ejsRender('./template/typeScript/entity.ejs', { definition, entityInfoList, enumInfoList, Desc, transType})
+    const templateEntity = await ejsRender('./template/typeScript/entity.ejs', { definition, indexableTemplate, entityInfoList, enumInfoList, Desc, transType})
     outputFile(outputDir, `${fileName}/api.${suffix}`, templateApi)
     outputFile(outputDir, `${fileName}/entity.${suffix}`, templateEntity)
   } else {
