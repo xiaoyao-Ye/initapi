@@ -1,7 +1,6 @@
-import { ApiInfo, EntityInfo, EnumInfo } from '../../type'
+// import { ejsRender } from '../../main'
+import { ApiInfo, Indexable } from '../../type'
 import { Desc, getFuncNameByOpenApi, toLowerCaseFirst } from '../../utils'
-import { apiTemplateClass, apiTemplateImport, apiTemplateStatic } from './api'
-import { entityTemplate, entityTemplateClassProp } from './entity'
 
 export const createApiTS = (
   // TODO: type
@@ -9,11 +8,17 @@ export const createApiTS = (
   apiClassInfo: { [className: string]: ApiInfo[] },
   entityEnumNameList: string[],
 ) => {
-  const { importAxios, useAxios } = templateInfo
-  let template = ''
+  const { useAxios } = templateInfo
+
   let importNameList: string[] = []
+
+  let apiList = []
+
   for (const className in apiClassInfo) {
+    const name = entityEnumNameList.includes(className) ? `${className}Api` : className
+
     const classInfo = apiClassInfo[className]
+
     let nameRepeat: { [prop: string]: number } = {}
     const funcList = classInfo.map((apiInfo) => {
       // 后端没有返回正确函数名称的时候, 根据url生成
@@ -22,36 +27,39 @@ export const createApiTS = (
         ? toLowerCaseFirst(apiInfo.funcName)
         : getFuncNameByOpenApi(apiInfo.url, className, apiInfo.mode)
       /** 根据url生成的函数名称可能存在重复的情况, 防止api.ts报错, 重复名称统一处理成 `_[fnName]_[repeatCount]` */
-      if (nameRepeat[funcName]) {
-        funcName = `_${funcName}_${nameRepeat[funcName]++}`
-      } else {
-        nameRepeat[funcName] = 1
-      }
+      handleRepeatName(funcName, nameRepeat)
 
-      const pathStr = hasHandlePath(apiInfo, importNameList)
+      const withPath = hasHandlePath(apiInfo, importNameList)
       const withParams = hasHandleParams(apiInfo, importNameList)
       const withData = hasHandleData(apiInfo, importNameList)
       const res = handleResType(apiInfo, importNameList)
 
       const mode = apiInfo.mode.toUpperCase()
       const desc = Desc(`${apiInfo.summary}${apiInfo.desc ? '-' + apiInfo.desc : ''}`)
-      const args = [pathStr, withParams, withData].filter((f) => f).join(', ')
+      const args = [withPath, withParams, withData].filter((f) => f).join(', ')
       const req = [withParams && 'params', withData && 'data']
         .filter((f) => f)
         .map((e) => `${e}: ${e},`)
         .join('\n  ')
 
-      return apiTemplateStatic({ use: useAxios, url: apiInfo.url, method: mode, funcName, desc, args, req, res })
+      return { use: useAxios, url: apiInfo.url, method: mode, funcName, desc, args, req, res }
     })
 
-    const name = entityEnumNameList.includes(className) ? `${className}Api` : className
-    template += apiTemplateClass(name, funcList.join('\n'))
+    apiList.push({ className: name, funcList })
   }
 
-  importNameList = [...new Set(importNameList)]
-  // importNameList = importNameList.filter(f => entityEnumNameList.includes(f));
-  template = apiTemplateImport(importAxios, importNameList) + template
-  return template
+  let importEntityName = [...new Set(importNameList)].join(', ')
+
+  return { apiList, importEntityName }
+}
+
+/** 根据url生成的函数名称可能存在重复的情况, 防止api.ts报错, 重复名称统一处理成 `_[fnName]_[repeatCount]` */
+const handleRepeatName = (funcName: string, nameRepeat: Indexable) => {
+  if (nameRepeat[funcName]) {
+    funcName = `_${funcName}_${nameRepeat[funcName]++}`
+  } else {
+    nameRepeat[funcName] = 1
+  }
 }
 
 /** 是否存在路由传参, 存在则处理url */
@@ -92,31 +100,6 @@ const hasHandleData = (apiInfo: ApiInfo, importNameList: string[]) => {
 const handleResType = (apiInfo: ApiInfo, importNameList: string[]) => {
   if (!Object.keys(apiInfo.res ?? {}).length) return 'void'
   return transType(apiInfo.res, importNameList)
-}
-
-export const createEntityTS = (entityInfoList: EntityInfo[], enumInfoList: EnumInfo[]) => {
-  let template = `
-  /* eslint-disable */
-  // 该文件由 initAPI 自动生成，请勿手动修改！
-  `
-  entityInfoList.forEach((item) => {
-    const propList = item.propList.map((prop) => {
-      const desc = Desc(prop.desc)
-      const type = transType(prop)
-      // openApi的规则为必填项, 实际可能非必填项, 此处将属性一律设置为可选
-      return entityTemplateClassProp(prop.name, desc, type, false)
-      // return entityTemplateClassProp(prop.name, desc, type, prop.nullable);
-    })
-    const desc = Desc(item.desc)
-    template += entityTemplate('class', item.name, desc, propList.join('\n'))
-  })
-  enumInfoList.forEach((item) => {
-    const desc = Desc(item.desc)
-    const propList = item.enumList.map((e) => `"${e}" = "${e}"`)
-    template += entityTemplate('enum', item.name, desc, propList.join(',\n'))
-  })
-
-  return template
 }
 
 /**

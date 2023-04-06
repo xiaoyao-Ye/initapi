@@ -1,10 +1,12 @@
 import { formatEntityEnum, formatApi } from './formatData/index'
 import { outputFile } from './outputFile/index'
 import { getInitData } from './utils/request'
-import { createApiJS, createApiTS, createEntityTS } from './template/index'
-import { toLowerCaseFirst } from './utils/index'
+import { createApiJS, createApiTS, transType } from './template/index'
+import { Desc, toLowerCaseFirst } from './utils/index'
 import { useInquirer } from './utils/inquirer'
 import { getConfig } from './utils/config'
+import ejs from 'ejs';
+import { resolve } from 'path'
 
 export const main = async () => {
   // 获取配置文件
@@ -29,12 +31,26 @@ export const main = async () => {
   // 根据类型创建模板生成对应文件
   if (fileType === 'TypeScript') {
     const { entityInfoList, enumInfoList, entityNameList, enumNameList } = formatEntityEnum(data.components?.schemas ?? {})
-    const templateApi = createApiTS(templateInfo, apiClassInfo, [...entityNameList, ...enumNameList])
-    const templateEntity = createEntityTS(entityInfoList, enumInfoList)
+    const { apiList, importEntityName } = createApiTS(templateInfo, apiClassInfo, [...entityNameList, ...enumNameList])
+    const templateApi = await ejsRender('./template/typeScript/api.ejs', { apiList, importEntityName, importAxios })
+    const templateEntity = await ejsRender('./template/typeScript/entity.ejs', { entityInfoList, enumInfoList, Desc, transType})
     outputFile(outputDir, `${fileName}/api.${suffix}`, templateApi)
     outputFile(outputDir, `${fileName}/entity.${suffix}`, templateEntity)
   } else {
-    const templateApi = createApiJS(templateInfo, apiClassInfo)
+    const { apiList } = createApiJS(templateInfo, apiClassInfo)
+    const templateApi = await ejsRender('./template/javaScript/api.ejs', { apiList, importAxios })
     outputFile(outputDir, `${fileName}/api.${suffix}`, templateApi)
   }
+}
+
+export const ejsRender = (template: string, data: any): Promise<string> => {
+  template = resolve(__dirname, template);
+  return new Promise((resolve, reject) => {
+    ejs.renderFile(template, data, (err, str) => {
+      if (err) {
+        reject(err)
+      }
+      resolve(str)
+    })
+  })
 }
