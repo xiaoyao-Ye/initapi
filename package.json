@@ -1,15 +1,15 @@
 {
   "name": "initapi",
   "version": "0.0.4-alpha",
-  "description": "create entity.ts api.ts api.js",
-  "main": "./src/index.js",
-  "types": "./src/index.d.ts",
+  "description": "A tool for creating API and typings",
+  "module": "./index.mjs",
+  "main": "./index.js",
+  "types": "./index.d.ts",
   "scripts": {
-    "build": "tsc -p tsconfig.json",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "tsup && node ./index.js"
   },
   "bin": {
-    "initapi": "./src/index.js"
+    "initapi": "./index.js"
   },
   "file": [
     "lib"
@@ -55,6 +55,7 @@
     "@types/semver": "^7.3.10",
     "@types/shelljs": "^0.8.11",
     "ts-node": "^10.8.2",
+    "tsup": "^6.7.0",
     "typescript": "^4.7.4"
   }
 }
