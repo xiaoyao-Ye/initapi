@@ -1,6 +1,6 @@
 {
   "name": "initapi",
-  "version": "0.0.5-alpha",
+  "version": "0.0.1-beta.1",
   "description": "A tool for creating API and typings",
   "module": "./index.mjs",
   "main": "./index.js",

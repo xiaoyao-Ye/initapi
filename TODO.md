@@ -47,4 +47,7 @@
 - [ ] [medium] 处理 untreated type
 - [ ] [medium] 当前生成进度实时打印出来, 对应的地方加上log
 - [ ] refactor 配置项相关单独拎出来? 所有辅助函数统一维护? 函数式传参尽量减少? 命名语义化? 代码结构尽量清晰? 性能?
+- [x] command 取消 custom 相关提示
+- [x] createjs/ts 函数结构更改
+- [ ] build 移除所有log? (console.info/error/chalk 都用了log, 考虑把`untreated type`相关移除)
 - [ ] more...
