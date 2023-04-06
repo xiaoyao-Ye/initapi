@@ -1,7 +1,7 @@
 import { defineConfig } from './src/index'
 
 export default defineConfig({
-  importAxios: 'import axios from "../index";',
+  // importAxios: 'import axios from "../index";',
   useAxios: 'axios.request',
   swagger: {
     // TODO test: swagger2openapi 转换为 openapi3 时会有问题，所以出现 UserArray 的class
@@ -9,5 +9,8 @@ export default defineConfig({
     mangosteen: 'http://127.0.0.1:3000/api-json',
   },
   outputDir: './src/api',
-  outputType: 'TypeScript'
+  // outputType: 'TypeScript',
+  // definition: 'class',
+  // indexable: true
+  // enumMode: 'enum'
 })
