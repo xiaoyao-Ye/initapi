@@ -34,9 +34,9 @@ export const main = async () => {
     const { entityInfoList, enumInfoList, entityNameList, enumNameList } = formatEntityEnum(data.components?.schemas ?? {})
     const { apiList, importEntityName } = createApiTS(templateInfo, apiClassInfo, [...entityNameList, ...enumNameList])
     const templateApi = await ejsRender('./template/typeScript/api.ejs', { apiList, importEntityName, importAxios })
-    const templateEntity = await ejsRender('./template/typeScript/entity.ejs', { definition, enumMode, indexableTemplate, entityInfoList, enumInfoList, Desc, transType})
+    const templateEntity = await ejsRender('./template/typeScript/typings.d.ejs', { definition, enumMode, indexableTemplate, entityInfoList, enumInfoList, Desc, transType})
     outputFile(outputDir, `${fileName}/api.${suffix}`, templateApi)
-    outputFile(outputDir, `${fileName}/entity.${suffix}`, templateEntity)
+    outputFile(outputDir, `${fileName}/typings.d.${suffix}`, templateEntity)
   } else {
     const { apiList } = createApiJS(templateInfo, apiClassInfo)
     const templateApi = await ejsRender('./template/javaScript/api.ejs', { apiList, importAxios })
