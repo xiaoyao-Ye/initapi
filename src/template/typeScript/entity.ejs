@@ -14,9 +14,13 @@ export <%= definition %> <%= item.name %> {
 
 <% enumInfoList.forEach(item => { %>
 <%= Desc(item.desc) %>
+<% if (enumMode === 'enum') { %>
 export enum <%= item.name %> {
   <% item.enumList.forEach(key => { -%>
     "<%= key %>" = "<%= key %>",
   <%  }); %>
 }
+<% } else if (enumMode === 'type') { %>
+export type <%= item.name %> = <%- item.enumList.map(key => `"${key}"`).join(' | ') %>
+<% } %>
 <% }); %>
