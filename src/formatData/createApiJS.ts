@@ -1,5 +1,5 @@
-import { ApiInfo, Indexable } from '../../type'
-import { Desc, getFuncNameByOpenApi, toLowerCaseFirst } from '../../utils'
+import { ApiInfo, Indexable } from '../type'
+import { Desc, getFuncNameByOpenApi, toLowerCaseFirst } from '../utils'
 
 export const createApiJS = (
   templateInfo: any,

@@ -1,7 +1,6 @@
-import { formatEntityEnum, formatApi } from './formatData/index'
+import { formatEntityEnum, formatApi, createApiTS, transType, createApiJS } from './formatData/index'
 import { outputFile } from './outputFile/index'
 import { getInitData } from './utils/request'
-import { createApiJS, createApiTS, transType } from './template/index'
 import { Desc, toLowerCaseFirst } from './utils/index'
 import { useInquirer } from './utils/inquirer'
 import { getConfig } from './utils/config'
@@ -44,7 +43,7 @@ export const main = async () => {
   }
 }
 
-export const ejsRender = (template: string, data: any): Promise<string> => {
+const ejsRender = (template: string, data: any): Promise<string> => {
   template = resolve(__dirname, template);
   return new Promise((resolve, reject) => {
     ejs.renderFile(template, data, (err, str) => {
