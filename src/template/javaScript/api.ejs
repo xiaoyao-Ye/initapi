@@ -3,8 +3,9 @@
 
 <%- importAxios %>
 
-<% apiList.forEach(({className, funcList}) => { %>
-export class <%= className %> {
+<% apiList.forEach(({tagName, desc, funcList}) => { %>
+<%= desc %>
+export class <%= tagName %> {
   <% funcList.forEach((item) => { %>
     <%= item.desc %>
     static async <%= item.funcName %>(<%- item.args %>) {
