@@ -20,13 +20,19 @@ export interface UserConfig {
   outputDir?: string
   /** 生成文件类型-无配置时会弹出命令行交互让用户选择 */
   outputType?: 'TypeScript' | 'JavaScript'
-  /** 类型定义 default: interface (两者的区别请自行查询TypeScript) */
+  /** 定义类型的方式 default: interface (两者的区别请自行查询TypeScript) */
   definition?: 'class' | 'interface'
   /**
    * 索引签名 default: false
    * 使用索引签名的优点是可以添加任意数量的属性，使得 interface | class 更加灵活；缺点是可能会导致属性的值类型不确定
    */
   indexable?: boolean
+  /**
+   * 定义枚举的方式 default: type
+   * enum: 生成枚举类型
+   * type: 生成类型别名
+   */
+  enumMode?: 'enum' | 'type'
   /** entity class construct */
   /** api 返回类型默认值 Object.assign 或 new class(有一个问题是需要分辨是enum还是class) 理论上后端或者前端自行处理比较合理, api处理作用将不再单一 */
 }
@@ -50,6 +56,7 @@ const defaultOptions = () => ({
   outputDir: './api',
   definition: 'interface',
   indexable: false,
+  enumMode: 'type',
 })
 
 export const getConfig = async (): Promise<UserConfig> => {
