@@ -1,0 +1,26 @@
+/* eslint-disable */
+// 此文件由 initAPI(https://github.com/xiaoyao-Ye/initapi) 自动生成。请不要手动修改此文件！
+
+<% entityInfoList.forEach(item => { %>
+<%= Desc(item.desc) %>
+export <%= definition %> <%= item.name %> {
+  <% item.propList.forEach(prop => { -%>
+    <%= Desc(prop.desc) %>
+    <%= prop.name %>?: <%- transType(prop) %>
+  <%  }); %>
+  <%- indexableTemplate -%>
+}
+<% }); %>
+
+<% enumInfoList.forEach(item => { %>
+<%= Desc(item.desc) %>
+<% if (enumMode === 'enum') { %>
+export enum <%= item.name %> {
+  <% item.enumList.forEach(key => { -%>
+    "<%= key %>" = "<%= key %>",
+  <%  }); %>
+}
+<% } else if (enumMode === 'type') { %>
+export type <%= item.name %> = <%- item.enumList.map(key => `"${key}"`).join(' | ') %>
+<% } %>
+<% }); %>
