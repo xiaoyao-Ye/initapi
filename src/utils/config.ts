@@ -22,6 +22,11 @@ export interface UserConfig {
   outputType?: 'TypeScript' | 'JavaScript'
   /** 类型定义 default: interface (两者的区别请自行查询TypeScript) */
   definition?: 'class' | 'interface'
+  /**
+   * 索引签名 default: false
+   * 使用索引签名的优点是可以添加任意数量的属性，使得 interface | class 更加灵活；缺点是可能会导致属性的值类型不确定
+   */
+  indexable?: boolean
   /** entity class construct */
   /** api 返回类型默认值 Object.assign 或 new class(有一个问题是需要分辨是enum还是class) 理论上后端或者前端自行处理比较合理, api处理作用将不再单一 */
 }
@@ -43,7 +48,8 @@ const defaultOptions = () => ({
     test: 'https://petstore.swagger.io/v2/swagger.json',
   },
   outputDir: './api',
-  definition: 'interface'
+  definition: 'interface',
+  indexable: false,
 })
 
 export const getConfig = async (): Promise<UserConfig> => {

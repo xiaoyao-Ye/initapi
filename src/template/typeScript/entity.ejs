@@ -8,6 +8,7 @@ export <%= definition %> <%= item.name %> {
     <%= Desc(prop.desc) %>
     <%= prop.name %>?: <%- transType(prop) %>
   <%  }); %>
+  <%- indexableTemplate -%>
 }
 <% }); %>
 
