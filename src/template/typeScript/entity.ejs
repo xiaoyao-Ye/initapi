@@ -1,0 +1,21 @@
+/* eslint-disable */
+// 此文件由 initAPI 自动生成。请不要手动修改此文件！
+
+<% entityInfoList.forEach(item => { %>
+<%= Desc(item.desc) %>
+export class <%= item.name %> {
+  <% item.propList.forEach(prop => { -%>
+    <%= Desc(prop.desc) %>
+    <%= prop.name %>?: <%- transType(prop) %>
+  <%  }); %>
+}
+<% }); %>
+
+<% enumInfoList.forEach(item => { %>
+<%= Desc(item.desc) %>
+export enum <%= item.name %> {
+  <% item.enumList.forEach(key => { -%>
+    "<%= key %>" = "<%= key %>",
+  <%  }); %>
+}
+<% }); %>

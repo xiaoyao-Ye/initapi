@@ -1,0 +1,19 @@
+/* eslint-disable */
+// 此文件由 initAPI 自动生成。请不要手动修改此文件！
+
+<%- importAxios %>
+
+<% apiList.forEach(({className, funcList}) => { %>
+export class <%= className %> {
+  <% funcList.forEach((item) => { %>
+    <%= item.desc %>
+    static async <%= item.funcName %>(<%- item.args %>) {
+      return <%= item.use %>({
+        url: `<%- item.url %>`,
+        method: '<%= item.method %>',
+        <%- item.req %>
+      })
+    }
+  <% }) %>
+}
+<% }) %>

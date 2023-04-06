@@ -1,18 +1,13 @@
 import { ApiInfo, Indexable } from '../../type'
 import { Desc, getFuncNameByOpenApi, toLowerCaseFirst } from '../../utils'
-import { apiTemplateClass, apiTemplateStatic } from './api'
 
-export const createApiJS = (templateInfo: any, obj: { [className: string]: ApiInfo[] }) => {
-  const { importAxios, useAxios } = templateInfo
+export const createApiJS = (templateInfo: any, apiClassInfo: { [className: string]: ApiInfo[] }) => {
+  const { useAxios } = templateInfo
 
-  let template =
-    `
-  /* eslint-disable */
-  // 该文件由 initAPI 自动生成，请勿手动修改！
-  ` + importAxios
+  let apiList = []
 
-  for (const className in obj) {
-    const classInfo = obj[className]
+  for (const className in apiClassInfo) {
+    const classInfo = apiClassInfo[className]
     let nameRepeat: { [prop: string]: number } = {}
     const funcList = classInfo.map((apiInfo) => {
       // 后端没有返回正确函数名称的时候, 根据url生成
@@ -34,13 +29,17 @@ export const createApiJS = (templateInfo: any, obj: { [className: string]: ApiIn
         .map((e) => `${e.split(':')[0]}: ${e.split(':')[0]},`)
         .join('\n  ')
 
-      return apiTemplateStatic({ use: useAxios, url: apiInfo.url, method: mode, funcName, desc, args, req })
+      // return apiTemplateStatic({ use: useAxios, url: apiInfo.url, method: mode, funcName, desc, args, req })
+      return {use: useAxios, url: apiInfo.url, method: mode, funcName, desc, args, req}
     })
 
-    template += apiTemplateClass(className, funcList.join('\n'))
+    // template += apiTemplateClass(className, funcList.join('\n'))
+    apiList.push({ className, funcList })
   }
 
-  return template
+  // return await ejsRender('./template/javaScript/api.ejs', { apiList, importAxios })
+  return { apiList }
+  // return template
 }
 
 /** 根据url生成的函数名称可能存在重复的情况, 防止api.ts报错, 重复名称统一处理成 `_[fnName]_[repeatCount]` */
