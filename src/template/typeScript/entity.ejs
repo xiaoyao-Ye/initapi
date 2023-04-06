@@ -3,7 +3,7 @@
 
 <% entityInfoList.forEach(item => { %>
 <%= Desc(item.desc) %>
-export class <%= item.name %> {
+export <%= definition %> <%= item.name %> {
   <% item.propList.forEach(prop => { -%>
     <%= Desc(prop.desc) %>
     <%= prop.name %>?: <%- transType(prop) %>
