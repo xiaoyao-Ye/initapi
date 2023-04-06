@@ -14,7 +14,7 @@ export async function useInquirer(swagger: { [prop: string]: string }, outputTyp
   if (typeof outputType === 'undefined') {
     rule.push({
       name: 'fileType',
-      message: '请选择生成的api类型:',
+      message: '请选择您需要生成的 API 类型:',
       type: 'list',
       default: 'TypeScript',
       choices: ['TypeScript', 'JavaScript'],
@@ -22,7 +22,7 @@ export async function useInquirer(swagger: { [prop: string]: string }, outputTyp
   }
   rule.push({
     name: 'serviceName',
-    message: '请选择swagger或openApi的预设json文件地址(custom选项可自定义地址):',
+    message: '请选择 API 文档json地址:',
     type: 'list',
     default: serviceNameList[0],
     choices: [...serviceNameList],
