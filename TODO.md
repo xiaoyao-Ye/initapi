@@ -20,7 +20,7 @@
 - [ ] [low] 生成js的话, js函数定义类型注释, path.xx 是什么作用
 - [x] nestjs项目中, Dto 引用其他的 class 作为属性的类型, 这个属性会有一个 allOf 属性的第0个是$ref, 而正常的是直接有$ref属性
 - [x] nestjs项目中, type: string 可能还有 enum 属性, enum+enumName后好像恢复正常了
-- [ ] [low] 使用tsup打包()
+- [x] [low] 使用tsup打包()
 - [x] api.config.ts 中导入 initapi 会找不到类型声明(@types/initapi ?) (直接内置类型解决了)
 - [x] [high] api函数static 后是否应该有async和await
 - [x] [high] ejs模板, 提供自定义模板
@@ -43,11 +43,14 @@
 ```
 
 - [ ] [low] mock
-- [ ] [high] controller class enum 都没有备注
+- [x] [high] controller class enum 都没有备注
 - [ ] [medium] 处理 untreated type
 - [ ] [medium] 当前生成进度实时打印出来, 对应的地方加上log
 - [ ] refactor 配置项相关单独拎出来? 所有辅助函数统一维护? 函数式传参尽量减少? 命名语义化? 代码结构尽量清晰? 性能?
 - [x] command 取消 custom 相关提示
 - [x] createjs/ts 函数结构更改
 - [ ] build 移除所有log? (console.info/error/chalk 都用了log, 考虑把`untreated type`相关移除)
+- [x] 移除 .devcontainer 文件
+- [ ] publish 如果依赖报错, 可能是需要 `npm i` 之后在 `npm publish`, 待确定. 也有可能是 `splitting: true` 导致
+- [ ] version 先是 alpha 然后是 beta, 但是beta的主版本必须是接着alpha来
 - [ ] more...
