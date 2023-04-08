@@ -10,12 +10,12 @@ program.usage('<command> [options]')
 
 program
   .command('update')
-  .description('update the cli to latest version')
+  .description('update the cli to latest version(global)')
   .action(async () => await checkUpdate())
 
 program
   .command('create')
-  .description('create api and entity')
+  .description('create API and typings')
   .action(async () => {
     main()
   })
