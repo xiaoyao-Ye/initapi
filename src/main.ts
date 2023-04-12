@@ -9,10 +9,10 @@ import { resolve } from 'path'
 
 export const main = async () => {
   // 获取配置文件
-  const { swagger, importAxios, useAxios, outputDir, outputType, definition, indexable, enumMode } = await getConfig()
+  const { service, importAxios, useAxios, outputDir, outputType, definition, indexable, enumMode } = await getConfig()
 
   // 命令行交互
-  const { url, fileType, serviceName } = await useInquirer(swagger, outputType)
+  const { url, fileType, serviceName } = await useInquirer(service, outputType)
 
   // 获取 swagger/openapi 的json文件
   const data = await getInitData(url)
@@ -25,20 +25,18 @@ export const main = async () => {
   // 格式化api信息
   const apiTagInfo = formatApi(data.paths, data.tags)
 
-  const templateInfo = { importAxios, useAxios }
-
   // 根据类型创建模板生成对应文件
   if (fileType === 'TypeScript') {
     const indexableTemplate = indexable ? '[key: string]: any' : '';
     const { entityInfoList, enumInfoList, entityNameList, enumNameList } = formatEntityEnum(data.components?.schemas ?? {})
-    const { apiList, importEntityName } = createApiTS(templateInfo, apiTagInfo, [...entityNameList, ...enumNameList])
-    const templateApi = await ejsRender('./template/typeScript/api.ejs', { apiList, importEntityName, importAxios })
+    const { apiList, importEntityName } = createApiTS(apiTagInfo, [...entityNameList, ...enumNameList])
+    const templateApi = await ejsRender('./template/typeScript/api.ejs', { apiList, importEntityName, importAxios, useAxios })
     const templateEntity = await ejsRender('./template/typeScript/typings.d.ejs', { definition, enumMode, indexableTemplate, entityInfoList, enumInfoList, Desc, transType})
     outputFile(outputDir, `${fileName}/api.${suffix}`, templateApi)
     outputFile(outputDir, `${fileName}/typings.d.${suffix}`, templateEntity)
   } else {
-    const { apiList } = createApiJS(templateInfo, apiTagInfo)
-    const templateApi = await ejsRender('./template/javaScript/api.ejs', { apiList, importAxios })
+    const { apiList } = createApiJS(apiTagInfo)
+    const templateApi = await ejsRender('./template/javaScript/api.ejs', { apiList, importAxios, useAxios })
     outputFile(outputDir, `${fileName}/api.${suffix}`, templateApi)
   }
 }

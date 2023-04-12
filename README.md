@@ -6,7 +6,24 @@
 <div align="center"> A tool for creating API and typings </div>
 
 <br />
+
+<p align="center">
+  <a href="https://github.com/xiaoyao-Ye/initapi/blob/main/README.zh-CN.md">Chinese</a> | English
+</p>
+
+<p align="center">
+  <a href="https://github.com/xiaoyao-Ye/initapi/stargazers"><img src="https://img.shields.io/github/stars/xiaoyao-Ye/initapi" /></a>
+  <a href="https://www.npmjs.com/package/initapi"><img src="https://badgen.net/npm/v/initapi" /></a>
+</p>
+
 <br />
+
+## Features
+
+- Code as Document
+- Standardized, unified team style, easy to maintain
+- Tool generates code to reduce coding and improve efficiency
+- If the backend uses Swagger or Openapi3 specifications, it can be accessed at zero cost
 
 ## install
 
@@ -23,6 +40,13 @@ import { defineConfig } from 'initapi'
 // you can use the `defineConfig` helper which should provide intellisense without the need for jsdoc annotations:
 export default defineConfig({
   // Path related configurations are all based on the working directory of the nodejs process
+  // Supports Openapi3 and Swagger specifications, with content created based on specified JSON
+  swagger: {
+    pets: 'https://petstore.swagger.io/v2/swagger.json',
+    platform: 'http://127.0.0.1:3000/api-json',
+  },
+  outputDir: './src/api',
+  outputType: 'TypeScript',
   // ...
 })
 ```
@@ -37,63 +61,60 @@ export default defineConfig({
 pnpm run create-api
 ```
 
+## configure
+
+Detailed configuration items for defineConfig
+
+| Name        | Description                                                                                                                                                                                                           | Type                         | Required | Default                      |
+| ----------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------- | -------- | ---------------------------- |
+| importAxios | Import axios or axios encapsulation                                                                                                                                                                                   | `string`                     | No       | 'import axios from "axios";' |
+| useAxios    | Using axios                                                                                                                                                                                                           | `string`                     | No       | 'axios.request'              |
+| swagger     | The JSON (`swagger/openapi3`specification) file address corresponding to the API service                                                                                                                              | `object`                     | Yes      | —                            |
+| outputDir   | Output file storage location                                                                                                                                                                                          | `string`                     | No       | './api'                      |
+| outputType  | Output File Type - When there is no configuration, a command line interaction will pop up for selection                                                                                                               | `TypeScript` or `JavaScript` | No       | —                            |
+| definition  | How to define types                                                                                                                                                                                                   | `class` or `interface`       | No       | interface                    |
+| indexable   | The advantage of using index signature is that it can add any number of attributes, making `interface` or `class` more flexible; The disadvantage is that it may cause uncertainty in the value type of the attribute | `boolean`                    | No       | false                        |
+| enumMode    | How to define enumeration (enum: generate enumeration type. type: generate type alias.)                                                                                                                               | `enum` or `type`             | No       | type                         |
+
 ## default
 
-创建文件之前默认会使用 prettier 对数据进行格式化
+Before creating a file, by default, the data will be formatted using a prettier
 
-项目根目录有 .prettier 文件时默认会使用该配置进行文件格式化, 获取文件失败则使用内置的 prettier 格式化默认配置:
+When the project root directory has a. prettier file, the default configuration will be used for file formatting. If obtaining the file fails, the built-in prettier will be used to format the default configuration:
 
 ```JavaScript
 const defaultOptions: prettier.Options = {
-  // 解析器
   parser: 'typescript',
-  // 一行最多 100 字符
   printWidth: 100,
-  // 使用 2 个空格缩进
   tabWidth: 2,
-  // 不使用缩进符使用空格
   useTabs: false,
-  // 行尾需要有分号
   semi: true,
-  // 使用单引号
   singleQuote: true,
-  // 对象的 key 仅在必要时用引号
   quoteProps: 'as-needed',
-  // jsx 不使用单引号，而使用双引号
   jsxSingleQuote: false,
-  // 尾随逗号
   trailingComma: 'all',
-  // 大括号内的首尾需要空格
   bracketSpacing: true,
   bracketSameLine: false,
-  // jsx 标签的反尖括号需要换行
   jsxBracketSameLine: false,
-  // 箭头函数，只有一个参数的时候，也需要括号always, avoid
   arrowParens: 'avoid',
-  // 每个文件格式化的范围是文件的全部内容
   rangeStart: 0,
   rangeEnd: Infinity,
-  // 不需要写文件开头的 @prettier
   requirePragma: false,
-  // 不需要自动在文件开头插入 @prettier
   insertPragma: false,
-  // 使用默认的折行标准
   proseWrap: 'preserve',
-  // 根据显示样式决定 html 要不要折行
   htmlWhitespaceSensitivity: 'css',
-  // 换行符使用 auto, lf
   endOfLine: 'auto',
 }
 ```
 
 ## Git commit
 
-- 💍  test:       Adding missing tests
-- 🎸  feat:       A new feature
-- 🐛  fix:        A bug fix
-- 🤖  chore:      Build process or auxiliary tool changes
-- ✏️  docs:       Documentation only changes
-- 💡  refactor:   A code change that neither fixes a bug or adds a feature
-- 💄  style:      Markup, white-space, formatting, missing semi-colons...
-- 🎡  ci:         CI related changes
-- ⚡️  perf:       A code change that improves performance
+- 💍 test: Adding missing tests
+- 🎸 feat: A new feature
+- 🐛 fix: A bug fix
+- 🤖 chore: Build process or auxiliary tool changes
+- ✏️ docs: Documentation only changes
+- 💡 refactor: A code change that neither fixes a bug or adds a feature
+- 💄 style: Markup, white-space, formatting, missing semi-colons...
+- 🎡 ci: CI related changes
+- ⚡️ perf: A code change that improves performance

@@ -2,10 +2,8 @@ import { ApiInfo, Indexable } from '../type'
 import { Desc, getFuncNameByOpenApi, toLowerCaseFirst } from '../utils'
 
 export const createApiJS = (
-  templateInfo: any,
   apiTagInfo: { [className: string]: { desc: string, tagInfo: ApiInfo[] } },
   ) => {
-  const { useAxios } = templateInfo
 
   let apiList = []
 
@@ -32,7 +30,7 @@ export const createApiJS = (
         .join('\n  ')
 
       // return apiTemplateStatic({ use: useAxios, url: apiInfo.url, method: mode, funcName, desc, args, req })
-      return {use: useAxios, url: apiInfo.url, method: mode, funcName, desc, args, req}
+      return { url: apiInfo.url, method: mode, funcName, desc, args, req }
     })
 
     apiList.push({ tagName, desc: Desc(apiTagInfo[tagName].desc), funcList })
