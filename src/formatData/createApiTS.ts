@@ -2,13 +2,9 @@ import { ApiInfo, Indexable } from '../type'
 import { Desc, getFuncNameByOpenApi, toLowerCaseFirst } from '../utils'
 
 export const createApiTS = (
-  // TODO: type
-  templateInfo: any,
   apiTagInfo: { [className: string]: { desc: string, tagInfo: ApiInfo[] } },
   entityEnumNameList: string[],
 ) => {
-  const { useAxios } = templateInfo
-
   let importNameList: string[] = []
 
   let apiList = []
@@ -38,7 +34,7 @@ export const createApiTS = (
         .map((e) => `${e}: ${e},`)
         .join('\n  ')
 
-      return { use: useAxios, url: apiInfo.url, method: mode, funcName, desc, args, req, res }
+      return { url: apiInfo.url, method: mode, funcName, desc, args, req, res }
     })
     apiList.push({ tagName, desc: Desc(apiTagInfo[tagName].desc), funcList })
   }
