@@ -33,5 +33,5 @@
   // TypeScript文件应该进行类型检查(两颗星代表所有的子目录./src/**/*.ts)
   "include": ["src/**/*"],
   // 不进行类型检查
-  "exclude": ["node_modules/*"]
+  "exclude": ["node_modules/*", "lib/*", "src/api/*"]
 }
