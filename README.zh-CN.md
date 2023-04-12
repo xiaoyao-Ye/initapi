@@ -36,16 +36,16 @@ pnpm i initapi -D
 
 defineConfig 的详细配置项
 
-| 属性        | 说明                                                                                                                | 类型                         | 是否必填 | 默认值                       |
-| ----------- | ------------------------------------------------------------------------------------------------------------------- | ---------------------------- | -------- | ---------------------------- |
-| importAxios | 导入 axios 或 axios 封装                                                                                            | `string`                     | 否       | 'import axios from "axios";' |
-| useAxios    | 使用请求函数                                                                                                        | `string`                     | 否       | 'axios.request'              |
-| swagger     | API 服务对应的 json(`swagger/openapi3`规范)文件地址                                                                 | `object`                     | 是       | —                            |
-| outputDir   | 输出文件存放位置                                                                                                    | `string`                     | 否       | './api'                      |
-| outputType  | 输出文件类型-无配置时会弹出命令行交互让选择                                                                         | `TypeScript` or `JavaScript` | 否       | —                            |
-| definition  | 定义类型的方式                                                                                                      | `class` or `interface`       | 否       | interface                    |
+| 属性        | 说明                                                         | 类型                         | 是否必填 | 默认值                       |
+| ----------- | ------------------------------------------------------------ | ---------------------------- | -------- | ---------------------------- |
+| importAxios | 导入 axios 或 axios 封装                                     | `string`                     | 否       | 'import axios from "axios";' |
+| useAxios    | 使用请求函数                                                 | `string`                     | 否       | 'axios.request'              |
+| service     | API 服务对应的 json(`swagger/openapi3`规范)文件地址          | `object`                     | 是       | —                            |
+| outputDir   | 输出文件存放位置                                             | `string`                     | 否       | './api'                      |
+| outputType  | 输出文件类型-无配置时会弹出命令行交互让选择                  | `TypeScript` or `JavaScript` | 否       | —                            |
+| definition  | 定义类型的方式                                               | `class` or `interface`       | 否       | interface                    |
 | indexable   | 使用索引签名的优点是可以添加任意数量的属性，使得`interface` or `class` 更加灵活；缺点是可能会导致属性的值类型不确定 | `boolean`                    | 否       | false                        |
-| enumMode    | 定义枚举的方式(enum: 生成枚举类型 type: 生成类型别名)                                                               | `enum` or `type`             | 否       | type                         |
+| enumMode    | 定义枚举的方式(enum: 生成枚举类型 type: 生成类型别名)        | `enum` or `type`             | 否       | type                         |
 
 ## usage
 
@@ -57,7 +57,7 @@ import { defineConfig } from 'initapi'
 export default defineConfig({
   // 与路径相关的配置都基于nodejs进程的工作目录
   // 支持 openapi3 和 swagger 规范, 内容根据指定的 json 创建
-  swagger: {
+  service: {
     pets: 'https://petstore.swagger.io/v2/swagger.json',
     platform: 'http://127.0.0.1:3000/api-json',
   },
