@@ -9,10 +9,10 @@ import { resolve } from 'path'
 
 export const main = async () => {
   // 获取配置文件
-  const { swagger, importAxios, useAxios, outputDir, outputType, definition, indexable, enumMode } = await getConfig()
+  const { service, importAxios, useAxios, outputDir, outputType, definition, indexable, enumMode } = await getConfig()
 
   // 命令行交互
-  const { url, fileType, serviceName } = await useInquirer(swagger, outputType)
+  const { url, fileType, serviceName } = await useInquirer(service, outputType)
 
   // 获取 swagger/openapi 的json文件
   const data = await getInitData(url)

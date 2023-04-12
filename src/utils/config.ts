@@ -11,7 +11,7 @@ export interface UserConfig {
   /** 使用请求函数 default: 'axios.request' */
   useAxios?: string
   /** api服务对应的swagger/openapi地址 default: { test: 'https://petstore.swagger.io/v2/swagger.json' } */
-  swagger?: { [prop: string]: string }
+  service?: { [prop: string]: string }
   /** TS entity的属性是否可空, false根据文档生成, true 会加上? */
   // nullable?: boolean
   /** 生成文件存放位置 default: './api' */
@@ -47,7 +47,7 @@ export function defineConfig(config: UserConfigExport): UserConfigExport {
 const defaultOptions = () => ({
   importAxios: 'import axios from "axios";',
   useAxios: 'axios.request',
-  swagger: {
+  service: {
     test: 'https://petstore.swagger.io/v2/swagger.json',
   },
   outputDir: './api',
