@@ -18,6 +18,8 @@
 
 <br />
 
+> If it's helpful to you, please don't be stingy with your star, so that I have the motivation to update and maintain it
+
 ## Features
 
 - Code as Document
