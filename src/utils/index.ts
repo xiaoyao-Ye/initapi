@@ -115,3 +115,19 @@ export const toCamelCase = (str) => {
 export const processString = (str: string): string => {
   return str.replace(/\s/g, "").replace(/-/g, "_");
 }
+
+// export const replaceSpecialChars = (str: string): string => {
+//   // 正则表达式匹配非字母、数字和下划线的字符
+//   const pattern = /[^a-zA-Z0-9_]/g;
+//   return str.replace(pattern, '_');
+// }
+
+/**
+ * 匹配所有非中文、数字、字母和下划线的字符
+ * @param str 
+ * @returns 将匹配到的字符替换为下划线
+ */
+export const replaceSpecialChars = (str: string): string => {
+  const regex = /[^\u4e00-\u9fa5\w]/g;
+  return str.replace(regex, '_');
+}
