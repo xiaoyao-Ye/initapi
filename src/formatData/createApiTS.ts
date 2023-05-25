@@ -1,5 +1,5 @@
 import { ApiInfo, Indexable } from '../type'
-import { Desc, getFuncNameByOpenApi, toLowerCaseFirst } from '../utils'
+import { Desc, getFuncNameByOpenApi, toCamelCase, toLowerCaseFirst } from '../utils'
 
 export const createApiTS = (
   apiTagInfo: { [className: string]: { desc: string, tagInfo: ApiInfo[] } },
@@ -18,6 +18,7 @@ export const createApiTS = (
       let funcName = apiInfo.funcName
         ? toLowerCaseFirst(apiInfo.funcName)
         : getFuncNameByOpenApi(apiInfo.url, tagName, apiInfo.mode)
+      funcName = toCamelCase(funcName);
       /** 根据url生成的函数名称可能存在重复的情况, 防止api.ts报错, 重复名称统一处理成 `_[fnName]_[repeatCount]` */
       handleRepeatName(funcName, nameRepeat)
 

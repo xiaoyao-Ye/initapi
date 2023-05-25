@@ -1,5 +1,5 @@
 import { ApiInfo, Indexable } from '../type'
-import { Desc, getFuncNameByOpenApi, toLowerCaseFirst } from '../utils'
+import { Desc, getFuncNameByOpenApi, toCamelCase, toLowerCaseFirst } from '../utils'
 
 export const createApiJS = (
   apiTagInfo: { [className: string]: { desc: string, tagInfo: ApiInfo[] } },
@@ -15,6 +15,7 @@ export const createApiJS = (
       let funcName = apiInfo.funcName
         ? toLowerCaseFirst(apiInfo.funcName)
         : getFuncNameByOpenApi(apiInfo.url, tagName, apiInfo.mode)
+      funcName = toCamelCase(funcName);
       handleRepeatName(funcName, nameRepeat)
 
       const withPath = hasHandlePath(apiInfo)
