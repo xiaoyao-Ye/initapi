@@ -97,3 +97,12 @@ export function getFuncNameByOpenApi(
 export const Desc = (desc: string) => {
   return desc ? `/** ${desc} */` : "";
 };
+
+/**
+ * 转换成驼峰
+ * @param str xx-xx-xx
+ * @returns xxXxXx
+ */
+export const toCamelCase = (str) => {
+  return str.replace(/(-\w)/g, m => m[1].toUpperCase()).replace(/-/g, '');
+}
