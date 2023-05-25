@@ -1,0 +1,3622 @@
+{
+	"info": {
+		"title": "环球国际（huanqiu）",
+		"description": "",
+		"version": "1.0.0"
+	},
+	"openapi": "3.0.0",
+	"paths": {
+		"api/bind/apitransfer": {
+			"POST": {
+				"summary": "划转",
+				"description": "",
+				"tags": [
+					"交易所划转"
+				],
+				"requestBody": {
+					"content": {
+						"multipart/form-data": {
+							"schema": {
+								"type": "object"
+							},
+							"properties": {
+								"accessKey": {
+									"type": "string",
+									"description": "",
+									"example": "4900201404d07078fae624c186a79bc7"
+								},
+								"num": {
+									"type": "string",
+									"description": "划转数量",
+									"example": "10"
+								},
+								"uid": {
+									"type": "string",
+									"description": "绑定【乡村振兴】用户ID",
+									"example": "888001"
+								},
+								"sign": {
+									"type": "string",
+									"description": "",
+									"example": "d7f87124e4a38f84347cda223e4f1053fb5e04c0"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"api/bind/getPrice": {
+			"POST": {
+				"summary": "获取价格",
+				"description": "",
+				"tags": [
+					"交易所划转"
+				],
+				"requestBody": {
+					"content": {
+						"multipart/form-data": {
+							"schema": {
+								"type": "object"
+							},
+							"properties": {
+								"accessKey": {
+									"type": "string",
+									"description": "",
+									"example": "4900201404d07078fae624c186a79200cec8f04d32593f2f30baf2403593a2bcab82fbc7"
+								},
+								"sign": {
+									"type": "string",
+									"description": "",
+									"example": ""
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"api/user/spread_image": {
+			"GET": {
+				"summary": "分享海报",
+				"description": "",
+				"tags": [
+					"前端接口"
+				],
+				"requestBody": {
+					"content": {}
+				}
+			}
+		},
+		"/api/notice": {
+			"GET": {
+				"summary": "消息滚动",
+				"description": "",
+				"tags": [
+					"前端接口"
+				],
+				"requestBody": {
+					"content": {}
+				}
+			}
+		},
+		"/api/user": {
+			"GET": {
+				"summary": "用户详情",
+				"description": "",
+				"tags": [
+					"前端接口"
+				],
+				"requestBody": {
+					"content": {}
+				}
+			}
+		},
+		"/api/test": {
+			"POST": {
+				"summary": "新建接口",
+				"description": "",
+				"tags": [
+					"前端接口",
+					"前端接口"
+				],
+				"requestBody": {
+					"content": {}
+				}
+			}
+		},
+		"/api/v2/order/check": {
+			"POST": {
+				"summary": "下单前核算",
+				"description": "",
+				"tags": [
+					"前端接口"
+				],
+				"requestBody": {
+					"content": {
+						"multipart/form-data": {
+							"schema": {
+								"type": "object"
+							},
+							"properties": {
+								"address_id": {
+									"type": "string",
+									"description": "",
+									"example": "9"
+								},
+								"cart_id[0]": {
+									"type": "string",
+									"description": "",
+									"example": "172"
+								},
+								"cart_id[1]": {
+									"type": "string",
+									"description": "",
+									"example": "173"
+								},
+								"takes[]": {
+									"type": "string",
+									"description": "",
+									"example": ""
+								},
+								"use_coupon": {
+									"type": "string",
+									"description": "",
+									"example": "{}"
+								},
+								"use_integral": {
+									"type": "string",
+									"description": "",
+									"example": "false"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"api/auth/smslogin": {
+			"POST": {
+				"summary": "验证码登录",
+				"description": "",
+				"tags": [
+					"前端接口"
+				],
+				"requestBody": {
+					"content": {
+						"multipart/form-data": {
+							"schema": {
+								"type": "object"
+							},
+							"properties": {
+								"phone": {
+									"type": "string",
+									"description": "手机号",
+									"example": "13100000007"
+								},
+								"sms_code": {
+									"type": "string",
+									"description": "验证码",
+									"example": "1231"
+								},
+								"user_type": {
+									"type": "string",
+									"description": "注册",
+									"example": "app"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"api/common/base64": {
+			"POST": {
+				"summary": "图片转base64",
+				"description": "",
+				"tags": [
+					"前端接口/分享赚钱"
+				],
+				"requestBody": {
+					"content": {
+						"multipart/form-data": {
+							"schema": {
+								"type": "object"
+							},
+							"properties": {
+								"image": {
+									"type": "string",
+									"description": "邀请链接url",
+									"example": "http://mer.crmeb.net/uploads/attach/2022/04/24/ccfbc36666c8d79fb274a93cbbba7f1d.jpg"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/api/user/xbill": {
+			"GET": {
+				"summary": "消费详情",
+				"description": "",
+				"tags": [
+					"前端接口/分享赚钱"
+				],
+				"requestBody": {
+					"content": {}
+				}
+			}
+		},
+		"/api/user/spread_list": {
+			"GET": {
+				"summary": "分享记录-只显示直推level 传1",
+				"description": "",
+				"tags": [
+					"前端接口/分享赚钱",
+					"前端接口/积分-总览/贡献值"
+				],
+				"requestBody": {
+					"content": {}
+				}
+			}
+		},
+		"api/user/v2/spread_image": {
+			"GET": {
+				"summary": "海报",
+				"description": "",
+				"tags": [
+					"前端接口/分享赚钱"
+				],
+				"requestBody": {
+					"content": {}
+				}
+			}
+		},
+		"api/appVersion": {
+			"GET": {
+				"summary": "获取app更新地址",
+				"description": "",
+				"tags": [
+					"前端接口"
+				],
+				"requestBody": {
+					"content": {}
+				}
+			}
+		},
+		"/api/v2/order/create": {
+			"POST": {
+				"summary": "提交订单",
+				"description": "",
+				"tags": [
+					"前端接口"
+				],
+				"requestBody": {
+					"content": {
+						"multipart/form-data": {
+							"schema": {
+								"type": "object"
+							},
+							"properties": {
+								"address_id": {
+									"type": "string",
+									"description": "地址id",
+									"example": ""
+								},
+								"cart_id": {
+									"type": "string",
+									"description": "购物车id",
+									"example": ""
+								},
+								"extend": {
+									"type": "string",
+									"description": "",
+									"example": ""
+								},
+								"key": {
+									"type": "string",
+									"description": "",
+									"example": ""
+								},
+								"order_type": {
+									"type": "string",
+									"description": "",
+									"example": ""
+								},
+								"pay_type": {
+									"type": "string",
+									"description": "balance 余额支付  u_integral积分支付  x_money消费券支付",
+									"example": ""
+								},
+								"post[phone]": {
+									"type": "string",
+									"description": "手机号",
+									"example": "13100000001"
+								},
+								"post[real_name]": {
+									"type": "string",
+									"description": "姓名",
+									"example": "小米1"
+								},
+								"receipt_data": {
+									"type": "string",
+									"description": "",
+									"example": ""
+								},
+								"return_url": {
+									"type": "string",
+									"description": "返回订单url",
+									"example": ""
+								},
+								"takes": {
+									"type": "string",
+									"description": "",
+									"example": ""
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/api/auth/register": {
+			"POST": {
+				"summary": "注册",
+				"description": "",
+				"tags": [
+					"前端接口"
+				],
+				"requestBody": {
+					"content": {
+						"multipart/form-data": {
+							"schema": {
+								"type": "object"
+							},
+							"properties": {
+								"phone": {
+									"type": "string",
+									"description": "手机号",
+									"example": "13100000007"
+								},
+								"pwd": {
+									"type": "string",
+									"description": "登录密码",
+									"example": "a123123"
+								},
+								"sms_code": {
+									"type": "string",
+									"description": "验证码",
+									"example": "1231"
+								},
+								"user_type": {
+									"type": "string",
+									"description": "注册类型  app",
+									"example": "app"
+								},
+								"invitation_code": {
+									"type": "string",
+									"description": "邀请码",
+									"example": "14yUY6"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"api/user/convert": {
+			"POST": {
+				"summary": "兑换",
+				"description": "",
+				"tags": [
+					"前端接口/商家管理/商家钱包"
+				],
+				"requestBody": {
+					"content": {
+						"multipart/form-data": {
+							"schema": {
+								"type": "object"
+							},
+							"properties": {
+								"num": {
+									"type": "string",
+									"description": "兑换数量",
+									"example": "100"
+								},
+								"sms_code": {
+									"type": "string",
+									"description": "验证码  调用验证码接口时候type 传   convert",
+									"example": "113111"
+								},
+								"type": {
+									"type": "string",
+									"description": "1 兑换余额  2 兑换积分  默认兑换积分",
+									"example": "2"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"api/user/jtransfer": {
+			"POST": {
+				"summary": "转入",
+				"description": "",
+				"tags": [
+					"前端接口/商家管理/商家钱包"
+				],
+				"requestBody": {
+					"content": {
+						"multipart/form-data": {
+							"schema": {
+								"type": "object"
+							},
+							"properties": {
+								"num": {
+									"type": "string",
+									"description": "转入数量",
+									"example": "100"
+								},
+								"sms_code": {
+									"type": "string",
+									"description": "验证码  调用验证码接口时候type 传integral_exchange",
+									"example": "113111"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"api/user/merchant": {
+			"GET": {
+				"summary": "钱包信息",
+				"description": "",
+				"tags": [
+					"前端接口/商家管理/商家钱包"
+				],
+				"requestBody": {
+					"content": {}
+				}
+			}
+		},
+		"api/user/dbill": {
+			"GET": {
+				"summary": "兑换记录",
+				"description": "",
+				"tags": [
+					"前端接口/商家管理/商家钱包"
+				],
+				"requestBody": {
+					"content": {}
+				}
+			}
+		},
+		"/api/order/pay/18": {
+			"POST": {
+				"summary": "付款",
+				"description": "",
+				"tags": [
+					"前端接口"
+				],
+				"requestBody": {
+					"content": {
+						"multipart/form-data": {
+							"schema": {
+								"type": "object"
+							},
+							"properties": {
+								"return_url": {
+									"type": "string",
+									"description": "",
+									"example": "http://www.test3.com/pages/users/order_list/index"
+								},
+								"type": {
+									"type": "string",
+									"description": "u_integral  积分支付   x_money 消费券",
+									"example": "u_integral"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/api/product/spu/lst": {
+			"GET": {
+				"summary": "首页",
+				"description": "",
+				"tags": [
+					"前端接口",
+					"前端接口",
+					"前端接口/店铺"
+				],
+				"requestBody": {
+					"content": {}
+				}
+			}
+		},
+		"/api/product/spu/copy": {
+			"GET": {
+				"summary": "生成口令",
+				"description": "",
+				"tags": [
+					"前端接口"
+				],
+				"requestBody": {
+					"content": {}
+				}
+			}
+		},
+		"/api/user/gbill": {
+			"GET": {
+				"summary": "个人明细",
+				"description": "",
+				"tags": [
+					"前端接口/积分-总览/贡献值"
+				],
+				"requestBody": {
+					"content": {}
+				}
+			}
+		},
+		"/api/user/v2/spread_list": {
+			"GET": {
+				"summary": "v1.1.0-粉丝团",
+				"description": "",
+				"tags": [
+					"前端接口/积分-总览/贡献值"
+				],
+				"requestBody": {
+					"content": {}
+				}
+			}
+		},
+		"/api/userContribute": {
+			"GET": {
+				"summary": "贡献值总览",
+				"description": "",
+				"tags": [
+					"前端接口/积分-总览/贡献值"
+				],
+				"requestBody": {
+					"content": {}
+				}
+			}
+		},
+		"/api/user/spread_title": {
+			"GET": {
+				"summary": "粉丝团-头部",
+				"description": "",
+				"tags": [
+					"前端接口/积分-总览/贡献值"
+				],
+				"requestBody": {
+					"content": {}
+				}
+			}
+		},
+		"/api/userIntegral": {
+			"GET": {
+				"summary": "总览",
+				"description": "",
+				"tags": [
+					"前端接口/积分-总览"
+				],
+				"requestBody": {
+					"content": {}
+				}
+			}
+		},
+		"/api/user/ubill": {
+			"GET": {
+				"summary": "记录",
+				"description": "余额\n'now_money/recharge' => '充值',\n'now_money/withdraw' => '提现',\n'now_money/pay_product' => '消费',\n\n医保\n'e_money/reward' => '预存',\n'e_money/withdraw' => '缴纳',\n\n养老\n'y_money/reward' => '预存',\n'y_money/withdraw' => '缴纳',\n\n消费券\n'x_money/reward' => '奖励',\n'x_money/pay_product' => '消费',",
+				"tags": [
+					"前端接口/积分-总览/记录-积分"
+				],
+				"requestBody": {
+					"content": {}
+				}
+			}
+		},
+		"api/user/bind/exchange": {
+			"POST": {
+				"summary": "绑定",
+				"description": "",
+				"tags": [
+					"前端接口/划转"
+				],
+				"requestBody": {
+					"content": {
+						"multipart/form-data": {
+							"schema": {
+								"type": "object"
+							},
+							"properties": {
+								"account": {
+									"type": "string",
+									"description": "交易所uid",
+									"example": "888001"
+								},
+								"sms_code": {
+									"type": "string",
+									"description": "验证码",
+									"example": "1231"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"api/user/bind/transfer": {
+			"POST": {
+				"summary": "划转",
+				"description": "",
+				"tags": [
+					"前端接口/划转"
+				],
+				"requestBody": {
+					"content": {
+						"multipart/form-data": {
+							"schema": {
+								"type": "object"
+							},
+							"properties": {
+								"num": {
+									"type": "string",
+									"description": "划转数量",
+									"example": "10"
+								},
+								"sms_code": {
+									"type": "string",
+									"description": "验证码",
+									"example": "1212"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"api/user/bind/config": {
+			"GET": {
+				"summary": "划转配置",
+				"description": "",
+				"tags": [
+					"前端接口/划转"
+				],
+				"requestBody": {
+					"content": {}
+				}
+			}
+		},
+		"/api/auth/verify": {
+			"POST": {
+				"summary": "验证码",
+				"description": "",
+				"tags": [
+					"前端接口"
+				],
+				"requestBody": {
+					"content": {
+						"multipart/form-data": {
+							"schema": {
+								"type": "object"
+							},
+							"properties": {
+								"captchaType": {
+									"type": "string",
+									"description": "滑块 类型",
+									"example": "blockPuzzle"
+								},
+								"captchaVerification": {
+									"type": "string",
+									"description": "滑块验证码信息",
+									"example": "c2f481fc-4654-f046-529d-99bb73c300"
+								},
+								"phone": {
+									"type": "string",
+									"description": "手机号",
+									"example": "13100000001"
+								},
+								"type": {
+									"type": "string",
+									"description": "bind_exchange 交易所绑定验证码和划转",
+									"example": "bind_exchange"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"api/user/order/config": {
+			"GET": {
+				"summary": "提交订单价格配置",
+				"description": "",
+				"tags": [
+					"前端接口/店铺"
+				],
+				"requestBody": {
+					"content": {}
+				}
+			}
+		},
+		"api/store/product/detail/1380": {
+			"GET": {
+				"summary": "商品详情",
+				"description": "",
+				"tags": [
+					"前端接口/店铺"
+				],
+				"requestBody": {
+					"content": {}
+				}
+			}
+		},
+		"/api/product/spu/merchant/4": {
+			"GET": {
+				"summary": "新品-活动-商品列表",
+				"description": "",
+				"tags": [
+					"前端接口/店铺"
+				],
+				"requestBody": {
+					"content": {}
+				}
+			}
+		},
+		"/api/service/list": {
+			"GET": {
+				"summary": "客服",
+				"description": "",
+				"tags": [
+					"前端接口"
+				],
+				"requestBody": {
+					"content": {}
+				}
+			}
+		},
+		"/api/order/detail/110": {
+			"GET": {
+				"summary": "订单详情",
+				"description": "",
+				"tags": [
+					"前端接口"
+				],
+				"requestBody": {
+					"content": {}
+				}
+			}
+		},
+		"/api/config": {
+			"GET": {
+				"summary": "配置",
+				"description": "",
+				"tags": [
+					"前端接口"
+				],
+				"requestBody": {
+					"content": {}
+				}
+			}
+		},
+		"/api/gdc": {
+			"GET": {
+				"summary": "公链GDC",
+				"description": "",
+				"tags": [
+					"前端接口"
+				],
+				"requestBody": {
+					"content": {}
+				}
+			}
+		},
+		"api/user/extract_type/create": {
+			"POST": {
+				"summary": "新增/编辑",
+				"description": "",
+				"tags": [
+					"前端接口/个人资料/提现方式"
+				],
+				"requestBody": {
+					"content": {
+						"multipart/form-data": {
+							"schema": {
+								"type": "object"
+							},
+							"properties": {
+								"extract_type": {
+									"type": "string",
+									"description": "提现方式  1 银行卡 2 微信 3 支付宝",
+									"example": "2"
+								},
+								"truename": {
+									"type": "string",
+									"description": "姓名",
+									"example": "小米"
+								},
+								"img": {
+									"type": "string",
+									"description": "收款二维码（微信/支付宝）",
+									"example": "https://hqgj-zlsk.oss-accelerate.aliyuncs.com/def/4e2cf202305041150152767.png?x-oss-process=image/resize%2Cp_100"
+								},
+								"account": {
+									"type": "string",
+									"description": "开户银行/微信号/支付宝账号",
+									"example": "hhhh"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"api/user/extract_type/detail/3": {
+			"GET": {
+				"summary": "详情",
+				"description": "/extract_type/detail/:extract_type\nextract_type  1 银行卡 2 微信 3支付宝",
+				"tags": [
+					"前端接口/个人资料/提现方式"
+				],
+				"requestBody": {
+					"content": {}
+				}
+			}
+		},
+		"/api/upload/image/field": {
+			"POST": {
+				"summary": "上传",
+				"description": "",
+				"tags": [
+					"前端接口/个人资料"
+				],
+				"requestBody": {
+					"content": {
+						"multipart/form-data": {
+							"schema": {
+								"type": "object"
+							},
+							"properties": {
+								"field": {
+									"type": "string",
+									"description": "",
+									"example": [
+										"C:\\Users\\Admin\\Desktop\\invitation-logo.png"
+									]
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"api/user/extract/create": {
+			"POST": {
+				"summary": "提现",
+				"description": "",
+				"tags": [
+					"前端接口/个人资料/我的余额"
+				],
+				"requestBody": {
+					"content": {
+						"multipart/form-data": {
+							"schema": {
+								"type": "object"
+							},
+							"properties": {
+								"extract_type": {
+									"type": "string",
+									"description": "提现方式  1 银行卡 2 微信 3 支付宝",
+									"example": "1"
+								},
+								"extract_price": {
+									"type": "string",
+									"description": "提现金额",
+									"example": "10"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"api/user/extract_type/config": {
+			"GET": {
+				"summary": "提现配置",
+				"description": "",
+				"tags": [
+					"前端接口/个人资料/我的余额"
+				],
+				"requestBody": {
+					"content": {}
+				}
+			}
+		},
+		"api/store/product/detail/1265": {
+			"GET": {
+				"summary": "商品详情",
+				"description": "",
+				"tags": [
+					"前端接口"
+				],
+				"requestBody": {
+					"content": {}
+				}
+			}
+		},
+		"/api/invitation_code/4": {
+			"GET": {
+				"summary": "根据UID获取 邀请码",
+				"description": "",
+				"tags": [
+					"前端接口"
+				],
+				"requestBody": {
+					"content": {}
+				}
+			}
+		},
+		"sys/merchant/intention/lst": {
+			"GET": {
+				"summary": "商家入驻申请",
+				"description": "",
+				"tags": [
+					"后台接口/商家"
+				],
+				"requestBody": {
+					"content": {}
+				}
+			}
+		},
+		"/sys/user/change_u_integral/1": {
+			"POST": {
+				"summary": "修改",
+				"description": "",
+				"tags": [
+					"后台接口/用户/积分"
+				],
+				"requestBody": {
+					"content": {
+						"multipart/form-data": {
+							"schema": {
+								"type": "object"
+							},
+							"properties": {
+								"now_money": {
+									"type": "string",
+									"description": "金额",
+									"example": "10"
+								},
+								"type": {
+									"type": "string",
+									"description": "1 增加 0减少",
+									"example": "0"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/sys/user/change_u_integral/form/1": {
+			"GET": {
+				"summary": "表单",
+				"description": "",
+				"tags": [
+					"后台接口/用户/积分"
+				],
+				"requestBody": {
+					"content": {}
+				}
+			}
+		},
+		"/sys/user/change_contribute/form/1": {
+			"GET": {
+				"summary": "表单",
+				"description": "",
+				"tags": [
+					"后台接口/用户/贡献值"
+				],
+				"requestBody": {
+					"content": {}
+				}
+			}
+		},
+		"/sys/user/change_contribute/1": {
+			"POST": {
+				"summary": "修改",
+				"description": "",
+				"tags": [
+					"后台接口/用户/贡献值"
+				],
+				"requestBody": {
+					"content": {
+						"multipart/form-data": {
+							"schema": {
+								"type": "object"
+							},
+							"properties": {
+								"now_money": {
+									"type": "string",
+									"description": "金额",
+									"example": "20"
+								},
+								"type": {
+									"type": "string",
+									"description": "1 增加",
+									"example": "1"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/sys/user/change_x_money/1": {
+			"POST": {
+				"summary": "修改",
+				"description": "",
+				"tags": [
+					"后台接口/用户/消费券"
+				],
+				"requestBody": {
+					"content": {
+						"multipart/form-data": {
+							"schema": {
+								"type": "object"
+							},
+							"properties": {
+								"now_money": {
+									"type": "string",
+									"description": "金额",
+									"example": "20"
+								},
+								"type": {
+									"type": "string",
+									"description": "1 增加 0减少",
+									"example": "0"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/sys/user/change_x_money/form/1": {
+			"GET": {
+				"summary": "表单",
+				"description": "",
+				"tags": [
+					"后台接口/用户/消费券"
+				],
+				"requestBody": {
+					"content": {}
+				}
+			}
+		},
+		"/sys/user/lst": {
+			"GET": {
+				"summary": "列表",
+				"description": "",
+				"tags": [
+					"后台接口/用户"
+				],
+				"requestBody": {
+					"content": {}
+				}
+			}
+		},
+		"sys/user/title": {
+			"GET": {
+				"summary": "头部",
+				"description": "",
+				"tags": [
+					"后台接口/用户/有效会员"
+				],
+				"requestBody": {
+					"content": {
+						"multipart/form-data": {
+							"schema": {
+								"type": "object"
+							},
+							"properties": {
+								"keyword": {
+									"type": "string",
+									"description": "姓名uid",
+									"example": ""
+								},
+								"date": {
+									"type": "string",
+									"description": "",
+									"example": ""
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"sys/user/ylst": {
+			"GET": {
+				"summary": "有效会员列表",
+				"description": "",
+				"tags": [
+					"后台接口/用户/有效会员"
+				],
+				"requestBody": {
+					"content": {}
+				}
+			}
+		},
+		"/sys/config/slevel": {
+			"GET": {
+				"summary": "配置项获取",
+				"description": "",
+				"tags": [
+					"后台接口/用户/等级配置"
+				],
+				"requestBody": {
+					"content": {}
+				}
+			}
+		},
+		"sys/config/save/slevel": {
+			"POST": {
+				"summary": "保存配置",
+				"description": "",
+				"tags": [
+					"后台接口/用户/等级配置"
+				],
+				"requestBody": {
+					"content": {
+						"multipart/form-data": {
+							"schema": {
+								"type": "object"
+							},
+							"properties": {
+								"up_level_limit": {
+									"type": "string",
+									"description": "有效会员升级条件",
+									"example": "3999"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"sys/addMmber": {
+			"GET": {
+				"summary": "批量添加会员",
+				"description": "",
+				"tags": [
+					"后台接口/用户"
+				],
+				"requestBody": {
+					"content": {}
+				}
+			}
+		},
+		"sys/user/blst": {
+			"GET": {
+				"summary": "账号绑定",
+				"description": "",
+				"tags": [
+					"后台接口/用户"
+				],
+				"requestBody": {
+					"content": {}
+				}
+			}
+		},
+		"/sys/user/is_switch/2": {
+			"POST": {
+				"summary": "积分奖励开关",
+				"description": "",
+				"tags": [
+					"后台接口/用户"
+				],
+				"requestBody": {
+					"content": {
+						"multipart/form-data": {
+							"schema": {
+								"type": "object"
+							},
+							"properties": {
+								"status": {
+									"type": "string",
+									"description": "0 否 1是",
+									"example": "0"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/sys/user/change_level/form/1": {
+			"GET": {
+				"summary": "表单",
+				"description": "",
+				"tags": [
+					"后台接口/用户/修改会员等级"
+				],
+				"requestBody": {
+					"content": {}
+				}
+			}
+		},
+		"/sys/user/change_level/2": {
+			"POST": {
+				"summary": "修改",
+				"description": "",
+				"tags": [
+					"后台接口/用户/修改会员等级"
+				],
+				"requestBody": {
+					"content": {
+						"multipart/form-data": {
+							"schema": {
+								"type": "object"
+							},
+							"properties": {
+								"is_yx": {
+									"type": "string",
+									"description": "0 V1  1 V2",
+									"example": "1"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/sys/user/reward/log/2": {
+			"POST": {
+				"summary": "奖励详情",
+				"description": "log/:pid\n\npid  加权奖励记录id",
+				"tags": [
+					"后台接口/加权奖励记录"
+				],
+				"requestBody": {
+					"content": {}
+				}
+			}
+		},
+		"/sys/user/reward/option": {
+			"GET": {
+				"summary": "等级名称下拉框",
+				"description": "",
+				"tags": [
+					"后台接口/加权奖励记录"
+				],
+				"requestBody": {
+					"content": {}
+				}
+			}
+		},
+		"/sys/user/reward/title": {
+			"GET": {
+				"summary": "头部统计",
+				"description": "",
+				"tags": [
+					"后台接口/加权奖励记录"
+				],
+				"requestBody": {
+					"content": {}
+				}
+			}
+		},
+		"/sys/user/reward/lst": {
+			"GET": {
+				"summary": "奖励记录",
+				"description": "",
+				"tags": [
+					"后台接口/加权奖励记录"
+				],
+				"requestBody": {
+					"content": {}
+				}
+			}
+		},
+		"sys/config/save/contribute": {
+			"POST": {
+				"summary": "更新配置",
+				"description": "",
+				"tags": [
+					"后台接口/分销"
+				],
+				"requestBody": {
+					"content": {
+						"multipart/form-data": {
+							"schema": {
+								"type": "object"
+							},
+							"properties": {
+								"contribute_one": {
+									"type": "string",
+									"description": "一级分享比例%",
+									"example": "10"
+								},
+								"contribute_two": {
+									"type": "string",
+									"description": "无限极分享比例%",
+									"example": "50"
+								},
+								"contribute_reward": {
+									"type": "string",
+									"description": "贡献值奖励 0 关闭 1开启",
+									"example": "1"
+								},
+								"contribute_share": {
+									"type": "string",
+									"description": "分享贡献值奖励  0 关闭 1开启",
+									"example": "1"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/sys/config/contribute": {
+			"GET": {
+				"summary": "贡献值配置",
+				"description": "",
+				"tags": [
+					"后台接口/分销"
+				],
+				"requestBody": {
+					"content": {}
+				}
+			}
+		},
+		"/sys/statistics/main": {
+			"GET": {
+				"summary": "首页",
+				"description": "",
+				"tags": [
+					"后台接口"
+				],
+				"requestBody": {
+					"content": {}
+				}
+			}
+		},
+		"/sys/user/level/upload/image": {
+			"POST": {
+				"summary": "上传图片",
+				"description": "",
+				"tags": [
+					"后台接口/等级配置"
+				],
+				"requestBody": {
+					"content": {
+						"multipart/form-data": {
+							"schema": {
+								"type": "object"
+							},
+							"properties": {
+								"file": {
+									"type": "string",
+									"description": "",
+									"example": [
+										"D:\\phpstudy_pro\\WWW\\huanqiu\\public\\uploads\\default\\20220829\\97d6cad62ecc71c9f1636a53d4b7f701.png"
+									]
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/sys/user/level/detail/1": {
+			"GET": {
+				"summary": "详情",
+				"description": "",
+				"tags": [
+					"后台接口/等级配置"
+				],
+				"requestBody": {
+					"content": {}
+				}
+			}
+		},
+		"/sys/user/level/update/1": {
+			"POST": {
+				"summary": "编辑",
+				"description": "",
+				"tags": [
+					"后台接口/等级配置"
+				],
+				"requestBody": {
+					"content": {
+						"multipart/form-data": {
+							"schema": {
+								"type": "object"
+							},
+							"properties": {
+								"level_name": {
+									"type": "string",
+									"description": "等级名称",
+									"example": "普通会员"
+								},
+								"level_ico": {
+									"type": "string",
+									"description": "图标",
+									"example": "https://hqgj-zlsk.oss-accelerate.aliyuncs.com/def/cbe18202305061140372962.png?x-oss-process=image/resize%2Cp_100"
+								},
+								"is_specify": {
+									"type": "string",
+									"description": "指定平台分类 0不指定 1指定",
+									"example": "0"
+								},
+								"is_tuijian": {
+									"type": "string",
+									"description": "推荐注册会员数  0 不限制 1限制",
+									"example": "0"
+								},
+								"is_lj": {
+									"type": "string",
+									"description": "累积消费金额 0 不限制 1限制",
+									"example": "0"
+								},
+								"is_team": {
+									"type": "string",
+									"description": "0 包括团队 1小部门",
+									"example": "0"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/sys/user/level/lst": {
+			"GET": {
+				"summary": "列表",
+				"description": "",
+				"tags": [
+					"后台接口/等级配置"
+				],
+				"requestBody": {
+					"content": {}
+				}
+			}
+		},
+		"/sys/user/level/reward/1": {
+			"POST": {
+				"summary": "设置权益",
+				"description": "",
+				"tags": [
+					"后台接口/等级配置"
+				],
+				"requestBody": {
+					"content": {
+						"multipart/form-data": {
+							"schema": {
+								"type": "object"
+							},
+							"properties": {
+								"is_register": {
+									"type": "string",
+									"description": "注册奖励 0无 1有",
+									"example": "1"
+								},
+								"is_recommend": {
+									"type": "string",
+									"description": "推荐奖励",
+									"example": "0"
+								},
+								"is_direct": {
+									"type": "string",
+									"description": "直推奖励",
+									"example": "0"
+								},
+								"is_weight": {
+									"type": "string",
+									"description": "加权奖励",
+									"example": "0"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/sys/user/level/create": {
+			"POST": {
+				"summary": "添加",
+				"description": "",
+				"tags": [
+					"后台接口/等级配置"
+				],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"type": "string"
+							},
+							"example": "{\r\n    \"level_name\": \"测试\",\r\n    \"is_specify\": 1,\r\n    \"cate_id\": [\r\n        37,\r\n        161,\r\n        162\r\n    ],\r\n    \"use_money\": 1000,\r\n    \"is_tuijian\": 1,\r\n    \"tuijian_num\": 10,\r\n    \"is_lj\": 1,\r\n    \"use_min_money\": 10,\r\n    \"use_max_money\": 100,\r\n    \"is_team\": 1,\r\n    \"level_ico\": \"https://hqgj-zlsk.oss-accelerate.aliyuncs.com/def/f4f9e202305061612003636.png?x-oss-process=image/resize%2Cp_100\"\r\n}"
+						}
+					}
+				}
+			}
+		},
+		"/sys/order/lst": {
+			"GET": {
+				"summary": "列表",
+				"description": "",
+				"tags": [
+					"后台接口/订单"
+				],
+				"requestBody": {
+					"content": {}
+				}
+			}
+		},
+		"/sys/order/title": {
+			"GET": {
+				"summary": "列表头部",
+				"description": "",
+				"tags": [
+					"后台接口/订单"
+				],
+				"requestBody": {
+					"content": {}
+				}
+			}
+		},
+		"/sys/config/uintegral": {
+			"GET": {
+				"summary": "配置项获取",
+				"description": "",
+				"tags": [
+					"后台接口/营销/积分配置"
+				],
+				"requestBody": {
+					"content": {}
+				}
+			}
+		},
+		"sys/config/save/uintegral": {
+			"POST": {
+				"summary": "保存配置",
+				"description": "",
+				"tags": [
+					"后台接口/营销/积分配置"
+				],
+				"requestBody": {
+					"content": {
+						"multipart/form-data": {
+							"schema": {
+								"type": "object"
+							},
+							"properties": {
+								"uintegral_switch": {
+									"type": "string",
+									"description": "0 关闭 1开启",
+									"example": "1"
+								},
+								"jprice_status": {
+									"type": "string",
+									"description": "0 关闭 1开启",
+									"example": "0"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"sys/config/save/consumption": {
+			"POST": {
+				"summary": "保存配置",
+				"description": "",
+				"tags": [
+					"后台接口/营销/消费券配置"
+				],
+				"requestBody": {
+					"content": {
+						"multipart/form-data": {
+							"schema": {
+								"type": "object"
+							},
+							"properties": {
+								"consumption_switch": {
+									"type": "string",
+									"description": "0 关闭 1开启",
+									"example": "1"
+								},
+								"xprice_status": {
+									"type": "string",
+									"description": "0 关闭 1开启",
+									"example": "0"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/sys/config/consumption": {
+			"GET": {
+				"summary": "配置项获取",
+				"description": "",
+				"tags": [
+					"后台接口/营销/消费券配置"
+				],
+				"requestBody": {
+					"content": {}
+				}
+			}
+		},
+		"sys/bill/title": {
+			"GET": {
+				"summary": "头部",
+				"description": "",
+				"tags": [
+					"后台接口/营销"
+				],
+				"requestBody": {
+					"content": {}
+				}
+			}
+		},
+		"sys/bill/alist": {
+			"GET": {
+				"summary": "积分/消费券日志",
+				"description": "",
+				"tags": [
+					"后台接口/营销"
+				],
+				"requestBody": {
+					"content": {}
+				}
+			}
+		},
+		"/sys/store/product/share_config": {
+			"GET": {
+				"summary": "分享奖励比例",
+				"description": "",
+				"tags": [
+					"后台接口/商品"
+				],
+				"requestBody": {
+					"content": {}
+				}
+			}
+		},
+		"/sys/store/category/is_return/15": {
+			"POST": {
+				"summary": "修改是否发货状态",
+				"description": "",
+				"tags": [
+					"后台接口/商品/商品分类"
+				],
+				"requestBody": {
+					"content": {
+						"multipart/form-data": {
+							"schema": {
+								"type": "object"
+							},
+							"properties": {
+								"status": {
+									"type": "string",
+									"description": "1 是 0否",
+									"example": "1"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/sys/store/category/is_special/1": {
+			"POST": {
+				"summary": "修改是否特供区",
+				"description": "",
+				"tags": [
+					"后台接口/商品/商品分类"
+				],
+				"requestBody": {
+					"content": {
+						"multipart/form-data": {
+							"schema": {
+								"type": "object"
+							},
+							"properties": {
+								"status": {
+									"type": "string",
+									"description": "1 是 0否",
+									"example": "1"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"sys/store/category/lst": {
+			"GET": {
+				"summary": "列表",
+				"description": "",
+				"tags": [
+					"后台接口/商品/商品分类"
+				],
+				"requestBody": {
+					"content": {}
+				}
+			}
+		},
+		"/sys/store/product/status": {
+			"POST": {
+				"summary": "审核",
+				"description": "",
+				"tags": [
+					"后台接口/商品/商品管理"
+				],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"type": "string"
+							},
+							"example": "{\r\n    \"refusal\": \"\",\r\n    \"status\": 1,\r\n    \"id\": 1385,\r\n    \"is_default\": 0,\r\n    \"attrValue\": [\r\n        {\r\n            \"product_id\": 1385,\r\n            \"detail\": \"\",\r\n            \"sku\": \"\",\r\n            \"stock\": 500,\r\n            \"sales\": 0,\r\n            \"image\": \"https://hqgj-zlsk.oss-accelerate.aliyuncs.com/def/064b3202304191751173808.jpg?x-oss-process=image/resize%2Cp_100\",\r\n            \"bar_code\": \"\",\r\n            \"cost\": \"1107.00\",\r\n            \"ot_price\": \"2090.00\",\r\n            \"price\": \"1.00\",\r\n            \"volume\": \"0.00\",\r\n            \"weight\": \"0.00\",\r\n            \"type\": 0,\r\n            \"extension_one\": \"0.00\",\r\n            \"extension_two\": \"0.00\",\r\n            \"unique\": \"d12577bc2610\",\r\n            \"svip_price\": \"0.00\",\r\n            \"trade_contribute\": \"1.00\",\r\n            \"default_trade_contribute\": \"1.00\",\r\n            \"old_stock\": 500,\r\n            \"value0\": \"\"\r\n        }\r\n    ],\r\n    \"attr\": [],\r\n    \"pay_type\": [\r\n        7\r\n    ]\r\n}"
+						}
+					}
+				}
+			}
+		},
+		"/sys/store/product/lst": {
+			"GET": {
+				"summary": "列表",
+				"description": "",
+				"tags": [
+					"后台接口/商品/商品管理"
+				],
+				"requestBody": {
+					"content": {}
+				}
+			}
+		},
+		"/sys/store/product/is_reward/1": {
+			"POST": {
+				"summary": "是否奖励贡献值",
+				"description": "",
+				"tags": [
+					"后台接口/商品/商品管理"
+				],
+				"requestBody": {
+					"content": {
+						"multipart/form-data": {
+							"schema": {
+								"type": "object"
+							},
+							"properties": {
+								"type": {
+									"type": "string",
+									"description": "修改类型 is_reward 是否奖励贡献值  is_reward_rl 是否奖励让利贡献值   is_reward_fx 是否奖励分享贡献值",
+									"example": "is_reward_rl"
+								},
+								"status": {
+									"type": "string",
+									"description": "0 否 1是",
+									"example": "0"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/sys/store/product/detail/1387": {
+			"GET": {
+				"summary": "审核-商品详情",
+				"description": "",
+				"tags": [
+					"后台接口/商品/商品管理"
+				],
+				"requestBody": {
+					"content": {}
+				}
+			}
+		},
+		"/sys/wallet/rate/lst": {
+			"GET": {
+				"summary": "列表",
+				"description": "",
+				"tags": [
+					"后台接口/让利设置"
+				],
+				"requestBody": {
+					"content": {
+						"multipart/form-data": {
+							"schema": {
+								"type": "object"
+							},
+							"properties": {
+								"pageNum": {
+									"type": "string",
+									"description": "页数",
+									"example": "1"
+								},
+								"pageSize": {
+									"type": "string",
+									"description": "条数",
+									"example": "10"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/sys/wallet/rate/create": {
+			"POST": {
+				"summary": "添加",
+				"description": "",
+				"tags": [
+					"后台接口/让利设置"
+				],
+				"requestBody": {
+					"content": {
+						"multipart/form-data": {
+							"schema": {
+								"type": "object"
+							},
+							"properties": {
+								"rate": {
+									"type": "string",
+									"description": "让利比例%",
+									"example": "1"
+								},
+								"xf_rate": {
+									"type": "string",
+									"description": "消费贡献值奖励%",
+									"example": "10"
+								},
+								"rl_rate": {
+									"type": "string",
+									"description": "让利贡献值奖励%",
+									"example": "1"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/sys/wallet/rate/update/1": {
+			"POST": {
+				"summary": "编辑",
+				"description": "",
+				"tags": [
+					"后台接口/让利设置"
+				],
+				"requestBody": {
+					"content": {
+						"multipart/form-data": {
+							"schema": {
+								"type": "object"
+							},
+							"properties": {
+								"rate": {
+									"type": "string",
+									"description": "让利比例%",
+									"example": "1"
+								},
+								"xf_rate": {
+									"type": "string",
+									"description": "消费贡献值奖励%",
+									"example": "10"
+								},
+								"rl_rate": {
+									"type": "string",
+									"description": "让利贡献值奖励%",
+									"example": "2"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/sys/wallet/rate/options": {
+			"GET": {
+				"summary": "选项框数据 key =>value",
+				"description": "",
+				"tags": [
+					"后台接口/让利设置"
+				],
+				"requestBody": {
+					"content": {}
+				}
+			}
+		},
+		"/sys/wallet/rate/delete/1": {
+			"DELETE": {
+				"summary": "删除",
+				"description": "",
+				"tags": [
+					"后台接口/让利设置"
+				],
+				"requestBody": {
+					"content": {}
+				}
+			}
+		},
+		"/sys/wallet/rate/form": {
+			"GET": {
+				"summary": "添加表单",
+				"description": "",
+				"tags": [
+					"后台接口/让利设置"
+				],
+				"requestBody": {
+					"content": {}
+				}
+			}
+		},
+		"/sys/wallet/rate/form/1": {
+			"GET": {
+				"summary": "编辑表单",
+				"description": "",
+				"tags": [
+					"后台接口/让利设置"
+				],
+				"requestBody": {
+					"content": {
+						"multipart/form-data": {
+							"schema": {
+								"type": "object"
+							},
+							"properties": {
+								"id": {
+									"type": "string",
+									"description": "级别id",
+									"example": "1"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/sys/login": {
+			"POST": {
+				"summary": "登录",
+				"description": "",
+				"tags": [
+					"后台接口"
+				],
+				"requestBody": {
+					"content": {
+						"multipart/form-data": {
+							"schema": {
+								"type": "object"
+							},
+							"properties": {
+								"account": {
+									"type": "string",
+									"description": "",
+									"example": "admin"
+								},
+								"password": {
+									"type": "string",
+									"description": "",
+									"example": "admin123"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"sys/bill/tlist": {
+			"GET": {
+				"summary": "划转记录",
+				"description": "",
+				"tags": [
+					"后台接口/积分"
+				],
+				"requestBody": {
+					"content": {}
+				}
+			}
+		},
+		"sys/config/save/transfer": {
+			"POST": {
+				"summary": "保存配置",
+				"description": "",
+				"tags": [
+					"后台接口/积分/划转设置"
+				],
+				"requestBody": {
+					"content": {
+						"multipart/form-data": {
+							"schema": {
+								"type": "object"
+							},
+							"properties": {
+								"transfer_status": {
+									"type": "string",
+									"description": "积分划转 0 关闭 1开启",
+									"example": "1"
+								},
+								"transfer_fee": {
+									"type": "string",
+									"description": "转出手续费  %",
+									"example": "10"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/sys/config/transfer": {
+			"GET": {
+				"summary": "配置项获取",
+				"description": "",
+				"tags": [
+					"后台接口/积分/划转设置"
+				],
+				"requestBody": {
+					"content": {}
+				}
+			}
+		},
+		"sys/user/price/lst": {
+			"GET": {
+				"summary": "积分价格列表",
+				"description": "",
+				"tags": [
+					"后台接口/积分"
+				],
+				"requestBody": {
+					"content": {}
+				}
+			}
+		},
+		"sys/config/save/release": {
+			"POST": {
+				"summary": "保存配置",
+				"description": "",
+				"tags": [
+					"后台接口/积分/产出设置"
+				],
+				"requestBody": {
+					"content": {
+						"multipart/form-data": {
+							"schema": {
+								"type": "object"
+							},
+							"properties": {
+								"release_rate": {
+									"type": "string",
+									"description": "可用比例",
+									"example": "80"
+								},
+								"release_x_rate": {
+									"type": "string",
+									"description": "消费券比例",
+									"example": "10"
+								},
+								"release_y_rate": {
+									"type": "string",
+									"description": "养老比例",
+									"example": "5"
+								},
+								"release_e_rate": {
+									"type": "string",
+									"description": "医保比例",
+									"example": "5"
+								},
+								"release_status": {
+									"type": "string",
+									"description": "消费券同步积分价格  0否 1是",
+									"example": "0"
+								},
+								"release_price": {
+									"type": "string",
+									"description": "消费券汇率",
+									"example": "2"
+								},
+								"release_account": {
+									"type": "string",
+									"description": "平台账号UID",
+									"example": "1"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/sys/config/release": {
+			"GET": {
+				"summary": "配置项获取",
+				"description": "",
+				"tags": [
+					"后台接口/积分/产出设置"
+				],
+				"requestBody": {
+					"content": {}
+				}
+			}
+		},
+		"/sys/user/release/update/1": {
+			"POST": {
+				"summary": "编辑",
+				"description": "",
+				"tags": [
+					"后台接口/积分/增发设置"
+				],
+				"requestBody": {
+					"content": {
+						"multipart/form-data": {
+							"schema": {
+								"type": "object"
+							},
+							"properties": {
+								"amount": {
+									"type": "string",
+									"description": "全网贡献值",
+									"example": "4000000"
+								},
+								"release": {
+									"type": "string",
+									"description": "产币量",
+									"example": "1000"
+								},
+								"status": {
+									"type": "string",
+									"description": "0关闭 1开启",
+									"example": "1"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/sys/user/release/lst": {
+			"GET": {
+				"summary": "列表",
+				"description": "",
+				"tags": [
+					"后台接口/积分/增发设置"
+				],
+				"requestBody": {
+					"content": {
+						"multipart/form-data": {
+							"schema": {
+								"type": "object"
+							},
+							"properties": {
+								"pageNum": {
+									"type": "string",
+									"description": "页数",
+									"example": "1"
+								},
+								"pageSize": {
+									"type": "string",
+									"description": "条数",
+									"example": "10"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/sys/user/release/form": {
+			"GET": {
+				"summary": "添加表单",
+				"description": "",
+				"tags": [
+					"后台接口/积分/增发设置"
+				],
+				"requestBody": {
+					"content": {}
+				}
+			}
+		},
+		"/sys/user/release/create": {
+			"POST": {
+				"summary": "添加",
+				"description": "",
+				"tags": [
+					"后台接口/积分/增发设置"
+				],
+				"requestBody": {
+					"content": {
+						"multipart/form-data": {
+							"schema": {
+								"type": "object"
+							},
+							"properties": {
+								"amount": {
+									"type": "string",
+									"description": "全网贡献值",
+									"example": "4000000"
+								},
+								"release": {
+									"type": "string",
+									"description": "产币量",
+									"example": "1000"
+								},
+								"status": {
+									"type": "string",
+									"description": "0关闭 1开启",
+									"example": "1"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/sys/user/release/status/1": {
+			"POST": {
+				"summary": "增发开关",
+				"description": "",
+				"tags": [
+					"后台接口/积分/增发设置"
+				],
+				"requestBody": {
+					"content": {
+						"multipart/form-data": {
+							"schema": {
+								"type": "object"
+							},
+							"properties": {
+								"status": {
+									"type": "string",
+									"description": "0 关闭 1开启",
+									"example": "1"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/sys/user/release/form/1": {
+			"GET": {
+				"summary": "编辑表单",
+				"description": "",
+				"tags": [
+					"后台接口/积分/增发设置"
+				],
+				"requestBody": {
+					"content": {
+						"multipart/form-data": {
+							"schema": {
+								"type": "object"
+							},
+							"properties": {
+								"id": {
+									"type": "string",
+									"description": "级别id",
+									"example": "1"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"sys/user/release/log": {
+			"GET": {
+				"summary": "分配记录",
+				"description": "",
+				"tags": [
+					"后台接口/积分/积分分配"
+				],
+				"requestBody": {
+					"content": {}
+				}
+			}
+		},
+		"sys/user/release/user_log": {
+			"GET": {
+				"summary": "用户分配记录",
+				"description": "",
+				"tags": [
+					"后台接口/积分/积分分配"
+				],
+				"requestBody": {
+					"content": {}
+				}
+			}
+		},
+		"sys/user/release/account/lst": {
+			"GET": {
+				"summary": "记录",
+				"description": "",
+				"tags": [
+					"后台接口/积分/积分分配/积分奖励"
+				],
+				"requestBody": {
+					"content": {}
+				}
+			}
+		},
+		"sys/user/release/account/title/2": {
+			"GET": {
+				"summary": "头部-统计",
+				"description": "",
+				"tags": [
+					"后台接口/积分/积分分配/积分奖励"
+				],
+				"requestBody": {
+					"content": {}
+				}
+			}
+		},
+		"sys/user/release/account/form/2": {
+			"GET": {
+				"summary": "添加表单",
+				"description": "create/:type\n\n```\n:type  1 市值 2联创 3公益 4 运营\n```",
+				"tags": [
+					"后台接口/积分/积分分配/积分奖励"
+				],
+				"requestBody": {
+					"content": {}
+				}
+			}
+		},
+		"sys/user/release/account/create/2": {
+			"POST": {
+				"summary": "添加",
+				"description": "create/:type\n\n```\n:type  1 市值 2联创 3公益 4 运营\n```",
+				"tags": [
+					"后台接口/积分/积分分配/积分奖励"
+				],
+				"requestBody": {
+					"content": {
+						"multipart/form-data": {
+							"schema": {
+								"type": "object"
+							},
+							"properties": {
+								"account": {
+									"type": "string",
+									"description": "账户uid",
+									"example": "1"
+								},
+								"number": {
+									"type": "string",
+									"description": "数量",
+									"example": "120"
+								},
+								"mark": {
+									"type": "string",
+									"description": "备注",
+									"example": "联创奖励"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"sys/user/release/title": {
+			"GET": {
+				"summary": "分配记录-头部统计",
+				"description": "",
+				"tags": [
+					"后台接口/积分/积分分配"
+				],
+				"requestBody": {
+					"content": {}
+				}
+			}
+		},
+		"/sys/user/release/config/create": {
+			"POST": {
+				"summary": "添加",
+				"description": "",
+				"tags": [
+					"后台接口/积分/分配设置"
+				],
+				"requestBody": {
+					"content": {
+						"multipart/form-data": {
+							"schema": {
+								"type": "object"
+							},
+							"properties": {
+								"title": {
+									"type": "string",
+									"description": "类型",
+									"example": "市值"
+								},
+								"rate": {
+									"type": "string",
+									"description": "比例",
+									"example": "1.2"
+								},
+								"amount": {
+									"type": "string",
+									"description": "数量",
+									"example": "1500000"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/sys/user/release/config/form/1": {
+			"GET": {
+				"summary": "编辑表单",
+				"description": "",
+				"tags": [
+					"后台接口/积分/分配设置"
+				],
+				"requestBody": {
+					"content": {
+						"multipart/form-data": {
+							"schema": {
+								"type": "object"
+							},
+							"properties": {
+								"id": {
+									"type": "string",
+									"description": "级别id",
+									"example": "1"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/sys/user/release/config/update/2": {
+			"POST": {
+				"summary": "编辑",
+				"description": "",
+				"tags": [
+					"后台接口/积分/分配设置"
+				],
+				"requestBody": {
+					"content": {
+						"multipart/form-data": {
+							"schema": {
+								"type": "object"
+							},
+							"properties": {
+								"title": {
+									"type": "string",
+									"description": "类型",
+									"example": "市值"
+								},
+								"rate": {
+									"type": "string",
+									"description": "比例",
+									"example": "1.2"
+								},
+								"amount": {
+									"type": "string",
+									"description": "数量",
+									"example": "1560000"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/sys/user/release/config/lst": {
+			"GET": {
+				"summary": "列表",
+				"description": "",
+				"tags": [
+					"后台接口/积分/分配设置"
+				],
+				"requestBody": {
+					"content": {
+						"multipart/form-data": {
+							"schema": {
+								"type": "object"
+							},
+							"properties": {
+								"pageNum": {
+									"type": "string",
+									"description": "页数",
+									"example": "1"
+								},
+								"pageSize": {
+									"type": "string",
+									"description": "条数",
+									"example": "10"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/sys/user/release/config/form": {
+			"GET": {
+				"summary": "添加表单",
+				"description": "",
+				"tags": [
+					"后台接口/积分/分配设置"
+				],
+				"requestBody": {
+					"content": {}
+				}
+			}
+		},
+		"sys/config/save/price_config": {
+			"POST": {
+				"summary": "保存配置",
+				"description": "",
+				"tags": [
+					"后台接口/积分/价格设置"
+				],
+				"requestBody": {
+					"content": {
+						"multipart/form-data": {
+							"schema": {
+								"type": "object"
+							},
+							"properties": {
+								"price_rmb": {
+									"type": "string",
+									"description": "积分单价设置",
+									"example": "6"
+								},
+								"price_status": {
+									"type": "string",
+									"description": "单价显示状态  0 关闭 1开启",
+									"example": "1"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/sys/config/price_config": {
+			"GET": {
+				"summary": "配置项获取",
+				"description": "",
+				"tags": [
+					"后台接口/积分/价格设置"
+				],
+				"requestBody": {
+					"content": {}
+				}
+			}
+		},
+		"/sys/config/save/app_version": {
+			"POST": {
+				"summary": "保存配置",
+				"description": "",
+				"tags": [
+					"后台接口/app升级配置"
+				],
+				"requestBody": {
+					"content": {
+						"multipart/form-data": {
+							"schema": {
+								"type": "object"
+							},
+							"properties": {
+								"androidAddress": {
+									"type": "string",
+									"description": "安卓下载地址",
+									"example": "https://hqgj-zlsk.oss-cn-hongkong.aliyuncs.com/app/base.apk"
+								},
+								"appVersion": {
+									"type": "string",
+									"description": "当前版本",
+									"example": "1"
+								},
+								"openUpgrade": {
+									"type": "string",
+									"description": "是否强制更新",
+									"example": "0"
+								},
+								"androidContent": {
+									"type": "string",
+									"description": "更新内容",
+									"example": "安卓测试"
+								},
+								"iosAddress": {
+									"type": "string",
+									"description": "ios  下载地址",
+									"example": "https://testflight.apple.com/join/zlL0TWJl"
+								},
+								"iosVersion": {
+									"type": "string",
+									"description": "当前版本",
+									"example": "2"
+								},
+								"iosContent": {
+									"type": "string",
+									"description": "更新内容",
+									"example": "ios测试"
+								},
+								"iosUpgrade": {
+									"type": "string",
+									"description": "是否强制更新",
+									"example": "0"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/sys/config/app_version": {
+			"GET": {
+				"summary": "获取配置",
+				"description": "",
+				"tags": [
+					"后台接口/app升级配置"
+				],
+				"requestBody": {
+					"content": {}
+				}
+			}
+		},
+		"sys/financial_record/detail/1": {
+			"GET": {
+				"summary": "积分/消费券详情",
+				"description": "",
+				"tags": [
+					"后台接口/财务"
+				],
+				"requestBody": {
+					"content": {}
+				}
+			}
+		},
+		"/sys/financial_record/lst": {
+			"GET": {
+				"summary": "积分/消费券账单",
+				"description": "",
+				"tags": [
+					"后台接口/财务"
+				],
+				"requestBody": {
+					"content": {}
+				}
+			}
+		},
+		"/sys/profitsharing/config": {
+			"GET": {
+				"summary": "转账设置",
+				"description": "",
+				"tags": [
+					"后台接口/财务"
+				],
+				"requestBody": {
+					"content": {}
+				}
+			}
+		},
+		"sys/bill/mlist": {
+			"GET": {
+				"summary": "兑换记录",
+				"description": "",
+				"tags": [
+					"后台接口/财务/兑换记录"
+				],
+				"requestBody": {
+					"content": {}
+				}
+			}
+		},
+		"sys/bill/ctitle": {
+			"GET": {
+				"summary": "头部",
+				"description": "",
+				"tags": [
+					"后台接口/财务/兑换记录"
+				],
+				"requestBody": {
+					"content": {}
+				}
+			}
+		},
+		"/sys/user/extract/lst": {
+			"GET": {
+				"summary": "提现记录",
+				"description": "",
+				"tags": [
+					"后台接口/财务"
+				],
+				"requestBody": {
+					"content": {}
+				}
+			}
+		},
+		"sys/financial_record/title": {
+			"GET": {
+				"summary": "统计",
+				"description": "",
+				"tags": [
+					"后台接口/财务"
+				],
+				"requestBody": {
+					"content": {}
+				}
+			}
+		},
+		"/sys/bill/type": {
+			"GET": {
+				"summary": "资金记录类型",
+				"description": "",
+				"tags": [
+					"后台接口/财务"
+				],
+				"requestBody": {
+					"content": {}
+				}
+			}
+		},
+		"/sys/financial_record/detail_export/1": {
+			"GET": {
+				"summary": "下载账单",
+				"description": "",
+				"tags": [
+					"后台接口/财务"
+				],
+				"requestBody": {
+					"content": {}
+				}
+			}
+		},
+		"/sys/financial/import": {
+			"POST": {
+				"summary": "批量导入审核",
+				"description": "",
+				"tags": [
+					"后台接口/财务"
+				],
+				"requestBody": {
+					"content": {
+						"multipart/form-data": {
+							"schema": {
+								"type": "object"
+							},
+							"properties": {
+								"file": {
+									"type": "string",
+									"description": "excel",
+									"example": [
+										"C:\\Users\\Admin\\Desktop\\转账记录_1682666169.xlsx"
+									]
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"sys/config/save/user_withdraw": {
+			"POST": {
+				"summary": "保存配置",
+				"description": "",
+				"tags": [
+					"后台接口/财务/提现设置"
+				],
+				"requestBody": {
+					"content": {
+						"multipart/form-data": {
+							"schema": {
+								"type": "object"
+							},
+							"properties": {
+								"user_withdraw_min": {
+									"type": "string",
+									"description": "用户最低提现金额",
+									"example": "100"
+								},
+								"user_withdraw_min_limit": {
+									"type": "string",
+									"description": "用户每笔最小提现额度",
+									"example": "1"
+								},
+								"user_withdraw_max_limit": {
+									"type": "string",
+									"description": "用户每笔最高提现额度",
+									"example": "1000"
+								},
+								"user_withdraw_fee": {
+									"type": "string",
+									"description": "提现手续费（%）",
+									"example": "1"
+								},
+								"user_withdraw_status": {
+									"type": "string",
+									"description": "提现开关",
+									"example": "1"
+								},
+								"user_withdraw_info": {
+									"type": "string",
+									"description": "提现说明",
+									"example": "反对法发发发发"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/sys/config/user_withdraw": {
+			"GET": {
+				"summary": "配置项获取",
+				"description": "",
+				"tags": [
+					"后台接口/财务/提现设置"
+				],
+				"requestBody": {
+					"content": {}
+				}
+			}
+		},
+		"/mer/service/list": {
+			"GET": {
+				"summary": "客服列表",
+				"description": "",
+				"tags": [
+					"商家后台/客服"
+				],
+				"requestBody": {
+					"content": {}
+				}
+			}
+		},
+		"/mer/user/bill/lst": {
+			"GET": {
+				"summary": "资金日志-余额-积分-消费券",
+				"description": "",
+				"tags": [
+					"商家后台/日志记录"
+				],
+				"requestBody": {
+					"content": {}
+				}
+			}
+		},
+		"/mer/user/bill/title": {
+			"GET": {
+				"summary": "头部",
+				"description": "",
+				"tags": [
+					"商家后台/日志记录"
+				],
+				"requestBody": {
+					"content": {}
+				}
+			}
+		},
+		"/mer/store/order/lst": {
+			"GET": {
+				"summary": "列表",
+				"description": "",
+				"tags": [
+					"商家后台/订单"
+				],
+				"requestBody": {
+					"content": {}
+				}
+			}
+		},
+		"mer/store/order/title": {
+			"GET": {
+				"summary": "头部",
+				"description": "",
+				"tags": [
+					"商家后台/订单"
+				],
+				"requestBody": {
+					"content": {}
+				}
+			}
+		},
+		"mer/store/order/filtter/2": {
+			"GET": {
+				"summary": "订单数量显示",
+				"description": "filtter/:type\n\n:type  0 余额订单 1 积分订单  2 消费券订单~~~~~~~~",
+				"tags": [
+					"商家后台/订单"
+				],
+				"requestBody": {
+					"content": {}
+				}
+			}
+		},
+		"/mer/store/order/chart/2": {
+			"GET": {
+				"summary": "订单状态数量",
+				"description": "chart/:type\n\n:type  0 余额订单 1 积分订单  2 消费券订单~~~~",
+				"tags": [
+					"商家后台/订单"
+				],
+				"requestBody": {
+					"content": {}
+				}
+			}
+		},
+		"mer/store/product/update/1396": {
+			"POST": {
+				"summary": "编辑",
+				"description": "",
+				"tags": [
+					"商家后台/商品"
+				],
+				"requestBody": {
+					"content": {
+						"multipart/form-data": {
+							"schema": {
+								"type": "object"
+							},
+							"properties": {
+								"image": {
+									"type": "string",
+									"description": "",
+									"example": "http://www.test3.com/uploads/def/20230320/0ba461080915c2f0caedf5b498512b48.png"
+								},
+								"slider_image": {
+									"type": "string",
+									"description": "",
+									"example": "[\"http://www.test3.com/uploads/def/20230320/0ba461080915c2f0caedf5b498512b48.png\"]"
+								},
+								"store_name": {
+									"type": "string",
+									"description": "",
+									"example": "测试312313"
+								},
+								"store_info": {
+									"type": "string",
+									"description": "",
+									"example": "测试东风风神东方闪电"
+								},
+								"keyword": {
+									"type": "string",
+									"description": "",
+									"example": ""
+								},
+								"bar_code": {
+									"type": "string",
+									"description": "",
+									"example": ""
+								},
+								"guarantee_template_id": {
+									"type": "string",
+									"description": "",
+									"example": ""
+								},
+								"cate_id": {
+									"type": "string",
+									"description": "",
+									"example": "162"
+								},
+								"mer_cate_id[]": {
+									"type": "string",
+									"description": "",
+									"example": "117"
+								},
+								"unit_name": {
+									"type": "string",
+									"description": "",
+									"example": "个"
+								},
+								"sort": {
+									"type": "string",
+									"description": "",
+									"example": "0"
+								},
+								"is_show": {
+									"type": "string",
+									"description": "",
+									"example": ""
+								},
+								"is_good": {
+									"type": "string",
+									"description": "",
+									"example": "0"
+								},
+								"is_gift_bag": {
+									"type": "string",
+									"description": "",
+									"example": "0"
+								},
+								"integral_rate": {
+									"type": "string",
+									"description": "",
+									"example": "-1"
+								},
+								"video_link": {
+									"type": "string",
+									"description": "",
+									"example": ""
+								},
+								"temp_id": {
+									"type": "string",
+									"description": "",
+									"example": "8"
+								},
+								"content": {
+									"type": "string",
+									"description": "",
+									"example": "<p>测试详情啊啊啊啊啊啊</p>"
+								},
+								"spec_type": {
+									"type": "string",
+									"description": "",
+									"example": "0"
+								},
+								"extension_type": {
+									"type": "string",
+									"description": "",
+									"example": "0"
+								},
+								"attr": {
+									"type": "string",
+									"description": "",
+									"example": ""
+								},
+								"mer_labels": {
+									"type": "string",
+									"description": "",
+									"example": ""
+								},
+								"delivery_way[]": {
+									"type": "string",
+									"description": "",
+									"example": "2"
+								},
+								"delivery_free": {
+									"type": "string",
+									"description": "",
+									"example": "0"
+								},
+								"param_temp_id": {
+									"type": "string",
+									"description": "",
+									"example": ""
+								},
+								"extend": {
+									"type": "string",
+									"description": "",
+									"example": ""
+								},
+								"brand_id": {
+									"type": "string",
+									"description": "",
+									"example": "0"
+								},
+								"once_max_count": {
+									"type": "string",
+									"description": "",
+									"example": "0"
+								},
+								"once_min_count": {
+									"type": "string",
+									"description": "",
+									"example": "0"
+								},
+								"pay_limit": {
+									"type": "string",
+									"description": "",
+									"example": "0"
+								},
+								"give_coupon_ids": {
+									"type": "string",
+									"description": "",
+									"example": ""
+								},
+								"type": {
+									"type": "string",
+									"description": "",
+									"example": "0"
+								},
+								"svip_price": {
+									"type": "string",
+									"description": "",
+									"example": "0"
+								},
+								"svip_price_type": {
+									"type": "string",
+									"description": "",
+									"example": "0"
+								},
+								"params": {
+									"type": "string",
+									"description": "",
+									"example": ""
+								},
+								"is_default": {
+									"type": "string",
+									"description": "0 默认 1单独设置",
+									"example": "0"
+								},
+								"rl_rate": {
+									"type": "string",
+									"description": "让利比例",
+									"example": "1"
+								},
+								"attrValue[0][image]": {
+									"type": "string",
+									"description": "",
+									"example": "http:\\/\\/www.test3.com\\/uploads\\/def\\/20230320\\/0ba461080915c2f0caedf5b498512b48.png"
+								},
+								"attrValue[0][price]": {
+									"type": "string",
+									"description": "",
+									"example": "100"
+								},
+								"attrValue[0][cost]": {
+									"type": "string",
+									"description": "",
+									"example": "80"
+								},
+								"attrValue[0][ot_price]": {
+									"type": "string",
+									"description": "",
+									"example": "120"
+								},
+								"attrValue[0][svip_price]": {
+									"type": "string",
+									"description": "",
+									"example": "0"
+								},
+								"attrValue[0][bar_code]": {
+									"type": "string",
+									"description": "",
+									"example": "2111"
+								},
+								"attrValue[0][weight]": {
+									"type": "string",
+									"description": "",
+									"example": "1"
+								},
+								"attrValue[0][volume]": {
+									"type": "string",
+									"description": "",
+									"example": "1"
+								},
+								"attrValue[0][trade_contribute]": {
+									"type": "string",
+									"description": "赠送消费贡献值",
+									"example": "5"
+								},
+								"attrValue[0][stock]": {
+									"type": "string",
+									"description": "",
+									"example": "1000"
+								},
+								"title_labels": {
+									"type": "string",
+									"description": "标题标签",
+									"example": "网易"
+								},
+								"pay_type[]": {
+									"type": "string",
+									"description": "7",
+									"example": "8"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/mer/store/product/share_config": {
+			"GET": {
+				"summary": "分享奖励比例",
+				"description": "",
+				"tags": [
+					"商家后台/商品"
+				],
+				"requestBody": {
+					"content": {}
+				}
+			}
+		},
+		"/mer/store/product/detail/54": {
+			"GET": {
+				"summary": "商品详情",
+				"description": "",
+				"tags": [
+					"商家后台/商品"
+				],
+				"requestBody": {
+					"content": {}
+				}
+			}
+		},
+		"mer/store/product/create": {
+			"POST": {
+				"summary": "添加",
+				"description": "",
+				"tags": [
+					"商家后台/商品"
+				],
+				"requestBody": {
+					"content": {
+						"multipart/form-data": {
+							"schema": {
+								"type": "object"
+							},
+							"properties": {
+								"image": {
+									"type": "string",
+									"description": "",
+									"example": "http://www.test3.com/uploads/def/20230320/0ba461080915c2f0caedf5b498512b48.png"
+								},
+								"slider_image": {
+									"type": "string",
+									"description": "",
+									"example": "[\"http://www.test3.com/uploads/def/20230320/0ba461080915c2f0caedf5b498512b48.png\"]"
+								},
+								"store_name": {
+									"type": "string",
+									"description": "",
+									"example": "测试312313"
+								},
+								"store_info": {
+									"type": "string",
+									"description": "",
+									"example": "测试东风风神东方闪电"
+								},
+								"keyword": {
+									"type": "string",
+									"description": "",
+									"example": ""
+								},
+								"bar_code": {
+									"type": "string",
+									"description": "",
+									"example": ""
+								},
+								"guarantee_template_id": {
+									"type": "string",
+									"description": "",
+									"example": ""
+								},
+								"cate_id": {
+									"type": "string",
+									"description": "",
+									"example": "162"
+								},
+								"mer_cate_id[]": {
+									"type": "string",
+									"description": "",
+									"example": "117"
+								},
+								"unit_name": {
+									"type": "string",
+									"description": "",
+									"example": "个"
+								},
+								"sort": {
+									"type": "string",
+									"description": "",
+									"example": "0"
+								},
+								"is_show": {
+									"type": "string",
+									"description": "",
+									"example": ""
+								},
+								"is_good": {
+									"type": "string",
+									"description": "",
+									"example": "0"
+								},
+								"is_gift_bag": {
+									"type": "string",
+									"description": "",
+									"example": "0"
+								},
+								"integral_rate": {
+									"type": "string",
+									"description": "",
+									"example": "-1"
+								},
+								"video_link": {
+									"type": "string",
+									"description": "",
+									"example": ""
+								},
+								"temp_id": {
+									"type": "string",
+									"description": "",
+									"example": "8"
+								},
+								"content": {
+									"type": "string",
+									"description": "",
+									"example": "<p>测试详情啊啊啊啊啊啊</p>"
+								},
+								"spec_type": {
+									"type": "string",
+									"description": "",
+									"example": "0"
+								},
+								"extension_type": {
+									"type": "string",
+									"description": "",
+									"example": "0"
+								},
+								"attr": {
+									"type": "string",
+									"description": "",
+									"example": ""
+								},
+								"mer_labels": {
+									"type": "string",
+									"description": "",
+									"example": ""
+								},
+								"delivery_way[]": {
+									"type": "string",
+									"description": "",
+									"example": "2"
+								},
+								"delivery_free": {
+									"type": "string",
+									"description": "",
+									"example": "0"
+								},
+								"param_temp_id": {
+									"type": "string",
+									"description": "",
+									"example": ""
+								},
+								"extend": {
+									"type": "string",
+									"description": "",
+									"example": ""
+								},
+								"brand_id": {
+									"type": "string",
+									"description": "",
+									"example": "0"
+								},
+								"once_max_count": {
+									"type": "string",
+									"description": "",
+									"example": "0"
+								},
+								"once_min_count": {
+									"type": "string",
+									"description": "",
+									"example": "0"
+								},
+								"pay_limit": {
+									"type": "string",
+									"description": "",
+									"example": "0"
+								},
+								"give_coupon_ids": {
+									"type": "string",
+									"description": "",
+									"example": ""
+								},
+								"type": {
+									"type": "string",
+									"description": "",
+									"example": "0"
+								},
+								"svip_price": {
+									"type": "string",
+									"description": "",
+									"example": "0"
+								},
+								"svip_price_type": {
+									"type": "string",
+									"description": "",
+									"example": "0"
+								},
+								"params": {
+									"type": "string",
+									"description": "",
+									"example": ""
+								},
+								"is_default": {
+									"type": "string",
+									"description": "0 默认 1单独设置",
+									"example": "1"
+								},
+								"rl_rate": {
+									"type": "string",
+									"description": "让利比例",
+									"example": "1"
+								},
+								"attrValue[0][image]": {
+									"type": "string",
+									"description": "",
+									"example": "http:\\/\\/www.test3.com\\/uploads\\/def\\/20230320\\/0ba461080915c2f0caedf5b498512b48.png"
+								},
+								"attrValue[0][price]": {
+									"type": "string",
+									"description": "",
+									"example": "100"
+								},
+								"attrValue[0][cost]": {
+									"type": "string",
+									"description": "",
+									"example": "80"
+								},
+								"attrValue[0][ot_price]": {
+									"type": "string",
+									"description": "",
+									"example": "120"
+								},
+								"attrValue[0][svip_price]": {
+									"type": "string",
+									"description": "",
+									"example": "0"
+								},
+								"attrValue[0][bar_code]": {
+									"type": "string",
+									"description": "",
+									"example": "2111"
+								},
+								"attrValue[0][weight]": {
+									"type": "string",
+									"description": "",
+									"example": "1"
+								},
+								"attrValue[0][volume]": {
+									"type": "string",
+									"description": "",
+									"example": "1"
+								},
+								"attrValue[0][trade_contribute]": {
+									"type": "string",
+									"description": "赠送消费贡献值",
+									"example": "10"
+								},
+								"attrValue[0][stock]": {
+									"type": "string",
+									"description": "",
+									"example": "1000"
+								},
+								"title_labels": {
+									"type": "string",
+									"description": "标题标签",
+									"example": "百亿补贴"
+								},
+								"pay_type[]": {
+									"type": "string",
+									"description": "支付方式 7 积分 8 贡献值",
+									"example": ""
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/mer/store/product/rate": {
+			"GET": {
+				"summary": "让利比例",
+				"description": "",
+				"tags": [
+					"商家后台/商品"
+				],
+				"requestBody": {
+					"content": {}
+				}
+			}
+		},
+		"/mer/store/product/free_trial/1396": {
+			"POST": {
+				"summary": "免审核",
+				"description": "",
+				"tags": [
+					"商家后台/商品"
+				],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"type": "string"
+							},
+							"example": "{\r\n    \"attr\": [\r\n        {\r\n            \"value\": \"颜色分类\",\r\n            \"detail\": [\r\n                \"雪白色或白色\",\r\n                \"天蓝色/白色\",\r\n                \"黑色/白色\"\r\n            ]\r\n        }\r\n    ],\r\n    \"attrValue\": [\r\n        {\r\n            \"product_id\": 4,\r\n            \"detail\": {\r\n                \"颜色分类\": \"雪白色或白色\"\r\n            },\r\n            \"sku\": \"雪白色或白色\",\r\n            \"stock\": 1000,\r\n            \"sales\": 0,\r\n            \"image\": \"https://img.alicdn.com/imgextra/i1/2207289125344/O1CN01UnwugE1pLbHpGQZgp_!!2-item_pic.png\",\r\n            \"bar_code\": \"\",\r\n            \"cost\": 200,\r\n            \"ot_price\": 200,\r\n            \"price\": 180,\r\n            \"volume\": 0,\r\n            \"weight\": 0,\r\n            \"type\": 0,\r\n            \"extension_one\": \"0.00\",\r\n            \"extension_two\": \"0.00\",\r\n            \"unique\": \"e4843e830120\",\r\n            \"svip_price\": \"0.00\",\r\n            \"trade_contribute\": 18,\r\n            \"default_trade_contribute\": \"0.00\",\r\n            \"old_stock\": 1000,\r\n            \"value0\": \"雪白色或白色\",\r\n            \"contribute_one\": 10,\r\n            \"contribute_two\": 50\r\n        },\r\n        {\r\n            \"product_id\": 4,\r\n            \"detail\": {\r\n                \"颜色分类\": \"天蓝色/白色\"\r\n            },\r\n            \"sku\": \"天蓝色/白色\",\r\n            \"stock\": 1000,\r\n            \"sales\": 0,\r\n            \"image\": \"https://img.alicdn.com/imgextra/i1/2207289125344/O1CN01UnwugE1pLbHpGQZgp_!!2-item_pic.png\",\r\n            \"bar_code\": \"\",\r\n            \"cost\": 200,\r\n            \"ot_price\": 200,\r\n            \"price\": 180,\r\n            \"volume\": 0,\r\n            \"weight\": 0,\r\n            \"type\": 0,\r\n            \"extension_one\": \"0.00\",\r\n            \"extension_two\": \"0.00\",\r\n            \"unique\": \"033bfb4ea790\",\r\n            \"svip_price\": \"0.00\",\r\n            \"trade_contribute\": 18,\r\n            \"default_trade_contribute\": \"0.00\",\r\n            \"old_stock\": 1000,\r\n            \"value0\": \"天蓝色/白色\",\r\n            \"contribute_one\": 10,\r\n            \"contribute_two\": 50\r\n        },\r\n        {\r\n            \"product_id\": 4,\r\n            \"detail\": {\r\n                \"颜色分类\": \"黑色/白色\"\r\n            },\r\n            \"sku\": \"黑色/白色\",\r\n            \"stock\": 1000,\r\n            \"sales\": 0,\r\n            \"image\": \"https://img.alicdn.com/imgextra/i1/2207289125344/O1CN01UnwugE1pLbHpGQZgp_!!2-item_pic.png\",\r\n            \"bar_code\": \"\",\r\n            \"cost\": 200,\r\n            \"ot_price\": 200,\r\n            \"price\": 180,\r\n            \"volume\": 0,\r\n            \"weight\": 0,\r\n            \"type\": 0,\r\n            \"extension_one\": \"0.00\",\r\n            \"extension_two\": \"0.00\",\r\n            \"unique\": \"47bf98f9d110\",\r\n            \"svip_price\": \"0.00\",\r\n            \"trade_contribute\": 18,\r\n            \"default_trade_contribute\": \"0.00\",\r\n            \"old_stock\": 1000,\r\n            \"value0\": \"黑色/白色\",\r\n            \"contribute_one\": 10,\r\n            \"contribute_two\": 50\r\n        }\r\n    ],\r\n    \"mer_cate_id\": [\r\n        16,117\r\n    ],\r\n    \"spec_type\": 1,\r\n    \"is_default\": 0,\r\n    \"rl_rate\": 1,\r\n    \"pay_type\": [\r\n        7\r\n    ]\r\n}"
+						}
+					}
+				}
+			}
+		},
+		"mer/financial_record/title": {
+			"GET": {
+				"summary": "统计",
+				"description": "",
+				"tags": [
+					"商家后台/财务"
+				],
+				"requestBody": {
+					"content": {}
+				}
+			}
+		},
+		"/mer/financial_record/lst": {
+			"GET": {
+				"summary": "积分/消费券账单",
+				"description": "",
+				"tags": [
+					"商家后台/财务"
+				],
+				"requestBody": {
+					"content": {}
+				}
+			}
+		},
+		"/mer/financial_record/detail_export/1": {
+			"GET": {
+				"summary": "下载账单",
+				"description": "",
+				"tags": [
+					"商家后台/财务"
+				],
+				"requestBody": {
+					"content": {}
+				}
+			}
+		},
+		"mer/financial_record/detail/1": {
+			"GET": {
+				"summary": "积分/消费券详情",
+				"description": "",
+				"tags": [
+					"商家后台/财务"
+				],
+				"requestBody": {
+					"content": {}
+				}
+			}
+		}
+	},
+	"servers": [
+		{
+			"url": "",
+			"description": "默认环境",
+			"variables": {}
+		},
+		{
+			"url": "https://console-mock.apipost.cn/mock/6d127b78-299f-43f3-a6cb-8de4c59793bb/",
+			"description": "Mock环境",
+			"variables": {}
+		},
+		{
+			"url": "https://test.huanqiu.scxxjs.net/",
+			"description": "测试服api",
+			"variables": {}
+		},
+		{
+			"url": "http://www.test3.com/",
+			"description": "虚拟机api",
+			"variables": {}
+		},
+		{
+			"url": "https://huanqiu.scxxjs.net/",
+			"description": "正式服",
+			"variables": {}
+		},
+		{
+			"url": "https://release-huanqiu.scxxjs.net/",
+			"description": "预生产",
+			"variables": {}
+		}
+	]
+}
