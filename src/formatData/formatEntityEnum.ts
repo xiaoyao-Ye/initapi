@@ -1,7 +1,7 @@
 
 import { ReferenceObject, SchemaObject } from "openapi3-ts/dist/mjs";
 import { EntityInfo, EnumInfo, EntityPropInfo, isReferenceObject, isSchemaObjectTypeArray } from '../type';
-import { clearCRLF, processString } from '../utils';
+import { clearCRLF, replaceSpecialChars } from '../utils';
 
 export const formatEntityEnum = (data: { [schema: string]: SchemaObject | ReferenceObject }) => {
   const entityInfoList: EntityInfo[] = [];
@@ -18,7 +18,7 @@ export const formatEntityEnum = (data: { [schema: string]: SchemaObject | Refere
       continue;
     }
 
-    const NAME = processString(schemaName);
+    const NAME = replaceSpecialChars(schemaName);
 
     // entity
     if (obj.type === 'object') {
