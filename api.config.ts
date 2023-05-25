@@ -9,7 +9,6 @@ export default defineConfig({
     mangosteen: 'http://127.0.0.1:3000/api-json',
     test1: './test/swagger.json',
     test2: './test/swagger2.json',
-    huanqiu: './test/openapi.3.0.json',
   },
   outputDir: './src/api',
   // outputType: 'TypeScript',
