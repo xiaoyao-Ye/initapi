@@ -43,7 +43,7 @@ import { defineConfig } from 'initapi'
 export default defineConfig({
   // Path related configurations are all based on the working directory of the nodejs process
   // Supports Openapi3 and Swagger specifications, with content created based on specified JSON
-  swagger: {
+  service: {
     pets: 'https://petstore.swagger.io/v2/swagger.json',
     platform: 'http://127.0.0.1:3000/api-json',
   },
@@ -71,7 +71,7 @@ Detailed configuration items for defineConfig
 | ----------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------- | -------- | ---------------------------- |
 | importAxios | Import axios or axios encapsulation                                                                                                                                                                                   | `string`                     | No       | 'import axios from "axios";' |
 | useAxios    | Using axios                                                                                                                                                                                                           | `string`                     | No       | 'axios.request'              |
-| swagger     | The JSON (`swagger/openapi3`specification) file address corresponding to the API service                                                                                                                              | `object`                     | Yes      | —                            |
+| service     | The JSON (`swagger/openapi3`specification) file address corresponding to the API service                                                                                                                              | `object`                     | Yes      | —                            |
 | outputDir   | Output file storage location                                                                                                                                                                                          | `string`                     | No       | './api'                      |
 | outputType  | Output File Type - When there is no configuration, a command line interaction will pop up for selection                                                                                                               | `TypeScript` or `JavaScript` | No       | —                            |
 | definition  | How to define types                                                                                                                                                                                                   | `class` or `interface`       | No       | interface                    |
