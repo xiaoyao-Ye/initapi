@@ -23,7 +23,7 @@ export const readJson = (url: string) => {
   // 转义并将路径处理成正确的当前系统(window和mac的路径差异)路径
   let URL = join(String.raw`${url}`);
   // 处理成绝对路径
-  if (!isAbsolute(URL)) URL = join(__dirname, URL);
+  if (!isAbsolute(URL)) URL = join(process.cwd(), URL);
   try {
     return JSON.parse(fs.readFileSync(URL, "utf-8"));
   } catch (error) {
