@@ -1,7 +1,7 @@
 
 import { PathItemObject, OperationObject, PathsObject, ParameterObject, ReferenceObject, RequestBodyObject, SchemaObject, ResponsesObject, TagObject } from "openapi3-ts/dist/mjs";
 import { ApiInfo, Params, isReferenceObject, Data, isSchemaObjectTypeArray } from "../type";
-import { clearCRLF } from "../utils";
+import { clearCRLF, processString } from "../utils";
 
 export const formatApi = (data: PathsObject, tags: TagObject[]) => {
   // const apiClassInfo: { [className: string]: ApiInfo[] } = {};
@@ -29,7 +29,7 @@ export const formatApi = (data: PathsObject, tags: TagObject[]) => {
         res: res
       }
 
-      const API_TAG_NAME = API.tags?.[0] ?? "Common";
+      const API_TAG_NAME = processString(API.tags?.[0] ?? "Common");
       if (!apiTagInfo[API_TAG_NAME]) {
         const desc = tags.filter(f => f.name === API_TAG_NAME)[0]?.description
         apiTagInfo[API_TAG_NAME] = {desc: clearCRLF(desc ?? ''), tagInfo: []};

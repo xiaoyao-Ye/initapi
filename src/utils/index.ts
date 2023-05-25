@@ -106,3 +106,12 @@ export const Desc = (desc: string) => {
 export const toCamelCase = (str) => {
   return str.replace(/(-\w)/g, m => m[1].toUpperCase()).replace(/-/g, '');
 }
+
+/**
+ * 去掉字符串中的空字符, 并且将字符串中的-替换成_
+ * @param str stri ng- string
+ * @returns string_string
+ */
+export const processString = (str: string): string => {
+  return str.replace(/\s/g, "").replace(/-/g, "_");
+}

@@ -1,5 +1,5 @@
 import { ApiInfo, Indexable } from '../type'
-import { Desc, getFuncNameByOpenApi, toCamelCase, toLowerCaseFirst } from '../utils'
+import { Desc, getFuncNameByOpenApi, processString, toCamelCase, toLowerCaseFirst } from '../utils'
 
 export const createApiTS = (
   apiTagInfo: { [className: string]: { desc: string, tagInfo: ApiInfo[] } },
@@ -101,7 +101,7 @@ const handleResType = (apiInfo: ApiInfo, importNameList: string[]) => {
  */
 export const transType = (schema: any = {}, importNameList?: string[]): string => {
   if (schema.$ref) {
-    const DTO_NAME = schema.$ref.split('/').pop()
+    const DTO_NAME = processString(schema.$ref.split('/').pop())
     importNameList && importNameList.push(DTO_NAME)
     return DTO_NAME
   }
