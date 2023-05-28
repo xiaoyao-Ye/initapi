@@ -1,7 +1,6 @@
-
 import { ReferenceObject, SchemaObject } from "openapi3-ts/dist/mjs";
-import { EntityInfo, EnumInfo, EntityPropInfo, isReferenceObject, isSchemaObjectTypeArray } from '../type';
-import { clearCRLF, replaceSpecialChars } from '../utils';
+import { EntityInfo, EnumInfo, EntityPropInfo, isReferenceObject, isSchemaObjectTypeArray } from "../type";
+import { clearCRLF, replaceSpecialChars } from "../utils";
 
 export const formatEntityEnum = (data: { [schema: string]: SchemaObject | ReferenceObject }) => {
   const entityInfoList: EntityInfo[] = [];
@@ -14,15 +13,15 @@ export const formatEntityEnum = (data: { [schema: string]: SchemaObject | Refere
     const obj = data[schemaName];
     // ReferenceObject 类型不需要格式化
     if (isReferenceObject(obj)) {
-      console.log('untreated type: 3', obj);
+      console.log("untreated type: 3", obj);
       continue;
     }
 
     const NAME = replaceSpecialChars(schemaName);
 
     // entity
-    if (obj.type === 'object') {
-      entityNameList.push(NAME)
+    if (obj.type === "object") {
+      entityNameList.push(NAME);
       entityInfoList.push({
         name: NAME,
         desc: clearCRLF(obj.description ?? ""),
@@ -31,8 +30,8 @@ export const formatEntityEnum = (data: { [schema: string]: SchemaObject | Refere
     }
 
     // enum
-    if (obj.type === 'string') {
-      enumNameList.push(NAME)
+    if (obj.type === "string") {
+      enumNameList.push(NAME);
       enumInfoList.push({
         name: NAME,
         desc: clearCRLF(obj.description ?? ""),
@@ -42,10 +41,9 @@ export const formatEntityEnum = (data: { [schema: string]: SchemaObject | Refere
   }
 
   return { entityInfoList, enumInfoList, entityNameList, enumNameList };
-}
+};
 
-
-const formatEntityPropList = (properties: { [propertyName: string]: SchemaObject | ReferenceObject; }) => {
+const formatEntityPropList = (properties: { [propertyName: string]: SchemaObject | ReferenceObject }) => {
   const propList: Array<EntityPropInfo> = [];
   for (const propName in properties) {
     if (!properties.hasOwnProperty(propName)) continue;
@@ -72,7 +70,7 @@ const formatEntityPropList = (properties: { [propertyName: string]: SchemaObject
     //   }
     // }
     if (isSchemaObjectTypeArray(obj.type)) {
-      console.log('untreated type: 4', obj);
+      console.log("untreated type: 4", obj);
       continue;
     }
     prop = {
@@ -83,24 +81,23 @@ const formatEntityPropList = (properties: { [propertyName: string]: SchemaObject
       nullable: obj?.nullable ?? false,
       items: obj?.items,
       additionalProperties: obj?.additionalProperties,
-    }
+    };
     if (obj.allOf || obj.oneOf || obj.anyOf) {
-      console.log('untreated type: 8', obj);
-      if (isReferenceObject(obj.allOf['0'])) {
-        prop.$ref = obj.allOf['0'].$ref;
+      console.log("untreated type: 8", obj);
+      if (isReferenceObject(obj.allOf["0"])) {
+        prop.$ref = obj.allOf["0"].$ref;
       } else {
-        console.log('untreated type: 9', obj.allOf['0']);
+        console.log("untreated type: 9", obj.allOf["0"]);
       }
     }
 
     if (obj.properties) {
-      console.log('untreated type: 6', obj);
+      console.log("untreated type: 6", obj);
       continue;
     }
 
-    propList.push(prop)
+    propList.push(prop);
   }
 
   return propList;
-}
-
+};

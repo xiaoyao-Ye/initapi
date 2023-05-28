@@ -61,10 +61,10 @@ export function getFuncName(url: string, className: string): string {
   const urlArr = urlStr.split("/");
   // 目前的方案是去掉url的{}后截取className往后的所有str组成函数名称(目前好像效果好很多), 如果一个都没有,取最后一个
   // 之前的方案是去掉url的{}后通过/分割, 使用数组最后一个str作为函数名称
-  const index = urlArr.findIndex((f) => f === className);
+  const index = urlArr.findIndex(f => f === className);
   const name = urlArr
     .splice(index + 1)
-    .map((m) => m.charAt(0).toUpperCase() + m.slice(1))
+    .map(m => m.charAt(0).toUpperCase() + m.slice(1))
     .join("");
   return toLowerCaseFirst(name || urlArr[urlArr.length - 1]);
 }
@@ -76,16 +76,12 @@ export function getFuncName(url: string, className: string): string {
  * @param method 请求方法
  * @returns 函数名称
  */
-export function getFuncNameByOpenApi(
-  url: string,
-  className: string,
-  method: string
-): string {
+export function getFuncNameByOpenApi(url: string, className: string, method: string): string {
   // 移除url字符串中的花括号
   const reg = /\{|\}/g;
   const urlStr = url.replace(reg, "");
   const urlArr = urlStr.split("/");
-  const index = urlArr.findIndex((f) => f === className);
+  const index = urlArr.findIndex(f => f === className);
   const name = urlArr.splice(index + 1).join("_");
   return `${method}_${name}`;
 }
@@ -103,9 +99,9 @@ export const Desc = (desc: string) => {
  * @param str xx-xx-xx
  * @returns xxXxXx
  */
-export const toCamelCase = (str) => {
-  return str.replace(/(-\w)/g, m => m[1].toUpperCase()).replace(/-/g, '');
-}
+export const toCamelCase = str => {
+  return str.replace(/(-\w)/g, m => m[1].toUpperCase()).replace(/-/g, "");
+};
 
 /**
  * 去掉字符串中的空字符, 并且将字符串中的-替换成_
@@ -114,7 +110,7 @@ export const toCamelCase = (str) => {
  */
 export const processString = (str: string): string => {
   return str.replace(/\s/g, "").replace(/-/g, "_");
-}
+};
 
 // export const replaceSpecialChars = (str: string): string => {
 //   // 正则表达式匹配非字母、数字和下划线的字符
@@ -124,10 +120,10 @@ export const processString = (str: string): string => {
 
 /**
  * 匹配所有非中文、数字、字母和下划线的字符
- * @param str 
+ * @param str
  * @returns 将匹配到的字符替换为下划线
  */
 export const replaceSpecialChars = (str: string): string => {
   const regex = /[^\u4e00-\u9fa5\w]/g;
-  return str.replace(regex, '_');
-}
+  return str.replace(regex, "_");
+};

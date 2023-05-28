@@ -1,12 +1,12 @@
-import prettier from 'prettier'
-import path from 'path'
-import { tryRequire } from '../utils/index'
+import prettier from "prettier";
+import path from "path";
+import { tryRequire } from "../utils/index";
 
 const defaultOptions: prettier.Options = {
   // 解析器
-  parser: 'typescript',
-  // 一行最多 100 字符
-  printWidth: 100,
+  parser: "typescript",
+  // 一行最多 130 字符
+  printWidth: 130,
   // 使用 2 个空格缩进
   tabWidth: 2,
   // 不使用缩进符使用空格
@@ -14,20 +14,20 @@ const defaultOptions: prettier.Options = {
   // 行尾需要有分号
   semi: true,
   // 使用单引号
-  singleQuote: true,
+  singleQuote: false,
   // 对象的 key 仅在必要时用引号
-  quoteProps: 'as-needed',
+  quoteProps: "as-needed",
   // jsx 不使用单引号，而使用双引号
   jsxSingleQuote: false,
   // 尾随逗号
-  trailingComma: 'all',
+  trailingComma: "all",
   // 大括号内的首尾需要空格
   bracketSpacing: true,
-  bracketSameLine: false,
+  bracketSameLine: true,
   // jsx 标签的反尖括号需要换行
-  jsxBracketSameLine: false,
+  jsxBracketSameLine: true,
   // 箭头函数，只有一个参数的时候，也需要括号always, avoid
-  arrowParens: 'avoid',
+  arrowParens: "avoid",
   // 每个文件格式化的范围是文件的全部内容
   rangeStart: 0,
   rangeEnd: Infinity,
@@ -36,12 +36,12 @@ const defaultOptions: prettier.Options = {
   // 不需要自动在文件开头插入 @prettier
   insertPragma: false,
   // 使用默认的折行标准
-  proseWrap: 'preserve',
+  proseWrap: "preserve",
   // 根据显示样式决定 html 要不要折行
-  htmlWhitespaceSensitivity: 'css',
+  htmlWhitespaceSensitivity: "ignore",
   // 换行符使用 auto, lf
-  endOfLine: 'auto',
-}
+  endOfLine: "auto",
+};
 
 /**
  * TS/JS格式化代码
@@ -51,13 +51,13 @@ const defaultOptions: prettier.Options = {
  */
 export default async function format(code: string): Promise<string> {
   const prettierConfig = await getOptions();
-  return prettier.format(code, prettierConfig)
+  return prettier.format(code, prettierConfig);
 }
 
 /**
  * 获取当前node运行目录下的 .prettier 文件的配置进行格式化
  */
 async function getOptions(): Promise<prettier.Options> {
-  const options = await tryRequire(path.join(process.cwd(), '.prettierrc'))
-  return { ...defaultOptions, ...options }
+  const options = await tryRequire(path.join(process.cwd(), ".prettierrc"));
+  return { ...defaultOptions, ...options };
 }

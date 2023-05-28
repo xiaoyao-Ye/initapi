@@ -84,26 +84,26 @@ When the project root directory has a. prettier file, the default configuration 
 
 ```JavaScript
 const defaultOptions: prettier.Options = {
-  parser: 'typescript',
-  printWidth: 100,
+  parser: "typescript",
+  printWidth: 130,
   tabWidth: 2,
   useTabs: false,
   semi: true,
-  singleQuote: true,
-  quoteProps: 'as-needed',
+  singleQuote: false,
+  quoteProps: "as-needed",
   jsxSingleQuote: false,
-  trailingComma: 'all',
+  trailingComma: "all",
   bracketSpacing: true,
-  bracketSameLine: false,
-  jsxBracketSameLine: false,
-  arrowParens: 'avoid',
+  bracketSameLine: true,
+  jsxBracketSameLine: true,
+  arrowParens: "avoid",
   rangeStart: 0,
   rangeEnd: Infinity,
   requirePragma: false,
   insertPragma: false,
-  proseWrap: 'preserve',
-  htmlWhitespaceSensitivity: 'css',
-  endOfLine: 'auto',
+  proseWrap: "preserve",
+  htmlWhitespaceSensitivity: "ignore",
+  endOfLine: "auto",
 }
 ```
 

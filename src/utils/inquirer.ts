@@ -1,36 +1,39 @@
-import inquirer from 'inquirer'
+import inquirer from "inquirer";
 
 /**
  * 命令行交互获取生成文件类型, json资源地址
  * @returns
  */
-export async function useInquirer(swagger: { [prop: string]: string }, outputType: string | undefined): Promise<{
-  fileType: string
-  url: string
-  serviceName: string
+export async function useInquirer(
+  swagger: { [prop: string]: string },
+  outputType: string | undefined,
+): Promise<{
+  fileType: string;
+  url: string;
+  serviceName: string;
 }> {
-  const serviceNameList = Object.keys(swagger)
-  const rule = []
-  if (typeof outputType === 'undefined') {
+  const serviceNameList = Object.keys(swagger);
+  const rule = [];
+  if (typeof outputType === "undefined") {
     rule.push({
-      name: 'fileType',
-      message: '请选择您需要生成的 API 类型:',
-      type: 'list',
-      default: 'TypeScript',
-      choices: ['TypeScript', 'JavaScript'],
-    })
+      name: "fileType",
+      message: "请选择您需要生成的 API 类型:",
+      type: "list",
+      default: "TypeScript",
+      choices: ["TypeScript", "JavaScript"],
+    });
   }
   rule.push({
-    name: 'serviceName',
-    message: '请选择 API 文档json地址:',
-    type: 'list',
+    name: "serviceName",
+    message: "请选择 API 文档json地址:",
+    type: "list",
     default: serviceNameList[0],
     choices: [...serviceNameList],
     // choices: [...serviceNameList, 'custom'],
-  })
+  });
 
-  let url
-  const { fileType, serviceName } = await inquirer.prompt(rule)
+  let url;
+  const { fileType, serviceName } = await inquirer.prompt(rule);
   // if (serviceName === 'custom') {
   //   const customAddressRule = [
   //     {
@@ -42,8 +45,8 @@ export async function useInquirer(swagger: { [prop: string]: string }, outputTyp
   //   const { customAddress } = await inquirer.prompt(customAddressRule)
   //   url = customAddress
   // } else {
-    url = swagger[serviceName]
+  url = swagger[serviceName];
   // }
 
-  return { fileType: outputType ?? fileType, serviceName, url }
+  return { fileType: outputType ?? fileType, serviceName, url };
 }

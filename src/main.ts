@@ -1,54 +1,62 @@
-import { formatEntityEnum, formatApi, createApiTS, transType, createApiJS } from './formatData/index'
-import { outputFile } from './outputFile/index'
-import { getInitData } from './utils/request'
-import { Desc, toLowerCaseFirst } from './utils/index'
-import { useInquirer } from './utils/inquirer'
-import { getConfig } from './utils/config'
-import ejs from 'ejs';
-import { resolve } from 'path'
+import { formatEntityEnum, formatApi, createApiTS, transType, createApiJS } from "./formatData/index";
+import { outputFile } from "./outputFile/index";
+import { getInitData } from "./utils/request";
+import { Desc, toLowerCaseFirst } from "./utils/index";
+import { useInquirer } from "./utils/inquirer";
+import { getConfig } from "./utils/config";
+import ejs from "ejs";
+import { resolve } from "path";
 
 export const main = async () => {
   // 获取配置文件
-  const { service, importAxios, useAxios, outputDir, outputType, definition, indexable, enumMode } = await getConfig()
+  const { service, importAxios, useAxios, outputDir, outputType, definition, indexable, enumMode } = await getConfig();
 
   // 命令行交互
-  const { url, fileType, serviceName } = await useInquirer(service, outputType)
+  const { url, fileType, serviceName } = await useInquirer(service, outputType);
 
   // 获取 swagger/openapi 的json文件
-  const data = await getInitData(url)
+  const data = await getInitData(url);
 
   // 生成文件所需的 文件名 文件类型后缀
-  const FILE_TYPE = { TypeScript: 'ts', JavaScript: 'js' }
-  const suffix = FILE_TYPE[fileType]
-  const fileName = serviceName || toLowerCaseFirst(Object.keys(data.paths)[0].split('/')[1])
+  const FILE_TYPE = { TypeScript: "ts", JavaScript: "js" };
+  const suffix = FILE_TYPE[fileType];
+  const fileName = serviceName || toLowerCaseFirst(Object.keys(data.paths)[0].split("/")[1]);
 
   // 格式化api信息
-  const apiTagInfo = formatApi(data.paths, data.tags)
+  const apiTagInfo = formatApi(data.paths, data.tags);
 
   // 根据类型创建模板生成对应文件
-  if (fileType === 'TypeScript') {
-    const indexableTemplate = indexable ? '[key: string]: any' : '';
-    const { entityInfoList, enumInfoList, entityNameList, enumNameList } = formatEntityEnum(data.components?.schemas ?? {})
-    const { apiList, importEntityName } = createApiTS(apiTagInfo, [...entityNameList, ...enumNameList])
-    const templateApi = await ejsRender('./template/typeScript/api.ejs', { apiList, importEntityName, importAxios, useAxios })
-    const templateEntity = await ejsRender('./template/typeScript/typings.d.ejs', { definition, enumMode, indexableTemplate, entityInfoList, enumInfoList, Desc, transType})
-    outputFile(outputDir, `${fileName}/api.${suffix}`, templateApi)
-    outputFile(outputDir, `${fileName}/typings.d.${suffix}`, templateEntity)
+  if (fileType === "TypeScript") {
+    const indexableTemplate = indexable ? "[key: string]: any" : "";
+    const { entityInfoList, enumInfoList, entityNameList, enumNameList } = formatEntityEnum(data.components?.schemas ?? {});
+    const { apiList, importEntityName } = createApiTS(apiTagInfo, [...entityNameList, ...enumNameList]);
+    const templateApi = await ejsRender("./template/typeScript/api.ejs", { apiList, importEntityName, importAxios, useAxios });
+    const templateEntity = await ejsRender("./template/typeScript/typings.d.ejs", {
+      definition,
+      enumMode,
+      indexableTemplate,
+      entityInfoList,
+      enumInfoList,
+      Desc,
+      transType,
+    });
+    outputFile(outputDir, `${fileName}/api.${suffix}`, templateApi);
+    outputFile(outputDir, `${fileName}/typings.d.${suffix}`, templateEntity);
   } else {
-    const { apiList } = createApiJS(apiTagInfo)
-    const templateApi = await ejsRender('./template/javaScript/api.ejs', { apiList, importAxios, useAxios })
-    outputFile(outputDir, `${fileName}/api.${suffix}`, templateApi)
+    const { apiList } = createApiJS(apiTagInfo);
+    const templateApi = await ejsRender("./template/javaScript/api.ejs", { apiList, importAxios, useAxios });
+    outputFile(outputDir, `${fileName}/api.${suffix}`, templateApi);
   }
-}
+};
 
 const ejsRender = (template: string, data: any): Promise<string> => {
   template = resolve(__dirname, template);
   return new Promise((resolve, reject) => {
     ejs.renderFile(template, data, (err, str) => {
       if (err) {
-        reject(err)
+        reject(err);
       }
-      resolve(str)
-    })
-  })
-}
+      resolve(str);
+    });
+  });
+};

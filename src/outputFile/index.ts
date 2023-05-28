@@ -1,7 +1,7 @@
-import format from './prettier'
+import format from "./prettier";
 
-import fs from 'fs-extra'
-import path from 'path'
+import fs from "fs-extra";
+import path from "path";
 
 /**
  * 根据文件名和数据输入文件
@@ -10,11 +10,11 @@ import path from 'path'
  * @param data 数据
  */
 export const outputFile = async (outputDir: string, fileName: string, data: string) => {
-  const filePath = path.join(process.cwd(), outputDir, fileName)
+  const filePath = path.join(process.cwd(), outputDir, fileName);
   try {
-    data = await format(data)
+    data = await format(data);
   } catch (error) {
-    console.log('error', error)
+    console.log("error", error);
   }
-  await fs.outputFile(filePath, data)
-}
+  await fs.outputFile(filePath, data);
+};

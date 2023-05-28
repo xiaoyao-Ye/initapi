@@ -3,5 +3,6 @@
     "initapi",
     "jiti",
     "openapi"
-  ]
+  ],
+  "editor.formatOnSave": true
 }
