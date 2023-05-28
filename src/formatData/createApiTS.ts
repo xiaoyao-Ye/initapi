@@ -123,7 +123,7 @@ export const transType = (schema: any = {}, importNameList?: Set<string>): strin
     return `Map<string, ${schema.additionalProperties ? transType(schema.additionalProperties, importNameList) : "any"}>`;
     // return `{ [prop: string]: ${schema.additionalProperties ? transTypeTS(schema.additionalProperties, record) : 'any'} }`
   } else {
-    console.log("untreated type: 7", schema);
+    // console.log("untreated type: 7", schema);
     return "any";
   }
 };

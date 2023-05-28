@@ -12,7 +12,7 @@ export const formatEntityEnum = (data: { [schema: string]: SchemaObject | Refere
     if (!data.hasOwnProperty(schemaName)) continue;
     // ReferenceObject 类型不需要格式化
     if (isReferenceObject(obj)) {
-      console.log("untreated type: 3", obj);
+      // console.log("untreated type: 3", obj);
       continue;
     }
 
@@ -68,7 +68,7 @@ const formatEntityPropList = (properties: { [propertyName: string]: SchemaObject
     //   }
     // }
     if (isSchemaObjectTypeArray(obj.type)) {
-      console.log("untreated type: 4", obj);
+      // console.log("untreated type: 4", obj);
       continue;
     }
     prop = {
@@ -81,16 +81,16 @@ const formatEntityPropList = (properties: { [propertyName: string]: SchemaObject
       additionalProperties: obj?.additionalProperties,
     };
     if (obj?.allOf || obj?.oneOf || obj?.anyOf) {
-      console.log("untreated type: 8", obj);
+      // console.log("untreated type: 8", obj);
       if (isReferenceObject(obj.allOf?.["0"])) {
         prop.$ref = obj.allOf["0"].$ref;
       } else {
-        console.log("untreated type: 9", obj.allOf?.["0"]);
+        // console.log("untreated type: 9", obj.allOf?.["0"]);
       }
     }
 
     if (obj?.properties) {
-      console.log("untreated type: 6", obj);
+      // console.log("untreated type: 6", obj);
       continue;
     }
 

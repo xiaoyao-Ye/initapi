@@ -72,7 +72,7 @@ const useArgs = (args: (ParameterObject | ReferenceObject)[] = []) => {
   for (const item of args) {
     // TS 类型存在 ReferenceObject , 但是实际好像并不会有, 所以暂不处理此类型
     if (isReferenceObject(item)) {
-      console.log("untreated type: 1 ReferenceObject", item);
+      // console.log("untreated type: 1 ReferenceObject", item);
       continue;
     }
 
@@ -129,7 +129,7 @@ const useRequestBody = (obj: RequestBodyObject | ReferenceObject | undefined): D
       //   })
       // }
       if (isSchemaObjectTypeArray(prop.type)) {
-        console.log("untreated type: 5", prop);
+        // console.log("untreated type: 5", prop);
         continue;
       }
 
