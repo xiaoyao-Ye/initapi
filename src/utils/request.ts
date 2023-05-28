@@ -1,27 +1,27 @@
 import converter from "swagger2openapi";
-import { OpenAPIObject } from "openapi3-ts/dist/mjs";
+import type { OpenAPIObject } from "openapi3-ts/dist/mjs";
 import { isHttp, readJson } from "./index";
 import axios from "axios";
 
-export async function getInitData(url: string) {
-  let data: OpenAPIObject;
-  if (!isHttp(url)) {
-    data = readJson(url);
-  } else {
-    try {
+export const getInitData = async (url: string): Promise<OpenAPIObject> => {
+  try {
+    let data: OpenAPIObject;
+    if (!isHttp(url)) {
+      data = readJson(url);
+    } else {
       const res = await axios.get(url);
       data = res.data;
-    } catch (error: any) {
-      throw new Error(error);
     }
+
+    if (!data?.openapi) data = await transformOpenApi(data);
+
+    return data;
+  } catch (error) {
+    throw new Error(error);
   }
+};
 
-  if (!data?.openapi) data = await transformOpenApi(data);
-
-  return data;
-}
-
-const transformOpenApi = async (data: OpenAPIObject) => {
+const transformOpenApi = async (data: OpenAPIObject): Promise<OpenAPIObject> => {
   const { openapi } = await (converter as any).convertObj(data, { patch: true, warnOnly: true });
   return openapi;
 };

@@ -2,7 +2,7 @@ import { isAbsolute, join } from "path";
 import fs from "fs";
 import jiti from "jiti";
 
-export function tryRequire(id: string, rootDir: string = process.cwd()) {
+export const tryRequire = (id: string, rootDir: string = process.cwd()) => {
   const _require = jiti(rootDir, { interopDefault: true });
   try {
     return _require(id);
@@ -12,7 +12,7 @@ export function tryRequire(id: string, rootDir: string = process.cwd()) {
     }
     return {};
   }
-}
+};
 
 /**
  * 读取json文件
@@ -45,9 +45,9 @@ export const clearCRLF = (desc: string) => (desc ?? "").replace(/\r\n/g, "");
  * @param funcName 函数名称
  * @returns 函数名称首字母小写
  */
-export function toLowerCaseFirst(funcName: string = "") {
+export const toLowerCaseFirst = (funcName: string = "") => {
   return funcName.charAt(0).toLowerCase() + funcName.slice(1);
-}
+};
 
 /**
  * 根据url获取函数名称 去除url中的 {} 内容
@@ -55,7 +55,7 @@ export function toLowerCaseFirst(funcName: string = "") {
  * @param className api的class name
  * @returns 函数名称
  */
-export function getFuncName(url: string, className: string): string {
+export const getFuncName = (url: string, className: string): string => {
   const reg = /\/{[\w]*\}/g;
   const urlStr = url.replace(reg, "");
   const urlArr = urlStr.split("/");
@@ -67,7 +67,7 @@ export function getFuncName(url: string, className: string): string {
     .map(m => m.charAt(0).toUpperCase() + m.slice(1))
     .join("");
   return toLowerCaseFirst(name || urlArr[urlArr.length - 1]);
-}
+};
 
 /**
  * 根据openApi规则生成函数名称
@@ -76,7 +76,7 @@ export function getFuncName(url: string, className: string): string {
  * @param method 请求方法
  * @returns 函数名称
  */
-export function getFuncNameByOpenApi(url: string, className: string, method: string): string {
+export const getFuncNameByOpenApi = (url: string, className: string, method: string): string => {
   // 移除url字符串中的花括号
   const reg = /\{|\}/g;
   const urlStr = url.replace(reg, "");
@@ -84,7 +84,7 @@ export function getFuncNameByOpenApi(url: string, className: string, method: str
   const index = urlArr.findIndex(f => f === className);
   const name = urlArr.splice(index + 1).join("_");
   return `${method}_${name}`;
-}
+};
 
 /**
  * 传入注释字符串 不为空则返回 \/** desc *\/ 格式
@@ -99,7 +99,7 @@ export const Desc = (desc: string) => {
  * @param str xx-xx-xx
  * @returns xxXxXx
  */
-export const toCamelCase = str => {
+export const toCamelCase = (str: string) => {
   return str.replace(/(-\w)/g, m => m[1].toUpperCase()).replace(/-/g, "");
 };
 

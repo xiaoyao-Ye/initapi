@@ -5,14 +5,15 @@ export const createApiTS = (
   apiTagInfo: { [className: string]: { desc: string; tagInfo: ApiInfo[] } },
   entityEnumNameList: string[],
 ) => {
-  let importNameList: string[] = [];
+  const importNameList = new Set<string>();
 
-  let apiList = [];
+  const apiList = [];
 
-  for (let tagName in apiTagInfo) {
-    tagName = entityEnumNameList.includes(tagName) ? `${tagName}Api` : tagName;
-    let nameRepeat: { [prop: string]: number } = {};
-    const funcList = apiTagInfo[tagName].tagInfo.map(apiInfo => {
+  for (let [tagName, { desc, tagInfo }] of Object.entries(apiTagInfo)) {
+    const nameRepeat: Indexable = {};
+    const funcList = [];
+
+    for (const apiInfo of tagInfo) {
       // 后端没有返回正确函数名称的时候, 根据url生成
       // let funcName = apiInfo.funcName ? toLowerCaseFirst(apiInfo.funcName) : getFuncName(apiInfo.url, tagName)
       let funcName = apiInfo.funcName
@@ -35,12 +36,14 @@ export const createApiTS = (
         .map(e => `${e}: ${e},`)
         .join("\n  ");
 
-      return { url: apiInfo.url, method: mode, funcName, desc, args, req, res };
-    });
-    apiList.push({ tagName, desc: Desc(apiTagInfo[tagName].desc), funcList });
+      funcList.push({ url: apiInfo.url, method: mode, funcName, desc, args, req, res });
+    }
+
+    tagName = entityEnumNameList.includes(tagName) ? `${tagName}Api` : tagName;
+    apiList.push({ tagName, desc: Desc(desc), funcList });
   }
 
-  let importEntityName = [...new Set(importNameList)].join(", ");
+  const importEntityName = [...importNameList].join(", ");
 
   return { apiList, importEntityName };
 };
@@ -55,7 +58,7 @@ const handleRepeatName = (funcName: string, nameRepeat: Indexable) => {
 };
 
 /** 是否存在路由传参, 存在则处理url */
-const hasHandlePath = (apiInfo: ApiInfo, importNameList: string[]) => {
+const hasHandlePath = (apiInfo: ApiInfo, importNameList: Set<string>) => {
   if (!apiInfo.path?.length) return;
   const propList = apiInfo.path.map(item => {
     apiInfo.url = apiInfo.url.replace(`{${item.name}}`, `\${path.${item.name}}`);
@@ -65,14 +68,14 @@ const hasHandlePath = (apiInfo: ApiInfo, importNameList: string[]) => {
 };
 
 /** 是否存在params传参 */
-const hasHandleParams = (apiInfo: ApiInfo, importNameList: string[]) => {
+const hasHandleParams = (apiInfo: ApiInfo, importNameList: Set<string>) => {
   if (!apiInfo.params?.length) return;
   const propList = apiInfo.params.map(q => `${q.name}?: ${transType(q.schema, importNameList)}`);
   return `params?: {${propList.join(", ")}}`;
 };
 
 /** 是否存在data传参 */
-const hasHandleData = (apiInfo: ApiInfo, importNameList: string[]) => {
+const hasHandleData = (apiInfo: ApiInfo, importNameList: Set<string>) => {
   if (!Object.keys(apiInfo.data ?? {}).length) return;
   let data;
   if (apiInfo.data?.isFormData) {
@@ -89,7 +92,7 @@ const hasHandleData = (apiInfo: ApiInfo, importNameList: string[]) => {
 };
 
 /** api的返回类型 */
-const handleResType = (apiInfo: ApiInfo, importNameList: string[]) => {
+const handleResType = (apiInfo: ApiInfo, importNameList: Set<string>) => {
   if (!Object.keys(apiInfo.res ?? {}).length) return "void";
   return transType(apiInfo.res, importNameList);
 };
@@ -99,10 +102,10 @@ const handleResType = (apiInfo: ApiInfo, importNameList: string[]) => {
  * @param schema 类型过于复杂参考 EntityPropInfo | SchemaObject | ReferenceObject
  * @param importNameList 记录DTO
  */
-export const transType = (schema: any = {}, importNameList?: string[]): string => {
+export const transType = (schema: any = {}, importNameList?: Set<string>): string => {
   if (schema.$ref) {
     const DTO_NAME = replaceSpecialChars(schema.$ref.split("/").pop());
-    importNameList && importNameList.push(DTO_NAME);
+    importNameList && importNameList.add(DTO_NAME);
     return DTO_NAME;
   }
 

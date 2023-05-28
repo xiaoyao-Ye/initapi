@@ -8,9 +8,8 @@ export const formatEntityEnum = (data: { [schema: string]: SchemaObject | Refere
   const entityNameList: string[] = [];
   const enumNameList: string[] = [];
 
-  for (const schemaName in data) {
+  for (const [schemaName, obj] of Object.entries(data)) {
     if (!data.hasOwnProperty(schemaName)) continue;
-    const obj = data[schemaName];
     // ReferenceObject 类型不需要格式化
     if (isReferenceObject(obj)) {
       console.log("untreated type: 3", obj);
@@ -45,10 +44,9 @@ export const formatEntityEnum = (data: { [schema: string]: SchemaObject | Refere
 
 const formatEntityPropList = (properties: { [propertyName: string]: SchemaObject | ReferenceObject }) => {
   const propList: Array<EntityPropInfo> = [];
-  for (const propName in properties) {
+  // TODO: 为了便于类型转换成 obj 先强行转类型
+  for (const [propName, obj] of Object.entries<(SchemaObject & ReferenceObject) | any>(properties)) {
     if (!properties.hasOwnProperty(propName)) continue;
-    // TODO: 为了便于类型转换成 propList 先强行转类型
-    const obj = properties[propName] as SchemaObject & ReferenceObject;
     let prop: EntityPropInfo;
 
     // // ReferenceObject 类型优先处理(排除)
@@ -82,16 +80,16 @@ const formatEntityPropList = (properties: { [propertyName: string]: SchemaObject
       items: obj?.items,
       additionalProperties: obj?.additionalProperties,
     };
-    if (obj.allOf || obj.oneOf || obj.anyOf) {
+    if (obj?.allOf || obj?.oneOf || obj?.anyOf) {
       console.log("untreated type: 8", obj);
-      if (isReferenceObject(obj.allOf["0"])) {
+      if (isReferenceObject(obj.allOf?.["0"])) {
         prop.$ref = obj.allOf["0"].$ref;
       } else {
-        console.log("untreated type: 9", obj.allOf["0"]);
+        console.log("untreated type: 9", obj.allOf?.["0"]);
       }
     }
 
-    if (obj.properties) {
+    if (obj?.properties) {
       console.log("untreated type: 6", obj);
       continue;
     }

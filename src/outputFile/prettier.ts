@@ -58,6 +58,6 @@ export default async function format(code: string): Promise<string> {
  * 获取当前node运行目录下的 .prettier 文件的配置进行格式化
  */
 async function getOptions(): Promise<prettier.Options> {
-  const options = await tryRequire(path.join(process.cwd(), ".prettierrc"));
-  return { ...defaultOptions, ...options };
+  const options = await Promise.resolve(tryRequire(path.join(process.cwd(), ".prettierrc")));
+  return Object.assign({}, defaultOptions, options);
 }

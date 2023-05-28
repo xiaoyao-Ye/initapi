@@ -4,9 +4,10 @@ import { Desc, getFuncNameByOpenApi, toCamelCase, toLowerCaseFirst } from "../ut
 export const createApiJS = (apiTagInfo: { [className: string]: { desc: string; tagInfo: ApiInfo[] } }) => {
   let apiList = [];
 
-  for (const tagName in apiTagInfo) {
-    let nameRepeat: { [prop: string]: number } = {};
-    const funcList = apiTagInfo[tagName].tagInfo.map(apiInfo => {
+  for (const [tagName, { desc, tagInfo }] of Object.entries(apiTagInfo)) {
+    // for (const tagName in apiTagInfo) {
+    let nameRepeat: Indexable = {};
+    const funcList = tagInfo.map(apiInfo => {
       // 后端没有返回正确函数名称的时候, 根据url生成
       // let funcName = apiInfo.funcName ? toLowerCaseFirst(apiInfo.funcName) : getFuncName(apiInfo.url, tagName)
       let funcName = apiInfo.funcName
@@ -22,7 +23,7 @@ export const createApiJS = (apiTagInfo: { [className: string]: { desc: string; t
       const mode = apiInfo.mode.toUpperCase();
       const desc = Desc(`${apiInfo.summary}${apiInfo.desc ? "-" + apiInfo.desc : ""}`);
       const args = [withPath && "path", withParams && "params", withData && "data"].filter(f => f).join(", ");
-      const req = [withParams ? "params" : "", withData ? "data" : ""]
+      const req = [withParams && "params", withData && "data"]
         .filter(f => f)
         .map(e => `${e.split(":")[0]}: ${e.split(":")[0]},`)
         .join("\n  ");
@@ -31,7 +32,7 @@ export const createApiJS = (apiTagInfo: { [className: string]: { desc: string; t
       return { url: apiInfo.url, method: mode, funcName, desc, args, req };
     });
 
-    apiList.push({ tagName, desc: Desc(apiTagInfo[tagName].desc), funcList });
+    apiList.push({ tagName, desc: Desc(desc), funcList });
   }
 
   return { apiList };

@@ -5,9 +5,10 @@ import {
   ParameterObject,
   ReferenceObject,
   RequestBodyObject,
-  SchemaObject,
+  // SchemaObject,
   ResponsesObject,
   TagObject,
+  ResponseObject,
 } from "openapi3-ts/dist/mjs";
 import { ApiInfo, Params, isReferenceObject, Data, isSchemaObjectTypeArray } from "../type";
 import { clearCRLF, replaceSpecialChars } from "../utils";
@@ -16,9 +17,8 @@ export const formatApi = (data: PathsObject, tags: TagObject[]) => {
   // const apiClassInfo: { [className: string]: ApiInfo[] } = {};
   const apiTagInfo: { [className: string]: { desc: string; tagInfo: ApiInfo[] } } = {};
   // const apiTagInfo: { tagName: string, desc: string, tagInfo: ApiInfo}[] = [];
-  for (const PATH in data) {
-    const API_INFO: PathItemObject = data[PATH];
-    for (const MODE in API_INFO) {
+  for (const [PATH, API_INFO] of Object.entries<PathItemObject | any>(data)) {
+    for (const [MODE, API] of Object.entries<OperationObject>(API_INFO)) {
       const modeList = [
         "get",
         "put",
@@ -38,7 +38,6 @@ export const formatApi = (data: PathsObject, tags: TagObject[]) => {
         "TRACE",
       ];
       if (!modeList.includes(MODE)) continue;
-      const API: OperationObject = API_INFO[MODE];
 
       const { path, params } = useArgs(API.parameters);
       const body = useRequestBody(API.requestBody);
@@ -57,7 +56,7 @@ export const formatApi = (data: PathsObject, tags: TagObject[]) => {
 
       const API_TAG_NAME = replaceSpecialChars(API.tags?.[0] ?? "Common");
       if (!apiTagInfo[API_TAG_NAME]) {
-        const desc = tags?.filter(f => f.name === API_TAG_NAME)?.[0]?.description;
+        const desc = tags?.find(tag => tag.name === API_TAG_NAME)?.description;
         apiTagInfo[API_TAG_NAME] = { desc: clearCRLF(desc ?? ""), tagInfo: [] };
       }
       apiTagInfo[API_TAG_NAME].tagInfo.push(apiInfo);
@@ -70,9 +69,7 @@ const useArgs = (args: (ParameterObject | ReferenceObject)[] = []) => {
   const path: Params[] = [];
   const params: Params[] = [];
 
-  for (var i = 0; i < args.length; i++) {
-    const item = args[i];
-
+  for (const item of args) {
     // TS 类型存在 ReferenceObject , 但是实际好像并不会有, 所以暂不处理此类型
     if (isReferenceObject(item)) {
       console.log("untreated type: 1 ReferenceObject", item);
@@ -101,7 +98,7 @@ const useRequestBody = (obj: RequestBodyObject | ReferenceObject | undefined): D
   if (!obj || !Object.keys(obj).length) return {};
   if (isReferenceObject(obj)) return { schema: { $ref: obj.$ref } };
 
-  const firstKey = Object.keys(obj.content)[0];
+  const firstKey = Object.keys(obj.content ?? {})[0];
   /** 不存在 mediaType, 没有请求参数 */
   if (!firstKey) return {};
 
@@ -116,7 +113,8 @@ const useRequestBody = (obj: RequestBodyObject | ReferenceObject | undefined): D
   if (schema.type === "object") {
     const propList: { $ref?: string; name: string; type: string; desc: string; nullable: boolean }[] = [];
     // const propList: (ReferenceObject | SchemaObject)[] = [];
-    for (const propName in schema.properties) {
+    // TODO: 为了便于类型转换成 prop 先强行转类型
+    for (const [propName, prop] of Object.entries<any>(schema.properties ?? {})) {
       // const prop: ReferenceObject | SchemaObject = schema.properties[propName];
       // if (isReferenceObject(prop)) {
       //   propList.push({ name: propName, $ref: prop.$ref });
@@ -130,8 +128,6 @@ const useRequestBody = (obj: RequestBodyObject | ReferenceObject | undefined): D
       //     nullable: prop.nullable ?? false
       //   })
       // }
-      // TODO: 为了便于类型转换成 propList 先强行转类型
-      const prop = schema.properties[propName] as ReferenceObject & SchemaObject;
       if (isSchemaObjectTypeArray(prop.type)) {
         console.log("untreated type: 5", prop);
         continue;
@@ -151,9 +147,8 @@ const useRequestBody = (obj: RequestBodyObject | ReferenceObject | undefined): D
 };
 
 const useResponses = (obj: ResponsesObject) => {
-  /** key 是 default 或者请求成功的响应状态码(200) */
-  for (const key in obj) {
-    const item = obj[key];
+  /** _key 是 default 或者请求成功的响应状态码(200) */
+  for (const [_key, item] of Object.entries<ResponseObject | ReferenceObject>(obj)) {
     if (isReferenceObject(item)) return { $ref: item.$ref };
     if (!item.content) continue;
     /**
