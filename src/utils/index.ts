@@ -127,3 +127,28 @@ export const replaceSpecialChars = (str: string): string => {
   const regex = /[^\u4e00-\u9fa5\w]/g;
   return str.replace(regex, "_");
 };
+
+export const getCommonPrefix = (list: string[]): string => {
+  let obj = {};
+  list.forEach(url => {
+    const arr = url.split("/");
+    for (let i = 1; i < arr.length - 1; i++) {
+      const key = "/" + arr.slice(1, i + 1).join("/");
+      obj[key] = obj[key] ? obj[key] + 1 : 1;
+    }
+  });
+
+  const sortedEntries = Object.entries(obj).sort((a: [string, number], b: [string, number]) => b[1] - a[1]);
+  const [maxKey, secondKey] = sortedEntries.slice(0, 2).map(entry => entry[0]);
+
+  if (obj[maxKey] - obj[secondKey] < list.length / 10) return secondKey;
+
+  return maxKey;
+};
+
+export const wordToUpperCase = (str: string) => {
+  return str
+    .split("_")
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .join("");
+};

@@ -9,7 +9,8 @@ import { resolve } from "path";
 
 export const main = async () => {
   // 获取配置文件
-  const { service, importAxios, useAxios, outputDir, outputType, definition, indexable, enumMode } = await getConfig();
+  const { service, importAxios, useAxios, outputDir, outputType, definition, indexable, enumMode, commonPrefix } =
+    await getConfig();
 
   // 命令行交互
   const { url, fileType, serviceName } = await useInquirer(service, outputType);
@@ -23,7 +24,7 @@ export const main = async () => {
   const fileName = serviceName || toLowerCaseFirst(Object.keys(data.paths)[0].split("/")[1]);
 
   // 格式化api信息
-  const apiTagInfo = formatApi(data.paths, data.tags);
+  const apiTagInfo = formatApi(data.paths, data.tags, commonPrefix);
 
   // 根据类型创建模板生成对应文件
   if (fileType === "TypeScript") {

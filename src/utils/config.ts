@@ -31,6 +31,9 @@ export interface UserConfig {
    * type: 生成类型别名
    */
   enumMode?: "enum" | "type";
+  /** api地址公共前缀-用于创建 class 名称或者文件名称 */
+  commonPrefix?: string;
+
   /** entity class construct */
   /** api 返回类型默认值 Object.assign 或 new class(有一个问题是需要分辨是enum还是class) 理论上后端或者前端自行处理比较合理, api处理作用将不再单一 */
 }
@@ -54,6 +57,7 @@ const defaultOptions = (): UserConfig => ({
   definition: "interface",
   indexable: false,
   enumMode: "type",
+  commonPrefix: "",
 });
 
 export const getConfig = async (): Promise<UserConfig> => {

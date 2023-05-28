@@ -11,9 +11,11 @@ import {
   ResponseObject,
 } from "openapi3-ts/dist/mjs";
 import { ApiInfo, Params, isReferenceObject, Data, isSchemaObjectTypeArray } from "../type";
-import { clearCRLF, replaceSpecialChars } from "../utils";
+import { clearCRLF, getCommonPrefix, replaceSpecialChars, wordToUpperCase } from "../utils";
 
-export const formatApi = (data: PathsObject, tags: TagObject[]) => {
+export const formatApi = (data: PathsObject, tags: TagObject[], commonPrefix: string) => {
+  if (!commonPrefix) commonPrefix = getCommonPrefix(Object.keys(data));
+
   // const apiClassInfo: { [className: string]: ApiInfo[] } = {};
   const apiTagInfo: { [className: string]: { desc: string; tagInfo: ApiInfo[] } } = {};
   // const apiTagInfo: { tagName: string, desc: string, tagInfo: ApiInfo}[] = [];
@@ -54,7 +56,17 @@ export const formatApi = (data: PathsObject, tags: TagObject[]) => {
         res: res,
       };
 
-      const API_TAG_NAME = replaceSpecialChars(API.tags?.[0] ?? "Common");
+      let API_TAG_NAME = replaceSpecialChars(API.tags?.[0] ?? "Common");
+      if (/[\u4e00-\u9fa5]/g.test(API_TAG_NAME)) {
+        if (PATH.includes(commonPrefix)) {
+          API_TAG_NAME = PATH.split(commonPrefix)[1].split("/").slice(1, 2).join("/");
+        } else {
+          API_TAG_NAME = PATH.split("/").slice(1, 3).join("/");
+        }
+        API_TAG_NAME = replaceSpecialChars(API_TAG_NAME);
+      }
+      API_TAG_NAME = wordToUpperCase(API_TAG_NAME);
+
       if (!apiTagInfo[API_TAG_NAME]) {
         const desc = tags?.find(tag => tag.name === API_TAG_NAME)?.description;
         apiTagInfo[API_TAG_NAME] = { desc: clearCRLF(desc ?? ""), tagInfo: [] };
