@@ -23,17 +23,16 @@ export async function useInquirer(
       choices: [...serviceNameList],
       // choices: [...serviceNameList, 'custom'],
     },
-  ];
-
-  if (typeof outputType === "undefined") {
-    rule.unshift({
+    {
       name: "fileType",
       message: "请选择您需要生成的 API 类型:",
       type: "list",
       default: "TypeScript",
       choices: ["TypeScript", "JavaScript"],
-    });
-  }
+    },
+  ];
+
+  if (typeof outputType !== "undefined") rule.pop();
 
   let url;
   const { fileType, serviceName } = await inquirer.prompt(rule);
