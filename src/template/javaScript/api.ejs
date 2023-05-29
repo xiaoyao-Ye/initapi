@@ -8,12 +8,12 @@
 export class <%= tagName %> {
   <% funcList.forEach((item) => { %>
     <%= item.desc %>
-    static async <%= item.funcName %>(<%- item.args %>) {
+    static <%= item.funcName %>(<%- item.args %>) {
       return <%= useAxios %>({
         url: `<%- item.url %>`,
         method: '<%= item.method %>',
         <%- item.req %>
-      })
+      });
     }
   <% }) %>
 }

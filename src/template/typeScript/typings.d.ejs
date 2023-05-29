@@ -9,7 +9,7 @@ export <%= definition %> <%= item.name %> {
     <%= prop.name %>?: <%- transType(prop) %>
   <%  }); %>
   <%- indexableTemplate -%>
-}
+};
 <% }); %>
 
 <% enumInfoList.forEach(item => { %>
@@ -19,7 +19,7 @@ export enum <%= item.name %> {
   <% item.enumList.forEach(key => { -%>
     "<%= key %>" = "<%= key %>",
   <%  }); %>
-}
+};
 <% } else if (enumMode === 'type') { %>
 export type <%= item.name %> = <%- item.enumList.map(key => `"${key}"`).join(' | ') %>
 <% } %>

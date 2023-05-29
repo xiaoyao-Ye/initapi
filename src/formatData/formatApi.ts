@@ -56,22 +56,26 @@ export const formatApi = (data: PathsObject, tags: TagObject[], commonPrefix: st
         res: res,
       };
 
+      // 这里的几个 NAME 顺序不能错, 谨慎修改
       let API_TAG_NAME = replaceSpecialChars(API.tags?.[0] ?? "Common");
-      if (/[\u4e00-\u9fa5]/g.test(API_TAG_NAME)) {
+      const withChinese = /[\u4e00-\u9fa5]/g.test(API_TAG_NAME);
+      let TRANS_API_TAG_NAME = API_TAG_NAME;
+      if (withChinese) {
         if (PATH.includes(commonPrefix)) {
-          API_TAG_NAME = PATH.split(commonPrefix)[1].split("/").slice(1, 2).join("/");
+          TRANS_API_TAG_NAME = PATH.split(commonPrefix)[1].split("/").slice(1, 2).join("/");
         } else {
-          API_TAG_NAME = PATH.split("/").slice(1, 3).join("/");
+          TRANS_API_TAG_NAME = PATH.split("/").slice(1, 3).join("/");
         }
-        API_TAG_NAME = replaceSpecialChars(API_TAG_NAME);
+        TRANS_API_TAG_NAME = replaceSpecialChars(TRANS_API_TAG_NAME);
       }
-      API_TAG_NAME = wordToUpperCase(API_TAG_NAME);
+      const API_TAG_NAME_Upper = wordToUpperCase(TRANS_API_TAG_NAME);
 
-      if (!apiTagInfo[API_TAG_NAME]) {
-        const desc = tags?.find(tag => tag.name === API_TAG_NAME)?.description;
-        apiTagInfo[API_TAG_NAME] = { desc: clearCRLF(desc ?? ""), tagInfo: [] };
+      if (!apiTagInfo[API_TAG_NAME_Upper]) {
+        // 有中文的话, API_TAG_NAME是重命名的 tags 中肯定找不到匹配项 的描述
+        const desc = withChinese ? "" : tags?.find(tag => tag.name === API_TAG_NAME)?.description;
+        apiTagInfo[API_TAG_NAME_Upper] = { desc: clearCRLF(desc ?? ""), tagInfo: [] };
       }
-      apiTagInfo[API_TAG_NAME].tagInfo.push(apiInfo);
+      apiTagInfo[API_TAG_NAME_Upper].tagInfo.push(apiInfo);
     }
   }
   return apiTagInfo;

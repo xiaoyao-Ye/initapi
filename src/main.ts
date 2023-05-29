@@ -9,7 +9,7 @@ import { resolve } from "path";
 
 export const main = async () => {
   // 获取配置文件
-  const { service, importAxios, useAxios, outputDir, outputType, definition, indexable, enumMode, commonPrefix } =
+  const { service, importAxios, useAxios, outputDir, outputType, definition, indexable, enumMode, commonPrefix, multipleFiles } =
     await getConfig();
 
   // 命令行交互
@@ -30,8 +30,8 @@ export const main = async () => {
   if (fileType === "TypeScript") {
     const indexableTemplate = indexable ? "[key: string]: any" : "";
     const { entityInfoList, enumInfoList, entityNameList, enumNameList } = formatEntityEnum(data.components?.schemas ?? {});
-    const { apiList, importEntityName } = createApiTS(apiTagInfo, [...entityNameList, ...enumNameList]);
-    const templateApi = await ejsRender("./template/typeScript/api.ejs", { apiList, importEntityName, importAxios, useAxios });
+    const { apiList, importEntityName } = createApiTS(apiTagInfo, [...entityNameList, ...enumNameList], multipleFiles);
+
     const templateEntity = await ejsRender("./template/typeScript/typings.d.ejs", {
       definition,
       enumMode,
@@ -41,12 +41,43 @@ export const main = async () => {
       Desc,
       transType,
     });
-    outputFile(outputDir, `${fileName}/api.${suffix}`, templateApi);
+    if (multipleFiles) {
+      apiList.forEach(async ({ desc, tagName, funcList, importNameList }) => {
+        const templateApi = await ejsRender("./template/typeScript/apiFiles.ejs", {
+          desc,
+          funcList,
+          importEntityName: [...importNameList].join(", "),
+          importAxios,
+          useAxios,
+        });
+        outputFile(outputDir, `${fileName}/${tagName}.${suffix}`, templateApi);
+      });
+    } else {
+      const templateApi = await ejsRender("./template/typeScript/api.ejs", {
+        apiList,
+        importEntityName: importEntityName.join(", "),
+        importAxios,
+        useAxios,
+      });
+      outputFile(outputDir, `${fileName}/api.${suffix}`, templateApi);
+    }
     outputFile(outputDir, `${fileName}/typings.d.${suffix}`, templateEntity);
   } else {
     const { apiList } = createApiJS(apiTagInfo);
-    const templateApi = await ejsRender("./template/javaScript/api.ejs", { apiList, importAxios, useAxios });
-    outputFile(outputDir, `${fileName}/api.${suffix}`, templateApi);
+    if (multipleFiles) {
+      apiList.forEach(async ({ desc, tagName, funcList }) => {
+        const templateApi = await ejsRender("./template/javaScript/apiFiles.ejs", {
+          desc,
+          funcList,
+          importAxios,
+          useAxios,
+        });
+        outputFile(outputDir, `${fileName}/${tagName}.${suffix}`, templateApi);
+      });
+    } else {
+      const templateApi = await ejsRender("./template/javaScript/api.ejs", { apiList, importAxios, useAxios });
+      outputFile(outputDir, `${fileName}/api.${suffix}`, templateApi);
+    }
   }
 };
 

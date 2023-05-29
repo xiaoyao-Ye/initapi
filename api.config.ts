@@ -11,6 +11,7 @@ export default defineConfig({
     test2: "./test/swagger2.json",
   },
   outputDir: "./src/api",
+  multipleFiles: true,
   // commonPrefix: "/web/v1.0",
   // outputType: 'TypeScript',
   // definition: 'class',

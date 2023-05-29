@@ -33,6 +33,11 @@ export interface UserConfig {
   enumMode?: "enum" | "type";
   /** api地址公共前缀-用于创建 class 名称或者文件名称 */
   commonPrefix?: string;
+  /**
+   * 启用多文件模式 default: false
+   * 单文件只创建api文件 多文件会将api拆分出所有controller生成对应文件
+   */
+  multipleFiles?: boolean;
 
   /** entity class construct */
   /** api 返回类型默认值 Object.assign 或 new class(有一个问题是需要分辨是enum还是class) 理论上后端或者前端自行处理比较合理, api处理作用将不再单一 */
@@ -58,6 +63,7 @@ const defaultOptions = (): UserConfig => ({
   indexable: false,
   enumMode: "type",
   commonPrefix: "",
+  multipleFiles: false,
 });
 
 export const getConfig = async (): Promise<UserConfig> => {

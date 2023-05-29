@@ -6,8 +6,10 @@ const sourceFiles = [
   ["./CHANGELOG.md", "./lib/CHANGELOG.md"],
   ["./README.md", "./lib/README.md"],
   ["./src/template/typeScript/api.ejs", "./lib/template/typeScript/api.ejs"],
+  ["./src/template/typeScript/apiFiles.ejs", "./lib/template/typeScript/apiFiles.ejs"],
   ["./src/template/typeScript/typings.d.ejs", "./lib/template/typeScript/typings.d.ejs"],
   ["./src/template/javaScript/api.ejs", "./lib/template/javaScript/api.ejs"],
+  ["./src/template/javaScript/apiFiles.ejs", "./lib/template/javaScript/apiFiles.ejs"],
 ];
 
 fs.mkdirSync(path.join(__dirname, "./lib/template/typeScript"), { recursive: true }, err => {
