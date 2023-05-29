@@ -8,14 +8,14 @@
   - [x] [medium] Enum 使用 enum 定义还是使用 type 定义
   - [ ] [low] 是否启用自定义功能, 默认否
   - [ ] [low] custom 选项应该让用户输入生成的文件名称
-  - [ ] [medium] 可配置指定的 prettier 文件?, 默认使用项目根目录的 (需要测试有哪几种格式, 存不存在问题)
+  - [ ] [medium] 可配置指定的 prettier 文件文件路径? 配置是否使用 自定义文件? 或者直接传递prettier.options对象
   - [ ] [low] 可配置类型(ts,js,flutter)? 还是单独做ts+js, flutter
 - [ ] [low] 根据 command 可以不进行 inquirer 交互
 - [x] defineConfig 类型(todo: 定义文档)
 - [x] [high] 当后端在 AppController(最外层) 编写接口, 并且没有设置(@ApiTags)时, AppController 里面的接口是没有tags的, 下面代码出现报错:
   - [x] `formatApi.js:31 -> const API_CLASS_NAME = API.tags[0];`
   - [x] 上面报错解决思路是所有没有 tags 的内容都加到一个公共的默认的 class 里面去, 负担就是className需要默认值?
-- [ ] [low] 可使用 fetch 请求?
+- [x] [low] 可使用 fetch 请求?
 - [ ] [low] 适配 uni, 小程序 请求?
 - [ ] [low] 生成js的话, js函数定义类型注释, path.xx 是什么作用
 - [x] nestjs项目中, Dto 引用其他的 class 作为属性的类型, 这个属性会有一个 allOf 属性的第0个是$ref, 而正常的是直接有$ref属性
@@ -27,20 +27,15 @@
 - [ ] [_high] 后端返回引用数据为null时, 前端生成最基本的数据结构(默认否)枚举和class分不清? 嵌套类型怎么处理? 如果需要这个功能必须是class才能new,interface应该不行
 - [ ] [medium] 官网文档
 - [ ] [medium] axios 返回类型res和实际返回类型res.data的类型定义(如果有fetch呢)
-- [ ] [medium] 允许本地 (swagger|openapi).json/yaml? 转换文档
+- [ ] [medium] 允许本地 (swagger|openapi).json/yaml? 转换文档(目前已经可以配置本地路径json)
 - [ ] [low] vscode, 网页在线转换等.
 - [ ] [high] oneAPI
   - [ ] params和path的参数注释,
   - [ ] 所有的api函数是否增加入参`options?: { [key: string]: any },`
-  - [ ] 是否根据 controller 划分api, 一个 controller 一个文件
+  - [x] 是否根据 controller 划分api, 一个 controller 一个文件, 多文件选项
   - [ ] entity是否声明为 `declare namespace Auth|API` 然后通过 `API.Dto` 去使用类型
 - [x] [high] 文件顶部提示:
 - [x] [high] 文件顶部initapi详情地址:
-
-```ts
-/* eslint-disable */
-// 该文件由 initAPI 自动生成，请勿手动修改！
-```
 
 - [ ] [low] mock
 - [x] [high] controller class enum 都没有备注
@@ -54,18 +49,15 @@
 - [ ] publish 如果依赖报错, 可能是需要 `npm i` 之后在 `npm publish`, 待确定. 也有可能是 `splitting: true` 导致
 - [x] version 先是 alpha 然后是 beta, 但是beta的主版本必须是接着alpha来
 - [x] class类名称可能有-这种特殊符号, 将匹配所有非中文、数字、字母和下划线的字符替换为下划线
-- [ ] class类名称可能是中文, 这个类名称理论上需要判断, 如果是英文就直接过滤特殊字符使用, 如果是中英需要截取? 如果是中文, 需要在别的地方找名称, 比如url中的一段一般都是跟class名称一致的
+- [x] class类名称可能是中文, 这个类名称理论上需要判断, 如果是英文就直接过滤特殊字符使用, 如果是中英需要截取? 如果是中文, 需要在别的地方找名称, 比如url中的一段一般都是跟class名称一致的
 - [ ] 函数中params部分生成比较奇怪需要调试看一下(排查发现是swagger文件错误, 或许是后端填写文档错误)
-- [ ] interface有些是数字下划线或者-这种要处理一下, 然后调试查看为什么是数字(后端命名导致)
-- [ ] 函数名称有很多post_x get_x需要查看是怎么回事(后端命名导致, 项目当前使用openapi3规范命名)
+- [x] interface有些是数字下划线或者-这种要处理一下, 然后调试查看为什么是数字(后端命名导致)(swagger2openapi将中文名称转换后结果)
+- [x] 函数名称有很多post_x get_x需要查看是怎么回事(后端命名导致, 项目当前使用openapi3规范命名)
 - [x] 获取本地json的地址, 会是在node_modules中, 实际应该是根据项目运行命令的位置进行拼接
 - [ ] 之前生成dart对接函数会有一个问题就是前端可能需要在接口定义的类型实体上加某个前端使用的属性, 而因为生成的类型和子类型会存在不能赋值的问题, 但是使用patch那个包应该可以解决这个问题?
 - [ ] more...
 
-多文件
-prettier格式化获取目标文件优化, 配置是否使用 自定义文件? 文件路径?
-copilot-x优化代码, 简化代码, 单元测试
-文档前面增加生成的示例代码截图
-编写文档 为什么有这个项目, 为什么需要, 有哪些作用好处, 有哪些限制
-推广blog介绍项目, 可以做什么, 为什么有这个项目, 怎么使用等.
-因为有tsup打包, 原本的工程配置可以加上了(有个问题就是package.json会变得比较臃肿, 一些不需要的内容也会传上去)
+- [ ] 编写文档 为什么有这个项目, 为什么需要, 有哪些作用好处, 有哪些限制
+- [ ] 推广blog介绍项目, 可以做什么, 为什么有这个项目, 怎么使用等.
+- [ ] 新增配置 文档无函数名称时会尝试自动生成, 1.以前的方式 2.目前openapi的方式
+- [ ] 优化代码, 简化代码, 单元测试

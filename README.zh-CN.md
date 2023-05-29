@@ -92,6 +92,7 @@ defineConfig 的详细配置项
 | indexable    | 使用索引签名的优点是可以添加任意数量的属性，使得`interface` or `class` 更加灵活；缺点是可能会导致属性的值类型不确定 | `boolean`                    | 否       | false                        |
 | enumMode     | 定义枚举的方式(enum: 生成枚举类型 type: 生成类型别名)        | `enum` or `type`             | 否       | type                         |
 | commonPrefix | api地址公共前缀, 用于生成class名称和文件名称, 未配置时会自动尝试找出公共前缀 | `string`                     | 否       | ''                           |
+| multiple | 启用多文件模式-单文件只创建api文件 多文件会将api拆分出所有controller生成对应文件 | `boolean`                     | 否       | false                           |
 
 ## Default
 

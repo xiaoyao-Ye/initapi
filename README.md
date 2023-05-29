@@ -91,6 +91,7 @@ Detailed configuration items for defineConfig
 | indexable    | The advantage of using index signature is that it can add any number of attributes, making `interface` or `class` more flexible; The disadvantage is that it may cause uncertainty in the value type of the attribute | `boolean`                    | No       | false                        |
 | enumMode     | How to define enumeration (enum: generate enumeration type. type: generate type alias.) | `enum` or `type`             | No       | type                         |
 | commonPrefix | API address public prefix, used to generate class names and file names. When not configured, it will automatically attempt to find the public prefix | `string`                     | No       | ''                           |
+| multiple | Enable multi file mode - single file only creates API files. Multiple files will split the API into all controllers and generate corresponding files | `boolean`                     | No       | false                           |
 
 ## Default
 
