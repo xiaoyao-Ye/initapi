@@ -1,0 +1,62 @@
+{
+  "name": "initapi",
+  "version": "0.0.4",
+  "description": "A tool for creating API and typings",
+  "module": "./index.mjs",
+  "main": "./index.js",
+  "types": "./index.d.ts",
+  "scripts": {
+    "publish": "cd lib && npm publish",
+    "build": "tsup && node ./index.js"
+  },
+  "bin": {
+    "initapi": "./index.js"
+  },
+  "file": [
+    "lib"
+  ],
+  "keywords": [
+    "initapi",
+    "api",
+    "entity",
+    "openapi",
+    "swagger"
+  ],
+  "author": "xiaoyao-Ye",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/xiaoyao-Ye/initapi"
+  },
+  "bugs": {
+    "url": "https://github.com/xiaoyao-Ye/initapi/issues"
+  },
+  "homepage": "https://github.com/xiaoyao-Ye/initapi",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.27.2",
+    "chalk": "4.0.0",
+    "commander": "^10.0.0",
+    "ejs": "^3.1.9",
+    "fs-extra": "^10.1.0",
+    "inquirer": "8.0.0",
+    "jiti": "^1.16.0",
+    "openapi3-ts": "^4.1.2",
+    "ora": "5.4.1",
+    "prettier": "^2.7.1",
+    "semver": "^7.3.7",
+    "shelljs": "^0.8.5",
+    "swagger2openapi": "^7.0.8"
+  },
+  "devDependencies": {
+    "@esbuild-kit/esm-loader": "^2.4.1",
+    "@types/fs-extra": "^9.0.13",
+    "@types/inquirer": "^8.2.1",
+    "@types/node": "^18.0.3",
+    "@types/prettier": "^2.6.3",
+    "@types/semver": "^7.3.10",
+    "@types/shelljs": "^0.8.11",
+    "ts-node": "^10.8.2",
+    "tsup": "^6.7.0",
+    "typescript": "^4.7.4"
+  }
+}
