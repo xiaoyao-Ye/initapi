@@ -9,7 +9,7 @@ export async function useInquirer(
   swagger: Indexable<string>,
   outputType?: string,
 ): Promise<{
-  fileType: string;
+  fileSuffix: string;
   url: string;
   serviceName: string;
 }> {
@@ -50,5 +50,8 @@ export async function useInquirer(
   url = swagger[serviceName];
   // }
 
-  return { fileType: outputType ?? fileType, serviceName, url };
+  const FILE_TYPE = { TypeScript: "ts", JavaScript: "js" };
+  const fileSuffix = FILE_TYPE[outputType ?? fileType];
+
+  return { fileSuffix, serviceName, url };
 }
