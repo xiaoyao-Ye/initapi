@@ -11,6 +11,9 @@ const collectAPI = (source: PathsObject, tags: TagObject[], commonPrefix: string
   if (!commonPrefix) commonPrefix = getCommonPrefix(Object.keys(source));
 
   const apiMap: { [controller_name: string]: { description: string; apiList: Api[] } } = {};
+
+  const recordControllerName = {};
+
   for (const [url, pathItem] of Object.entries(source)) {
     for (const [method, API] of Object.entries<OperationObject | any>(pathItem)) {
       if (!isNeedCollect(method)) continue;
@@ -23,7 +26,14 @@ const collectAPI = (source: PathsObject, tags: TagObject[], commonPrefix: string
 
       const api: Api = { url, method, name: operationId, summary, description, path, params, data, response };
 
-      const controllerName = getControllerName(API.tags?.[0], tags);
+      const controllerName = getControllerName(API.tags?.[0], recordControllerName, commonPrefix, url);
+
+      if (!apiMap[controllerName]) {
+        const tag = tags.find(tag => tag.name === API.tags?.[0]);
+        apiMap[controllerName] = { description: tag?.description ?? "", apiList: [] };
+      }
+
+      apiMap[controllerName].apiList.push(api);
     }
   }
   return apiMap;

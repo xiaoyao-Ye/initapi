@@ -41,4 +41,12 @@ const getCommonPrefix = (list: string[]): string => {
   return maxKey;
 };
 
-export { isNeedCollect, replaceSpecialChars, getCommonPrefix, isEmpty };
+/** 将首字母以及下划线后的字母大写 */
+const wordToUpperCase = (str: string) => {
+  return str
+    .split("_")
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .join("");
+};
+
+export { isNeedCollect, replaceSpecialChars, getCommonPrefix, isEmpty, wordToUpperCase };
