@@ -90,4 +90,6 @@ interface Api {
 
 // entity 和 enum 本身就是 Schema 类型, 看下怎么处理
 
-export { Indexable, Schema, Data, Parameters, Api };
+type ApiMap = Record<string, { description: string; apiList: Api[] }>;
+
+export { Indexable, Schema, Data, Parameters, Api, ApiMap };
