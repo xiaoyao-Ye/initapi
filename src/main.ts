@@ -7,6 +7,7 @@ import { getConfig } from "./utils/config";
 import ejs from "ejs";
 import { resolve } from "path";
 import { collectAPI } from "./collect";
+import { generateAPI_TS } from "./generate/generateAPI_TS";
 
 export const main = async () => {
   // 获取配置文件
@@ -26,8 +27,11 @@ export const main = async () => {
   // 根据类型创建模板生成对应文件
   if (fileSuffix === "ts") {
     const indexableTemplate = indexable ? "[key: string]: any" : "";
+
     const { entityInfoList, enumInfoList, entityNameList, enumNameList } = formatEntityEnum(components?.schemas ?? {});
-    const { apiList, importEntityName } = createApiTS(apiMap, [...entityNameList, ...enumNameList], multipleFiles);
+    const entityEnumNameList = [...entityNameList, ...enumNameList];
+
+    const { controllerList, importAllType } = generateAPI_TS(apiMap, { commonPrefix, multipleFiles, entityEnumNameList });
 
     const templateEntity = await ejsRender("./template/typeScript/typings.d.ejs", {
       definition,
@@ -39,20 +43,20 @@ export const main = async () => {
       transType,
     });
     if (multipleFiles) {
-      apiList.forEach(async ({ desc, tagName, funcList, importNameList }) => {
+      controllerList.forEach(async ({ description, controllerName, funcList, importType }) => {
         const templateApi = await ejsRender("./template/typeScript/apiFiles.ejs", {
-          desc,
+          desc: description,
           funcList,
-          importEntityName: [...importNameList].join(", "),
+          importEntityName: importType,
           importAxios,
           useAxios,
         });
-        outputFile(outputDir, `${serviceName}/${tagName}.${fileSuffix}`, templateApi);
+        outputFile(outputDir, `${serviceName}/${controllerName}.${fileSuffix}`, templateApi);
       });
     } else {
       const templateApi = await ejsRender("./template/typeScript/api.ejs", {
-        apiList,
-        importEntityName: importEntityName.join(", "),
+        controllerList,
+        importEntityName: importAllType,
         importAxios,
         useAxios,
       });
