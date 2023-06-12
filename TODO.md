@@ -68,3 +68,5 @@
 ## Question
 
 swagger2openapi 目前发现越来越多转换后类型不一致的情况, 重构分支暂时只考虑openapi3格式, 或者找其他可以将swagger2.0转换为openapi3的包
+commonPrefix还是需要更改, 取第几个的问题
+importNameList这种传递过多, 在考虑能不能放到一个公共的地方, 记录name的地方调用一个函数把需要记录的传递进去就可以了, 需要用的时候调用get这个list

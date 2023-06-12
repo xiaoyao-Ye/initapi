@@ -2,3 +2,4 @@ node_modules/
 /dist/
 /lib/
 /src/api/
+/test/xx*
