@@ -1,8 +1,8 @@
-import { ReferenceObject, ResponseObject, ResponsesObject, isReferenceObject } from "openapi3-ts/oas31";
-import { Schema } from "../type";
+import { ReferenceObject, ResponseObject, ResponsesObject } from "openapi3-ts/oas31";
+import { Schema, isReferenceObject } from "../type";
 
 /** 收集 response 信息 */
-const getResponses = (responses: ResponsesObject): Schema => {
+const getResponses = (responses: ResponsesObject = {}): Schema => {
   for (const [_key, item] of Object.entries<ResponseObject | ReferenceObject>(responses)) {
     if (isReferenceObject(item)) return item;
     if (!item.content) continue;

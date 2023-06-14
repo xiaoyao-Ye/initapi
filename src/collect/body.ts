@@ -1,6 +1,6 @@
-import { ReferenceObject, RequestBodyObject, isReferenceObject } from "openapi3-ts/oas31";
+import { ReferenceObject, RequestBodyObject } from "openapi3-ts/oas31";
 import { isEmpty } from "./helper";
-import { Data } from "../type";
+import { Data, isReferenceObject } from "../type";
 
 /** 收集 request body 信息 */
 const getRequestBody = (requestBody: ReferenceObject | RequestBodyObject): Data => {
