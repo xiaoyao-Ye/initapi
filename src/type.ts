@@ -1,11 +1,7 @@
-import { ReferenceObject, SchemaObject, SchemaObjectType } from "openapi3-ts/oas31";
+import { ReferenceObject, SchemaObject } from "openapi3-ts/oas31";
 
 // export type Indexable<T = any> = Record<string, T>;
 // type Indexable = Record<string, any>
-/** 判读是否 ReferenceObject 类型 */
-// export function isReferenceObject(obj: ReferenceObject | any): obj is ReferenceObject {
-//   return obj.hasOwnProperty("$ref");
-// }
 
 /** 判断是否 SchemaObjectType[] 类型 */
 // export const isSchemaObjectTypeArray = (type: SchemaObjectType | SchemaObjectType[]): type is SchemaObjectType[] => {
@@ -50,6 +46,11 @@ import { ReferenceObject, SchemaObject, SchemaObjectType } from "openapi3-ts/oas
 
 // ============================== new ==============================
 
+/** 判断是否 ReferenceObject 类型 */
+const isReferenceObject = (obj: ReferenceObject | any = {}): obj is ReferenceObject => {
+  return obj.hasOwnProperty("$ref");
+};
+
 type Indexable<T = any> = { [key: string]: T };
 
 /** schema 类型, 处理openapi.json后拿到的数据都是明确的, 除了 schema 里面的属性, 有可能是 ReferenceObject, 也有可能是 SchemaObject */
@@ -89,7 +90,28 @@ interface Api {
 }
 
 // entity 和 enum 本身就是 Schema 类型, 看下怎么处理
+interface Enum {
+  name: string;
+  description: string;
+  enumList: string[];
+}
+
+interface Interface {
+  name: string;
+  description: string;
+  propList: InterfaceProp[];
+}
+
+interface InterfaceProp {
+  name: string;
+  description: string;
+  type?: string;
+  $ref?: string;
+  items?: Schema;
+  additionalProperties?: Schema | boolean;
+  propList?: InterfaceProp[];
+}
 
 type ApiMap = Record<string, { description: string; apiList: Api[] }>;
 
-export { Indexable, Schema, Data, Parameters, Api, ApiMap };
+export { Indexable, Schema, Data, Parameters, Api, ApiMap, Enum, Interface, InterfaceProp, isReferenceObject };
