@@ -1,4 +1,8 @@
-import { formatEntityEnum, createApiTS, transType, createApiJS } from "./formatData/index";
+import {
+  // formatEntityEnum,
+  transType,
+  // createApiJS
+} from "./formatData/index";
 import { outputFile } from "./outputFile/index";
 import { getInitData } from "./utils/request";
 import { Desc } from "./utils/index";
@@ -8,6 +12,8 @@ import ejs from "ejs";
 import { resolve } from "path";
 import { collectAPI } from "./collect";
 import { generateAPI_TS } from "./generate/generateAPI_TS";
+import { getDto } from "./collect/dto";
+import { OpenAPIObject } from "openapi3-ts/oas31";
 
 export const main = async () => {
   // 获取配置文件
@@ -18,7 +24,7 @@ export const main = async () => {
   const { url, fileSuffix, serviceName } = await useInquirer(service, outputType);
 
   // 获取 swagger/openapi 的json文件
-  const { paths, components, tags } = await getInitData(url);
+  const { paths, components, tags }: OpenAPIObject = await getInitData(url);
 
   // 格式化api信息
   // const apiTagInfo = formatApi(data.paths, data.tags, commonPrefix);
@@ -28,17 +34,17 @@ export const main = async () => {
   if (fileSuffix === "ts") {
     const indexableTemplate = indexable ? "[key: string]: any" : "";
 
-    const { entityInfoList, enumInfoList, entityNameList, enumNameList } = formatEntityEnum(components?.schemas ?? {});
-    const entityEnumNameList = [...entityNameList, ...enumNameList];
-
-    const { controllerList, importAllType } = generateAPI_TS(apiMap, { commonPrefix, multipleFiles, entityEnumNameList });
+    // const { entityInfoList, enumInfoList, entityNameList, enumNameList } = formatEntityEnum(components?.schemas ?? {});
+    const { interfaceList, interfaceNameList, enumList, enumNameList } = getDto(components.schemas);
+    const dtoNameList = [...interfaceNameList, ...enumNameList];
+    const { controllerList, importAllType } = generateAPI_TS(apiMap, { commonPrefix, multipleFiles, dtoNameList });
 
     const templateEntity = await ejsRender("./template/typeScript/typings.d.ejs", {
       definition,
       enumMode,
       indexableTemplate,
-      entityInfoList,
-      enumInfoList,
+      entityInfoList: interfaceList,
+      enumInfoList: enumList,
       Desc,
       transType,
     });
@@ -64,21 +70,21 @@ export const main = async () => {
     }
     outputFile(outputDir, `${serviceName}/typings.d.${fileSuffix}`, templateEntity);
   } else {
-    const { apiList } = createApiJS(apiMap);
-    if (multipleFiles) {
-      apiList.forEach(async ({ desc, tagName, funcList }) => {
-        const templateApi = await ejsRender("./template/javaScript/apiFiles.ejs", {
-          desc,
-          funcList,
-          importAxios,
-          useAxios,
-        });
-        outputFile(outputDir, `${serviceName}/${tagName}.${fileSuffix}`, templateApi);
-      });
-    } else {
-      const templateApi = await ejsRender("./template/javaScript/api.ejs", { apiList, importAxios, useAxios });
-      outputFile(outputDir, `${serviceName}/api.${fileSuffix}`, templateApi);
-    }
+    // const { apiList } = createApiJS(apiMap);
+    // if (multipleFiles) {
+    //   apiList.forEach(async ({ desc, tagName, funcList }) => {
+    //     const templateApi = await ejsRender("./template/javaScript/apiFiles.ejs", {
+    //       desc,
+    //       funcList,
+    //       importAxios,
+    //       useAxios,
+    //     });
+    //     outputFile(outputDir, `${serviceName}/${tagName}.${fileSuffix}`, templateApi);
+    //   });
+    // } else {
+    //   const templateApi = await ejsRender("./template/javaScript/api.ejs", { apiList, importAxios, useAxios });
+    //   outputFile(outputDir, `${serviceName}/api.${fileSuffix}`, templateApi);
+    // }
   }
 };
 
