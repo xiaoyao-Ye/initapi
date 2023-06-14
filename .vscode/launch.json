@@ -14,7 +14,14 @@
       "args": ["create"],
       "console": "integratedTerminal",
       "program": "${workspaceFolder}\\src\\index.ts",
-      "runtimeArgs": ["-r", "ts-node/register"]
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["tsx"],
+      // "runtimeArgs": ["tsx", "--enable-source-maps"],
+      // "runtimeArgs": ["--loader", "tsx"]
+      // "runtimeArgs": ["--require", "tsx/suppress-warnings", "tsx"],
+      // "runtimeArgs": ["-r", "@esbuild-kit/cjs-loader"]
+      // "runtimeArgs": ["-r", "ts-node/register"]
+      // "runtimeArgs": ["-r", "ts-node/register", "--loader", "ts-node/esm"],
     }
   ]
 }
