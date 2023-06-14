@@ -7,7 +7,7 @@ import { handleResponse } from "./handleResponse";
 import { useDescription } from "./helper";
 
 type Options = {
-  entityEnumNameList: string[];
+  dtoNameList: string[];
   commonPrefix?: string;
   multipleFiles?: boolean;
 };
@@ -28,7 +28,7 @@ type ControllerInfo = {
 };
 
 const generateAPI_TS = (apiMap: ApiMap, options: Options) => {
-  const { entityEnumNameList, commonPrefix, multipleFiles } = options;
+  const { dtoNameList, commonPrefix, multipleFiles } = options;
 
   const controllerList: ControllerInfo[] = [];
   const importAllType = new Set<string>();
@@ -54,7 +54,7 @@ const generateAPI_TS = (apiMap: ApiMap, options: Options) => {
       return { url, fnName, fnDescription, fnArgs, fnMethod, fnRequestBody, fnResponse };
     });
 
-    controllerName = entityEnumNameList.includes(controllerName) ? `${controllerName}Api` : controllerName;
+    controllerName = dtoNameList.includes(controllerName) ? `${controllerName}Api` : controllerName;
     description = useDescription(description);
 
     const controllerInfo: ControllerInfo = { controllerName, description, funcList, importType: "" };

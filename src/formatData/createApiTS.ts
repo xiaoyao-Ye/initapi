@@ -1,8 +1,8 @@
-import { ApiInfo, Indexable } from "../type";
+import { Indexable } from "../type";
 import { Desc, getFuncNameByOpenApi, replaceSpecialChars, toCamelCase, toLowerCaseFirst } from "../utils";
 
 export const createApiTS = (
-  apiTagInfo: { [className: string]: { desc: string; tagInfo: ApiInfo[] } },
+  apiTagInfo: { [className: string]: { desc: string; tagInfo: any[] } },
   entityEnumNameList: string[],
   multipleFiles: boolean,
 ) => {
@@ -63,7 +63,7 @@ const handleRepeatName = (funcName: string, nameRepeat: Indexable) => {
 };
 
 /** 是否存在路由传参, 存在则处理url */
-const hasHandlePath = (apiInfo: ApiInfo, importNameList: Set<string>) => {
+const hasHandlePath = (apiInfo: any, importNameList: Set<string>) => {
   if (!apiInfo.path?.length) return;
   const propList = apiInfo.path.map(item => {
     apiInfo.url = apiInfo.url.replace(`{${item.name}}`, `\${path.${item.name}}`);
@@ -73,14 +73,14 @@ const hasHandlePath = (apiInfo: ApiInfo, importNameList: Set<string>) => {
 };
 
 /** 是否存在params传参 */
-const hasHandleParams = (apiInfo: ApiInfo, importNameList: Set<string>) => {
+const hasHandleParams = (apiInfo: any, importNameList: Set<string>) => {
   if (!apiInfo.params?.length) return;
   const propList = apiInfo.params.map(q => `${q.name}?: ${transType(q.schema, importNameList)}`);
   return `params?: {${propList.join(", ")}}`;
 };
 
 /** 是否存在data传参 */
-const hasHandleData = (apiInfo: ApiInfo, importNameList: Set<string>) => {
+const hasHandleData = (apiInfo: any, importNameList: Set<string>) => {
   if (!Object.keys(apiInfo.data ?? {}).length) return;
   let data;
   if (apiInfo.data?.isFormData) {
@@ -97,7 +97,7 @@ const hasHandleData = (apiInfo: ApiInfo, importNameList: Set<string>) => {
 };
 
 /** api的返回类型 */
-const handleResType = (apiInfo: ApiInfo, importNameList: Set<string>) => {
+const handleResType = (apiInfo: any, importNameList: Set<string>) => {
   if (!Object.keys(apiInfo.res ?? {}).length) return "void";
   return transType(apiInfo.res, importNameList);
 };

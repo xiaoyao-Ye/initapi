@@ -1,7 +1,7 @@
-import { ApiInfo, Indexable } from "../type";
+import { Indexable } from "../type";
 import { Desc, getFuncNameByOpenApi, toCamelCase, toLowerCaseFirst } from "../utils";
 
-export const createApiJS = (apiTagInfo: { [className: string]: { desc: string; tagInfo: ApiInfo[] } }) => {
+export const createApiJS = (apiTagInfo: { [className: string]: { desc: string; tagInfo: any[] } }) => {
   let apiList = [];
 
   for (const [tagName, { desc, tagInfo }] of Object.entries(apiTagInfo)) {
@@ -48,7 +48,7 @@ const handleRepeatName = (funcName: string, nameRepeat: Indexable) => {
 };
 
 /** 是否存在路由传参, 存在则处理url */
-const hasHandlePath = (apiInfo: ApiInfo): boolean => {
+const hasHandlePath = (apiInfo: any): boolean => {
   if (!apiInfo.path?.length) return false;
   apiInfo.path.forEach(item => {
     apiInfo.url = apiInfo.url.replace(`{${item.name}}`, `\${path.${item.name}}`);
@@ -57,11 +57,11 @@ const hasHandlePath = (apiInfo: ApiInfo): boolean => {
 };
 
 /** 是否存在params传参 */
-const hasHandleParams = (apiInfo: ApiInfo) => {
+const hasHandleParams = (apiInfo: any) => {
   return apiInfo.params?.length ? true : false;
 };
 
 /** 是否存在data传参 */
-const hasHandleData = (apiInfo: ApiInfo) => {
+const hasHandleData = (apiInfo: any) => {
   return Object.keys(apiInfo.data ?? {}).length ? true : false;
 };

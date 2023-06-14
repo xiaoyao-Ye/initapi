@@ -1,5 +1,4 @@
-import { isReferenceObject } from "openapi3-ts/oas31";
-import { Schema } from "../type";
+import { Schema, isReferenceObject } from "../type";
 import { replaceSpecialChars } from "../collect/helper";
 
 const schemaToType = (schema: Schema = {}, importType?: Set<string>): string => {

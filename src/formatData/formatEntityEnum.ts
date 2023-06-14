@@ -1,4 +1,4 @@
-import { ReferenceObject, SchemaObject } from "openapi3-ts/dist/mjs";
+import { ReferenceObject, SchemaObject } from "openapi3-ts/oas31";
 import { EntityInfo, EnumInfo, EntityPropInfo, isReferenceObject, isSchemaObjectTypeArray } from "../type";
 import { clearCRLF, replaceSpecialChars } from "../utils";
 
