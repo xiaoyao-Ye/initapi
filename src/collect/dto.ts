@@ -32,7 +32,7 @@ const getInterfaceProp = (properties: Properties = {}): InterfaceProp[] => {
   return interfacePropList;
 };
 
-const getDto = (schemas: { [schema: string]: SchemaObject | ReferenceObject } = {}) => {
+const collectDto = (schemas: { [schema: string]: SchemaObject | ReferenceObject } = {}) => {
   const enumList: Enum[] = [];
   const enumNameList: string[] = [];
   const interfaceList: Interface[] = [];
@@ -64,4 +64,4 @@ const getDto = (schemas: { [schema: string]: SchemaObject | ReferenceObject } = 
   return { enumList, enumNameList, interfaceList, interfaceNameList };
 };
 
-export { getDto };
+export { collectDto };

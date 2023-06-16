@@ -12,8 +12,9 @@ import ejs from "ejs";
 import { resolve } from "path";
 import { collectAPI } from "./collect";
 import { generateAPI_TS } from "./generate/generateAPI_TS";
-import { getDto } from "./collect/dto";
+import { collectDto } from "./collect/dto";
 import { OpenAPIObject } from "openapi3-ts/oas31";
+import { generateDTO } from "./generate/generateDTO";
 
 export const main = async () => {
   // 获取配置文件
@@ -27,15 +28,14 @@ export const main = async () => {
   const { paths, components, tags }: OpenAPIObject = await getInitData(url);
 
   // 格式化api信息
-  // const apiTagInfo = formatApi(data.paths, data.tags, commonPrefix);
   const apiMap = collectAPI(paths, tags, commonPrefix);
 
   // 根据类型创建模板生成对应文件
   if (fileSuffix === "ts") {
     const indexableTemplate = indexable ? "[key: string]: any" : "";
 
-    // const { entityInfoList, enumInfoList, entityNameList, enumNameList } = formatEntityEnum(components?.schemas ?? {});
-    const { interfaceList, interfaceNameList, enumList, enumNameList } = getDto(components.schemas);
+    const { interfaceList, interfaceNameList, enumList, enumNameList } = collectDto(components.schemas);
+    const { generateEnumList, generateInterfaceList } = generateDTO(enumList, interfaceList);
     const dtoNameList = [...interfaceNameList, ...enumNameList];
     const { controllerList, importAllType } = generateAPI_TS(apiMap, { commonPrefix, multipleFiles, dtoNameList });
 
@@ -43,8 +43,8 @@ export const main = async () => {
       definition,
       enumMode,
       indexableTemplate,
-      entityInfoList: interfaceList,
-      enumInfoList: enumList,
+      generateInterfaceList,
+      generateEnumList,
       Desc,
       transType,
     });
