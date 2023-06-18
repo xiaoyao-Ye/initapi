@@ -1,4 +1,4 @@
-import { Data } from "../type";
+import { Data } from "../typings";
 import { schemaToType } from "./schemaToType";
 
 /** 是否存在data传参 */

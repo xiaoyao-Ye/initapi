@@ -1,4 +1,4 @@
-import { Parameters } from "../type";
+import { Parameters } from "../typings";
 import { schemaToType } from "./schemaToType";
 
 /** 是否存在params传参 */

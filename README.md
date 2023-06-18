@@ -3,7 +3,7 @@
 <br />
 <br />
 
-<div align="center"> A tool for creating API and typings </div>
+<div align="center"> A tool for generating APIs and types </div>
 
 <br />
 
@@ -42,10 +42,19 @@ export default defineConfig({
   // Path related configurations are all based on the working directory of the nodejs process
   // Supports Openapi3 and Swagger specifications, with content created based on specified JSON
   service: {
-    pets: 'https://petstore.swagger.io/v2/swagger.json',
-    platform: 'http://127.0.0.1:3000/api-json',
+    pets: {
+      url: 'https://petstore.swagger.io/v2/swagger.json',
+    },
+    platform: {
+      url: 'http://127.0.0.1:3000/api-json',
+      commonPrefix: "/api/v1"
+    },
     // Can convert local JSON
-    local: './assets/openapi.json',
+    local: {
+      url: './assets/openapi.json',
+      // API address public prefix, used to generate class names and file names. When not configured, it will automatically attempt to find the public prefix
+      commonPrefix: "/mg/api"
+    },
   },
   outputDir: './src/api',
   outputType: 'TypeScript',
@@ -82,16 +91,15 @@ Detailed configuration items for defineConfig
 
 | Name         | Description                                                  | Type                         | Required | Default                      |
 | ------------ | ------------------------------------------------------------ | ---------------------------- | -------- | ---------------------------- |
-| importAxios  | Import axios or axios encapsulation                          | `string`                     | No       | 'import axios from "axios";' |
-| useAxios     | Using axios                                                  | `string`                     | No       | 'axios.request'              |
+| importRequest  | Import axios or axios encapsulation                          | `string`                     | No       | 'import axios from "axios";' |
+| useRequest     | Using axios                                                  | `string`                     | No       | 'axios.request'              |
 | service      | The JSON (`swagger/openapi3`specification) file address corresponding to the API service | `object`                     | Yes      | —                            |
 | outputDir    | Output file storage location                                 | `string`                     | No       | './api'                      |
 | outputType   | Output File Type - When there is no configuration, a command line interaction will pop up for selection | `TypeScript` or `JavaScript` | No       | —                            |
 | definition   | How to define types                                          | `class` or `interface`       | No       | interface                    |
 | indexable    | The advantage of using index signature is that it can add any number of attributes, making `interface` or `class` more flexible; The disadvantage is that it may cause uncertainty in the value type of the attribute | `boolean`                    | No       | false                        |
 | enumMode     | How to define enumeration (enum: generate enumeration type. type: generate type alias.) | `enum` or `type`             | No       | type                         |
-| commonPrefix | API address public prefix, used to generate class names and file names. When not configured, it will automatically attempt to find the public prefix | `string`                     | No       | ''                           |
-| multiple | Enable multi file mode - single file only creates API files. Multiple files will split the API into all controllers and generate corresponding files | `boolean`                     | No       | false                           |
+| multipleFiles | Enable multi file mode - single file only creates API files. Multiple files will split the API into all controllers and generate corresponding files | `boolean`                     | No       | false                           |
 
 ## Default
 

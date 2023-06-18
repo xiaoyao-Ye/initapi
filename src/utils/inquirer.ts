@@ -1,17 +1,18 @@
 import inquirer from "inquirer";
-import { Indexable } from "../type";
+import { Indexable } from "../typings";
 
 /**
  * 命令行交互获取生成文件类型, json资源地址
  * @returns
  */
 export async function useInquirer(
-  swagger: Indexable<string>,
+  swagger: Indexable<{ url: string; commonPrefix?: string }>,
   outputType?: string,
 ): Promise<{
   fileSuffix: string;
   url: string;
   serviceName: string;
+  commonPrefix: string;
 }> {
   const serviceNameList = Object.keys(swagger);
   const rule = [
@@ -34,7 +35,7 @@ export async function useInquirer(
 
   if (typeof outputType !== "undefined") rule.pop();
 
-  let url;
+  let url, commonPrefix;
   const { fileType, serviceName } = await inquirer.prompt(rule);
   // if (serviceName === 'custom') {
   //   const customAddressRule = [
@@ -47,11 +48,12 @@ export async function useInquirer(
   //   const { customAddress } = await inquirer.prompt(customAddressRule)
   //   url = customAddress
   // } else {
-  url = swagger[serviceName];
+  url = swagger[serviceName].url;
+  commonPrefix = swagger[serviceName].commonPrefix;
   // }
 
   const FILE_TYPE = { TypeScript: "ts", JavaScript: "js" };
   const fileSuffix = FILE_TYPE[outputType ?? fileType];
 
-  return { fileSuffix, serviceName, url };
+  return { fileSuffix, serviceName, url, commonPrefix };
 }

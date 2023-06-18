@@ -38,7 +38,7 @@ export const isHttp = (url: string): boolean => {
 };
 
 /** 清除\r\n */
-export const clearCRLF = (desc: string) => (desc ?? "").replace(/\r\n/g, "");
+// export const clearCRLF = (desc: string) => (desc ?? "").replace(/\r\n/g, "");
 
 /**
  * 字符串首字母转换为小写
@@ -55,19 +55,19 @@ export const toLowerCaseFirst = (funcName: string = "") => {
  * @param className api的class name
  * @returns 函数名称
  */
-export const getFuncName = (url: string, className: string): string => {
-  const reg = /\/{[\w]*\}/g;
-  const urlStr = url.replace(reg, "");
-  const urlArr = urlStr.split("/");
-  // 目前的方案是去掉url的{}后截取className往后的所有str组成函数名称(目前好像效果好很多), 如果一个都没有,取最后一个
-  // 之前的方案是去掉url的{}后通过/分割, 使用数组最后一个str作为函数名称
-  const index = urlArr.findIndex(f => f === className);
-  const name = urlArr
-    .splice(index + 1)
-    .map(m => m.charAt(0).toUpperCase() + m.slice(1))
-    .join("");
-  return toLowerCaseFirst(name || urlArr[urlArr.length - 1]);
-};
+// export const getFuncName = (url: string, className: string): string => {
+//   const reg = /\/{[\w]*\}/g;
+//   const urlStr = url.replace(reg, "");
+//   const urlArr = urlStr.split("/");
+//   // 目前的方案是去掉url的{}后截取className往后的所有str组成函数名称(目前好像效果好很多), 如果一个都没有,取最后一个
+//   // 之前的方案是去掉url的{}后通过/分割, 使用数组最后一个str作为函数名称
+//   const index = urlArr.findIndex(f => f === className);
+//   const name = urlArr
+//     .splice(index + 1)
+//     .map(m => m.charAt(0).toUpperCase() + m.slice(1))
+//     .join("");
+//   return toLowerCaseFirst(name || urlArr[urlArr.length - 1]);
+// };
 
 /**
  * 根据openApi规则生成函数名称
@@ -118,17 +118,180 @@ export const processString = (str: string): string => {
 //   return str.replace(pattern, '_');
 // }
 
+// /**
+//  * 匹配所有非中文、数字、字母和下划线的字符
+//  * @param str
+//  * @returns 将匹配到的字符替换为下划线
+//  */
+// export const replaceSpecialChars = (str: string): string => {
+//   const regex = /[^\u4e00-\u9fa5\w]/g;
+//   return str.replace(regex, "_");
+// };
+
+// export const getCommonPrefix = (list: string[]): string => {
+//   let obj = {};
+//   list.forEach(url => {
+//     const arr = url.split("/");
+//     for (let i = 1; i < arr.length - 1; i++) {
+//       const key = "/" + arr.slice(1, i + 1).join("/");
+//       obj[key] = obj[key] ? obj[key] + 1 : 1;
+//     }
+//   });
+
+//   const sortedEntries = Object.entries(obj).sort((a: [string, number], b: [string, number]) => b[1] - a[1]);
+//   const [maxKey, secondKey] = sortedEntries.slice(0, 2).map(entry => entry[0]);
+
+//   if (obj[maxKey] - obj[secondKey] < list.length / 10) return secondKey;
+
+//   return maxKey;
+// };
+
+// export const wordToUpperCase = (str: string) => {
+//   return str
+//     .split("_")
+//     .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+//     .join("");
+// };
+
+/** 清除\r\n */
+const clearCRLF = (str: string) => (str ?? "").replace(/\r\n/g, "");
+
+/**
+ * 传入注释字符串 不为空则返回 \/** description *\/ 格式
+ * @param description 备注
+ */
+const useDescription = (description: string) => {
+  description = clearCRLF(description);
+  return description ? `/** ${description} */` : "";
+};
+
+/** JS关键字 */
+const keyWord = [
+  "await",
+  "break",
+  "case",
+  "catch",
+  "class",
+  "const",
+  "continue",
+  "debugger",
+  "default",
+  "delete",
+  "do",
+  "else",
+  "enum",
+  "export",
+  "extends",
+  "false",
+  "finally",
+  "for",
+  "function",
+  "if",
+  "implements",
+  "import",
+  "in",
+  "instanceof",
+  "interface",
+  "let",
+  "new",
+  "null",
+  "package",
+  "private",
+  "protected",
+  "public",
+  "return",
+  "super",
+  "switch",
+  "static",
+  "this",
+  "throw",
+  "true",
+  "try",
+  "typeof",
+  "var",
+  "void",
+  "while",
+  "with",
+  "yield",
+];
+
+/**
+ * 根据url获取函数名
+ * 默认情况移除url中的{}符号, 移除controller name, 取接下来的所有单词一起作为函数名, 如果为空则url移除commonPrefix, 然后将剩余的url按照'/'分割,
+ * 如果出现重复, 则在函数名前面加上http method
+ */
+const getFuncName = (
+  url: string,
+  controllerName: string,
+  commonPrefix: string,
+  method: string,
+  nameRepeat: Record<string, number>,
+): string => {
+  /** 替换字符串中的 /{*} 为 '' */
+  url = url.replace(/\/\{[^{}]*\}/g, "");
+  // 如果匹配不到, 尝试将controllerName首字母小写再次匹配
+  if (!url.includes(controllerName)) controllerName = controllerName.charAt(0).toLowerCase() + controllerName.slice(1);
+  let nameSlice = url.split(controllerName)?.[1]?.split("/")?.slice(1) ?? [];
+  if (nameSlice.length === 0) {
+    if (url.includes(commonPrefix)) url = url.replace(commonPrefix, "");
+    const pathSlice = url.split("/");
+    nameSlice = pathSlice.slice(2).length === 0 ? pathSlice.slice(0) : pathSlice.slice(2);
+  }
+  let name = nameSlice.map((word, i) => (i === 0 ? word : word.charAt(0).toUpperCase() + word.slice(1))).join("");
+
+  if (nameRepeat[name]) {
+    nameRepeat[name]++;
+    return `${method.toLowerCase()}_${name}`;
+  } else {
+    nameRepeat[name] = 1;
+    return name;
+  }
+};
+
 /**
  * 匹配所有非中文、数字、字母和下划线的字符
+ * 如果是数字开头, 则在前面加上_
  * @param str
  * @returns 将匹配到的字符替换为下划线
  */
-export const replaceSpecialChars = (str: string): string => {
+const replaceSpecialChars = (str: string): string => {
   const regex = /[^\u4e00-\u9fa5\w]/g;
-  return str.replace(regex, "_");
+  str = str.replace(regex, "_");
+  if (/^\d/.test(str)) str = "_" + str;
+  return str;
 };
 
-export const getCommonPrefix = (list: string[]): string => {
+/** 下划线转为驼峰命名(不会处理首字符的_) */
+const transformString = (str: string) => {
+  let underline = "";
+  if (str.startsWith("_")) {
+    underline = "_";
+    str = str.slice(1);
+  }
+  str.replace(/_([a-z])/g, (_, match) => match.toUpperCase());
+  str = str.charAt(0).toLowerCase() + str.slice(1);
+  if (keyWord.includes(str)) str = str.charAt(0).toUpperCase() + str.slice(1);
+
+  return underline + str;
+};
+
+/** 将首字母以及下划线后的字母大写(不会处理首字符的_) */
+const wordToUpperCase = (str: string) => {
+  let underline = "";
+  if (str.startsWith("_")) {
+    underline = "_";
+    str = str.slice(1);
+  }
+  return (
+    underline +
+    str
+      .split("_")
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+      .join("")
+  );
+};
+
+const getCommonPrefix = (list: string[]): string => {
   let obj = {};
   list.forEach(url => {
     const arr = url.split("/");
@@ -146,9 +309,4 @@ export const getCommonPrefix = (list: string[]): string => {
   return maxKey;
 };
 
-export const wordToUpperCase = (str: string) => {
-  return str
-    .split("_")
-    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-    .join("");
-};
+export { useDescription, getFuncName, replaceSpecialChars, wordToUpperCase, getCommonPrefix, transformString };

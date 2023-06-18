@@ -1,4 +1,4 @@
-import { Api } from "../type";
+import { Api } from "../typings";
 import { schemaToType } from "./schemaToType";
 
 /** 是否存在路由传参, 存在则处理url */

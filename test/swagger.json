@@ -7,9 +7,7 @@
   "paths": {
     "/api/cloud/cloudFile/uploadFile": {
       "post": {
-        "tags": [
-          "cloudFile"
-        ],
+        "tags": ["cloudFile"],
         "summary": "上传文件",
         "description": "## 经测试100M网络情况好的状况下上传20s左右\r\n## 可选参数 isCallBack：是否回调进度 默认：false",
         "operationId": "api-cloud-cloudFile-uploadFile-Post",
@@ -26,9 +24,7 @@
           "content": {
             "multipart/form-data": {
               "schema": {
-                "required": [
-                  "file"
-                ],
+                "required": ["file"],
                 "type": "object",
                 "properties": {
                   "file": {
@@ -71,9 +67,7 @@
     },
     "/api/cloud/oCR/idCardIdentify": {
       "post": {
-        "tags": [
-          "oCR"
-        ],
+        "tags": ["oCR"],
         "summary": "身份证识别",
         "description": "## 常规传入：ImageUrl、CardSide参数即可\r\n## 正面：FRONT  反面：BACK",
         "operationId": "api-cloud-oCR-idCardIdentify-Post",
@@ -128,9 +122,7 @@
     },
     "/api/cloud/oCR/drivingLicenseIdentify": {
       "post": {
-        "tags": [
-          "oCR"
-        ],
+        "tags": ["oCR"],
         "summary": "驾驶证识别",
         "description": "## FRONT 为行驶证主页正面（有红色印章的一面），\r\n## BACK 为行驶证副页正面（有号码号牌的一面），\r\n## DOUBLE 为行驶证主页正面和副页正面。\r\n## 默认值为：FRONT。",
         "operationId": "api-cloud-oCR-drivingLicenseIdentify-Post",
@@ -184,9 +176,7 @@
     },
     "/api/cloud/oCR/vehicleIdentify": {
       "post": {
-        "tags": [
-          "oCR"
-        ],
+        "tags": ["oCR"],
         "summary": "车辆识别",
         "operationId": "api-cloud-oCR-vehicleIdentify-Post",
         "requestBody": {
@@ -240,9 +230,7 @@
     },
     "/api/cloud/oCR/vehicleLicenseIdentify": {
       "post": {
-        "tags": [
-          "oCR"
-        ],
+        "tags": ["oCR"],
         "summary": "行驶证识别",
         "description": "## FRONT 为驾驶证主页正面（有红色印章的一面），\r\n## BACK 为驾驶证副页正面（有档案编号的一面）。\r\n## 默认值为：FRONT。",
         "operationId": "api-cloud-oCR-vehicleLicenseIdentify-Post",
@@ -975,7 +963,7 @@
   },
   "security": [
     {
-      "Bearer": [ ]
+      "Bearer": []
     }
   ],
   "tags": [

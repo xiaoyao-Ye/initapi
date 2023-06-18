@@ -1,5 +1,5 @@
 import { ReferenceObject, SchemaObject } from "openapi3-ts/oas31";
-import { Interface, Enum, InterfaceProp, isReferenceObject } from "../type";
+import { Interface, Enum, InterfaceProp, isReferenceObject } from "../typings";
 
 type Properties = Record<string, SchemaObject | ReferenceObject>;
 

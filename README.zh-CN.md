@@ -3,7 +3,7 @@
 <br />
 <br />
 
-<div align="center"> 用于创建 API 和 typings 的工具 </div>
+<div align="center"> 一个用于生成 `API` 和 `类型` 的工具 </div>
 
 <br />
 
@@ -43,10 +43,19 @@ export default defineConfig({
   // 与路径相关的配置都基于nodejs进程的工作目录
   // 支持 openapi3 和 swagger 规范, 内容根据指定的 json 创建
   service: {
-    pets: 'https://petstore.swagger.io/v2/swagger.json',
-    platform: 'http://127.0.0.1:3000/api-json',
+    pets: {
+      url: 'https://petstore.swagger.io/v2/swagger.json',
+    },
+    platform: {
+      url: 'http://127.0.0.1:3000/api-json',
+      // 配置接口请求的公共前缀, api地址公共前缀, 用于生成class名称和文件名称, 未配置时会自动尝试找出公共前缀
+      commonPrefix: "/api/v1"
+    },
     // 可以转换本地json
-    local: './assets/openapi.json',
+    local: {
+      url: './assets/openapi.json',
+      commonPrefix: "/mg/api"
+    },
   },
   outputDir: './src/api',
   outputType: 'TypeScript',
@@ -83,16 +92,15 @@ defineConfig 的详细配置项
 
 | 属性         | 说明                                                         | 类型                         | 是否必填 | 默认值                       |
 | ------------ | ------------------------------------------------------------ | ---------------------------- | -------- | ---------------------------- |
-| importAxios  | 导入 axios 或 axios 封装                                     | `string`                     | 否       | 'import axios from "axios";' |
-| useAxios     | 使用请求函数                                                 | `string`                     | 否       | 'axios.request'              |
+| importRequest  | 导入 axios 或 axios 封装                                     | `string`                     | 否       | 'import axios from "axios";' |
+| useRequest     | 使用请求函数                                                 | `string`                     | 否       | 'axios.request'              |
 | service      | API 服务对应的 json(`swagger/openapi3`规范)文件地址          | `object`                     | 是       | —                            |
 | outputDir    | 输出文件存放位置                                             | `string`                     | 否       | './api'                      |
 | outputType   | 输出文件类型-无配置时会弹出命令行交互让选择                  | `TypeScript` or `JavaScript` | 否       | —                            |
 | definition   | 定义类型的方式                                               | `class` or `interface`       | 否       | interface                    |
 | indexable    | 使用索引签名的优点是可以添加任意数量的属性，使得`interface` or `class` 更加灵活；缺点是可能会导致属性的值类型不确定 | `boolean`                    | 否       | false                        |
 | enumMode     | 定义枚举的方式(enum: 生成枚举类型 type: 生成类型别名)        | `enum` or `type`             | 否       | type                         |
-| commonPrefix | api地址公共前缀, 用于生成class名称和文件名称, 未配置时会自动尝试找出公共前缀 | `string`                     | 否       | ''                           |
-| multiple | 启用多文件模式-单文件只创建api文件 多文件会将api拆分出所有controller生成对应文件 | `boolean`                     | 否       | false                           |
+| multipleFiles | 启用多文件模式-单文件只创建api文件 多文件会将api拆分出所有controller生成对应文件 | `boolean`                     | 否       | false                           |
 
 ## Default
 

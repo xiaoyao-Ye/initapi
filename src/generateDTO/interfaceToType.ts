@@ -1,9 +1,9 @@
-import { InterfaceProp, Schema, isReferenceObject } from "../type";
-import { replaceSpecialChars } from "../collect/helper";
+import { InterfaceProp, Schema, isReferenceObject } from "../typings";
+import { replaceSpecialChars, wordToUpperCase } from "../utils";
 
 const interfaceToType = (schema: Schema | InterfaceProp): string => {
   if (isReferenceObject(schema)) {
-    const dto_name = replaceSpecialChars(schema.$ref?.split("/").pop());
+    const dto_name = wordToUpperCase(replaceSpecialChars(schema.$ref?.split("/").pop()));
     return dto_name;
   }
 

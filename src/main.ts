@@ -1,36 +1,28 @@
-import {
-  // formatEntityEnum,
-  transType,
-  // createApiJS
-} from "./formatData/index";
 import { outputFile } from "./outputFile/index";
 import { getInitData } from "./utils/request";
-import { Desc } from "./utils/index";
 import { useInquirer } from "./utils/inquirer";
 import { getConfig } from "./utils/config";
-import ejs from "ejs";
-import { resolve } from "path";
 import { collectAPI } from "./collect";
-import { generateAPI_TS } from "./generate/generateAPI_TS";
+import { generateAPI_TS } from "./generateTS";
 import { collectDto } from "./collect/dto";
 import { OpenAPIObject } from "openapi3-ts/oas31";
-import { generateDTO } from "./generate/generateDTO";
+import { generateDTO } from "./generateDTO";
+import { ejsRender } from "./outputFile/render";
+import { resolve } from "path";
+import { generateAPI_JS } from "./generateJS";
+import { getCommonPrefix } from "./utils";
 
 export const main = async () => {
-  // 获取配置文件
-  const { service, importAxios, useAxios, outputDir, outputType, definition, indexable, enumMode, commonPrefix, multipleFiles } =
+  const { service, importRequest, useRequest, outputDir, outputType, definition, indexable, enumMode, multipleFiles } =
     await getConfig();
 
-  // 命令行交互
-  const { url, fileSuffix, serviceName } = await useInquirer(service, outputType);
+  let { url, fileSuffix, serviceName, commonPrefix } = await useInquirer(service, outputType);
 
-  // 获取 swagger/openapi 的json文件
   const { paths, components, tags }: OpenAPIObject = await getInitData(url);
 
-  // 格式化api信息
+  if (!commonPrefix) commonPrefix = getCommonPrefix(Object.keys(paths));
   const apiMap = collectAPI(paths, tags, commonPrefix);
 
-  // 根据类型创建模板生成对应文件
   if (fileSuffix === "ts") {
     const indexableTemplate = indexable ? "[key: string]: any" : "";
 
@@ -39,63 +31,41 @@ export const main = async () => {
     const dtoNameList = [...interfaceNameList, ...enumNameList];
     const { controllerList, importAllType } = generateAPI_TS(apiMap, { commonPrefix, multipleFiles, dtoNameList });
 
-    const templateEntity = await ejsRender("./template/typeScript/typings.d.ejs", {
-      definition,
-      enumMode,
-      indexableTemplate,
-      generateInterfaceList,
-      generateEnumList,
-      Desc,
-      transType,
-    });
+    const renderOptionsType = { definition, enumMode, indexableTemplate, generateInterfaceList, generateEnumList };
+    const ejs_template = resolve(__dirname, "./template/typeScript/typings.d.ejs");
+    const template_typings = await ejsRender(ejs_template, renderOptionsType);
+    const filePath = `${serviceName}/typings.d.${fileSuffix}`;
+    outputFile(outputDir, filePath, template_typings);
+
     if (multipleFiles) {
       controllerList.forEach(async ({ description, controllerName, funcList, importType }) => {
-        const templateApi = await ejsRender("./template/typeScript/apiFiles.ejs", {
-          desc: description,
-          funcList,
-          importEntityName: importType,
-          importAxios,
-          useAxios,
-        });
-        outputFile(outputDir, `${serviceName}/${controllerName}.${fileSuffix}`, templateApi);
+        const renderOptionsApi = { description, funcList, importType, importRequest, useRequest };
+        const ejs_template = resolve(__dirname, "./template/typeScript/apiFiles.ejs");
+        const template_API = await ejsRender(ejs_template, renderOptionsApi);
+        const filePath = `${serviceName}/${controllerName}.${fileSuffix}`;
+        outputFile(outputDir, filePath, template_API);
       });
     } else {
-      const templateApi = await ejsRender("./template/typeScript/api.ejs", {
-        controllerList,
-        importEntityName: importAllType,
-        importAxios,
-        useAxios,
-      });
-      outputFile(outputDir, `${serviceName}/api.${fileSuffix}`, templateApi);
+      const renderOptionsApi = { controllerList, importAllType, importRequest, useRequest };
+      const ejs_template = resolve(__dirname, "./template/typeScript/api.ejs");
+      const template_Api = await ejsRender(ejs_template, renderOptionsApi);
+      const filePath = `${serviceName}/api.${fileSuffix}`;
+      outputFile(outputDir, filePath, template_Api);
     }
-    outputFile(outputDir, `${serviceName}/typings.d.${fileSuffix}`, templateEntity);
   } else {
-    // const { apiList } = createApiJS(apiMap);
-    // if (multipleFiles) {
-    //   apiList.forEach(async ({ desc, tagName, funcList }) => {
-    //     const templateApi = await ejsRender("./template/javaScript/apiFiles.ejs", {
-    //       desc,
-    //       funcList,
-    //       importAxios,
-    //       useAxios,
-    //     });
-    //     outputFile(outputDir, `${serviceName}/${tagName}.${fileSuffix}`, templateApi);
-    //   });
-    // } else {
-    //   const templateApi = await ejsRender("./template/javaScript/api.ejs", { apiList, importAxios, useAxios });
-    //   outputFile(outputDir, `${serviceName}/api.${fileSuffix}`, templateApi);
-    // }
+    const { controllerList } = generateAPI_JS(apiMap, { commonPrefix });
+    if (multipleFiles) {
+      controllerList.forEach(async ({ description, controllerName, funcList }) => {
+        const renderOptionsApi = { description, funcList, importRequest, useRequest };
+        const ejs_template = resolve(__dirname, "./template/javaScript/apiFiles.ejs");
+        const template_Api = await ejsRender(ejs_template, renderOptionsApi);
+        outputFile(outputDir, `${serviceName}/${controllerName}.${fileSuffix}`, template_Api);
+      });
+    } else {
+      const renderOptionsApi = { controllerList, importRequest, useRequest };
+      const ejs_template = resolve(__dirname, "./template/javaScript/api.ejs");
+      const template_Api = await ejsRender(ejs_template, renderOptionsApi);
+      outputFile(outputDir, `${serviceName}/api.${fileSuffix}`, template_Api);
+    }
   }
-};
-
-const ejsRender = (template: string, data: any): Promise<string> => {
-  template = resolve(__dirname, template);
-  return new Promise((resolve, reject) => {
-    ejs.renderFile(template, data, (err, str) => {
-      if (err) {
-        reject(err);
-      }
-      resolve(str);
-    });
-  });
 };

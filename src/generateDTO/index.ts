@@ -1,6 +1,5 @@
-import { replaceSpecialChars, wordToUpperCase } from "../collect/helper";
-import { Enum, Interface } from "../type";
-import { useDescription } from "./helper";
+import { Enum, Interface } from "../typings";
+import { replaceSpecialChars, useDescription, wordToUpperCase } from "../utils";
 import { interfaceToType } from "./interfaceToType";
 
 type PropList = {
@@ -20,6 +19,9 @@ const generateDTO = (enumList: Enum[] = [], interfaceList: Interface[] = []) => 
   const generateInterfaceList = interfaceList.map(item => {
     const description = useDescription(item.description);
     const name = wordToUpperCase(replaceSpecialChars(item.name));
+    if (name === "0") {
+      console.log(name);
+    }
     const propList: PropList[] = item.propList.map(property => {
       return {
         name: replaceSpecialChars(property.name),

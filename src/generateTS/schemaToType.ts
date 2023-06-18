@@ -1,9 +1,9 @@
-import { Schema, isReferenceObject } from "../type";
-import { replaceSpecialChars } from "../collect/helper";
+import { Schema, isReferenceObject } from "../typings";
+import { replaceSpecialChars, wordToUpperCase } from "../utils";
 
 const schemaToType = (schema: Schema = {}, importType?: Set<string>): string => {
   if (isReferenceObject(schema)) {
-    const dto_name = replaceSpecialChars(schema.$ref?.split("/").pop());
+    const dto_name = wordToUpperCase(replaceSpecialChars(schema.$ref?.split("/").pop()));
     importType?.add(dto_name);
     return dto_name;
   }

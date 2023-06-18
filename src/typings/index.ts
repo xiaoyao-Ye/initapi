@@ -1,51 +1,5 @@
 import { ReferenceObject, SchemaObject } from "openapi3-ts/oas31";
 
-// export type Indexable<T = any> = Record<string, T>;
-// type Indexable = Record<string, any>
-
-/** 判断是否 SchemaObjectType[] 类型 */
-// export const isSchemaObjectTypeArray = (type: SchemaObjectType | SchemaObjectType[]): type is SchemaObjectType[] => {
-//   return Array.isArray(type);
-// };
-
-// export interface EntityPropInfo {
-//   $ref?: string;
-//   /** 属性名称 */
-//   name: string;
-//   /** 属性类型 */
-//   type?: string;
-//   /** 属性备注 */
-//   desc: string;
-//   /** 是否必填 */
-//   nullable?: boolean;
-//   /** type为Array的情况下数组value的类型, 只有 基础类型[] | DTO[] */
-//   items?: SchemaObject | ReferenceObject;
-//   /** type为object的情况下会有,应是DTO为Map结构, 95%生成不存在 Map<string, additionalProp(基础类型 | DTO)> */
-//   additionalProperties?: SchemaObject | ReferenceObject | boolean;
-
-//   // [prop: string]: any;
-// }
-
-// export interface EntityInfo {
-//   /** entity名 */
-//   name: string;
-//   /** 备注 */
-//   desc: string;
-//   /** 属性信息 */
-//   propList: EntityPropInfo[];
-// }
-
-// export interface EnumInfo {
-//   /** enum名 */
-//   name: string;
-//   /** 备注 */
-//   desc: string;
-//   /** 枚举信息 */
-//   enumList: string[];
-// }
-
-// ============================== new ==============================
-
 /** 判断是否 ReferenceObject 类型 */
 const isReferenceObject = (obj: ReferenceObject | any = {}): obj is ReferenceObject => {
   return obj.hasOwnProperty("$ref");

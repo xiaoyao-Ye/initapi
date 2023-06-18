@@ -1,0 +1,286 @@
+{
+  "openapi": "3.0.0",
+  "paths": {
+    "/api": { "get": { "operationId": "getHello", "parameters": [], "responses": { "200": { "description": "" } } } },
+    "/api/v1/auth/emailSignIn": {
+      "post": {
+        "operationId": "emailSignIn",
+        "summary": "登录",
+        "description": "邮箱登录",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/EmailSignInDto" } } }
+        },
+        "responses": {
+          "200": {
+            "description": "登录成功",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/SignInVo" } } }
+          }
+        },
+        "tags": ["Auth"]
+      }
+    },
+    "/api/v1/auth/weChatSignIn": {
+      "post": {
+        "operationId": "weChatSignIn",
+        "summary": "登录",
+        "description": "微信授权登录",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/WeChatSignInDto" } } }
+        },
+        "responses": {
+          "200": {
+            "description": "登录成功",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/SignInVo" } } }
+          }
+        },
+        "tags": ["Auth"]
+      }
+    },
+    "/api/v1/tags/getAll": {
+      "get": {
+        "operationId": "getAllTags",
+        "summary": "标签列表",
+        "description": "获取当前请求用户的所有标签",
+        "parameters": [],
+        "responses": {
+          "default": {
+            "description": "",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/TagListVo" } } }
+          }
+        },
+        "tags": ["Tags"]
+      }
+    },
+    "/api/v1/tags": {
+      "post": {
+        "operationId": "createTag",
+        "summary": "创建标签",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/TagDto" } } }
+        },
+        "responses": { "200": { "description": "" } },
+        "tags": ["Tags"]
+      }
+    },
+    "/api/v1/tags/{id}": {
+      "put": {
+        "operationId": "updateTag",
+        "summary": "修改标签",
+        "parameters": [{ "name": "id", "required": true, "in": "path", "schema": { "type": "number" } }],
+        "requestBody": {
+          "required": true,
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/TagDto" } } }
+        },
+        "responses": { "200": { "description": "" } },
+        "tags": ["Tags"]
+      },
+      "delete": {
+        "operationId": "deleteTag",
+        "summary": "删除标签",
+        "parameters": [{ "name": "id", "required": true, "in": "path", "schema": { "type": "number" } }],
+        "responses": { "200": { "description": "" } },
+        "tags": ["Tags"]
+      }
+    },
+    "/api/v1/bill/balance": {
+      "get": {
+        "operationId": "balance",
+        "summary": "统计信息",
+        "parameters": [
+          { "name": "startTime", "required": false, "in": "query", "description": "起始时间", "schema": { "type": "string" } },
+          { "name": "endTime", "required": false, "in": "query", "description": "结束时间", "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "default": {
+            "description": "统计信息",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/BalanceVo" } } }
+          }
+        },
+        "tags": ["Bill"]
+      }
+    },
+    "/api/v1/bill/queryPage": {
+      "post": {
+        "operationId": "queryPageBills",
+        "summary": "查询记账",
+        "description": "查询当前用户账单记录",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/QueryBillsDto" } } }
+        },
+        "responses": {
+          "default": {
+            "description": "账单列表",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/QueryBillsVo" } } }
+          }
+        },
+        "tags": ["Bill"]
+      }
+    },
+    "/api/v1/bill": {
+      "post": {
+        "operationId": "createBill",
+        "summary": "创建记账",
+        "description": "创建一个账单记录",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/CreateBillDto" } } }
+        },
+        "responses": { "201": { "description": "" } },
+        "tags": ["Bill"]
+      }
+    },
+    "/api/v1/bill/{id}": {
+      "put": {
+        "operationId": "updateBill",
+        "summary": "修改记账",
+        "parameters": [{ "name": "id", "required": true, "in": "path", "schema": { "type": "number" } }],
+        "requestBody": {
+          "required": true,
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/CreateBillDto" } } }
+        },
+        "responses": { "200": { "description": "" } },
+        "tags": ["Bill"]
+      },
+      "delete": {
+        "operationId": "deleteBill",
+        "summary": "删除记账",
+        "parameters": [{ "name": "id", "required": true, "in": "path", "schema": { "type": "number" } }],
+        "responses": { "200": { "description": "" } },
+        "tags": ["Bill"]
+      }
+    },
+    "/api/v1/email/signUp": {
+      "post": {
+        "operationId": "sendEmail",
+        "summary": "发送验证码",
+        "description": "发送验证码到指定邮箱",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/EmailSignInDto" } } }
+        },
+        "responses": { "200": { "description": "发送成功" } },
+        "tags": ["Email"]
+      }
+    }
+  },
+  "info": { "title": "mangosteen", "description": "The mangosteen API description", "version": "1.0", "contact": {} },
+  "tags": [],
+  "servers": [],
+  "components": {
+    "securitySchemes": { "bearer": { "scheme": "bearer", "bearerFormat": "JWT", "type": "http" } },
+    "schemas": {
+      "IdentityType": { "type": "string", "enum": ["邮箱", "微信"] },
+      "EmailSignInDto": {
+        "type": "object",
+        "properties": {
+          "identity_type": { "description": "身份类型", "$ref": "#/components/schemas/IdentityType" },
+          "identifier": { "type": "string", "description": "标识符" },
+          "credential": { "type": "string", "description": "凭证" }
+        },
+        "required": ["identity_type", "identifier"]
+      },
+      "SignInVo": { "type": "object", "properties": { "token": { "type": "string", "description": "token" } } },
+      "WeChatSignInDto": {
+        "type": "object",
+        "properties": {
+          "identity_type": { "description": "身份类型", "$ref": "#/components/schemas/IdentityType" },
+          "nickName": { "type": "string", "description": "昵称", "nullable": true },
+          "avatar": { "type": "string", "description": "头像", "nullable": true },
+          "gender": { "type": "string", "description": "性别", "nullable": true },
+          "code": { "type": "string", "description": "微信用户登录凭证" }
+        },
+        "required": ["identity_type", "code"]
+      },
+      "Category": { "type": "string", "enum": ["收入", "支出"] },
+      "TagItemsVo": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "number", "description": "id" },
+          "created_at": { "format": "date-time", "type": "string", "description": "创建时间" },
+          "updated_at": { "format": "date-time", "type": "string", "description": "更新时间" },
+          "deleted_at": { "format": "date-time", "type": "string", "description": "软删除时间" },
+          "category": { "description": "收支类型", "$ref": "#/components/schemas/Category" },
+          "name": { "type": "string", "description": "标签名" },
+          "sign": { "type": "string", "description": "标签符号" }
+        }
+      },
+      "TagListVo": {
+        "type": "object",
+        "properties": {
+          "items": { "description": "列表", "type": "array", "items": { "$ref": "#/components/schemas/TagItemsVo" } }
+        }
+      },
+      "TagDto": {
+        "type": "object",
+        "properties": {
+          "category": { "description": "收支类型", "$ref": "#/components/schemas/Category" },
+          "name": { "type": "string", "description": "标签名" },
+          "sign": { "type": "string", "description": "标签符号" },
+          "userId": { "type": "number", "description": "用户Id" }
+        },
+        "required": ["category", "name", "sign"]
+      },
+      "BalanceVo": {
+        "type": "object",
+        "properties": {
+          "income": { "type": "number", "description": "收入" },
+          "outcome": { "type": "number", "description": "支出" },
+          "netIncome": { "type": "number", "description": "净收入" }
+        }
+      },
+      "QueryBillsDto": {
+        "type": "object",
+        "properties": {
+          "pageNum": { "type": "number", "description": "分页" },
+          "pageSize": { "type": "number", "description": "每页数量" },
+          "startTime": { "type": "string", "description": "起始时间" },
+          "endTime": { "type": "string", "description": "结束时间" },
+          "userId": { "type": "number", "description": "用户ID" }
+        }
+      },
+      "BillItemsVo": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "number", "description": "id" },
+          "created_at": { "format": "date-time", "type": "string", "description": "创建时间" },
+          "updated_at": { "format": "date-time", "type": "string", "description": "更新时间" },
+          "deleted_at": { "format": "date-time", "type": "string", "description": "软删除时间" },
+          "userId": { "type": "number", "description": "用户ID" },
+          "tagId": { "type": "number", "description": "标签ID" },
+          "amount": { "type": "number", "description": "金额" },
+          "record_date": { "type": "string", "description": "创建日期" },
+          "category": { "type": "string", "description": "收支类型" },
+          "tag": { "description": "标签信息", "allOf": [{ "$ref": "#/components/schemas/TagItemsVo" }] }
+        }
+      },
+      "QueryBillsVo": {
+        "type": "object",
+        "properties": {
+          "items": { "description": "列表", "type": "array", "items": { "$ref": "#/components/schemas/BillItemsVo" } },
+          "total": { "type": "number", "description": "总数量" }
+        }
+      },
+      "CreateBillDto": {
+        "type": "object",
+        "properties": {
+          "amount": { "type": "number", "description": "金额" },
+          "tagId": { "type": "number", "description": "标签ID" },
+          "record_date": { "type": "string", "description": "记账日期" },
+          "category": { "description": "收支类型", "$ref": "#/components/schemas/Category" },
+          "userId": { "type": "number", "description": "用户ID" }
+        },
+        "required": ["amount", "tagId", "record_date", "category"]
+      }
+    }
+  }
+}

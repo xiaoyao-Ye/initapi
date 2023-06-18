@@ -1,4 +1,4 @@
-import { replaceSpecialChars, wordToUpperCase } from "./helper";
+import { replaceSpecialChars, wordToUpperCase } from "../utils";
 
 /**
  * 如果 controllerNameObj 中存在 name, 则直接返回, 否则进行以下操作

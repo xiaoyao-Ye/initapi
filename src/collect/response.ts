@@ -1,5 +1,5 @@
 import { ReferenceObject, ResponseObject, ResponsesObject } from "openapi3-ts/oas31";
-import { Schema, isReferenceObject } from "../type";
+import { Schema, isReferenceObject } from "../typings";
 
 /** 收集 response 信息 */
 const getResponses = (responses: ResponsesObject = {}): Schema => {

@@ -1,5 +1,5 @@
 import { ParameterObject, ReferenceObject, SchemaObject } from "openapi3-ts/oas31";
-import { Parameters, isReferenceObject } from "../type";
+import { Parameters, isReferenceObject } from "../typings";
 
 /** 收集 request parameters 信息 */
 const getParameters = (parameters: ((ParameterObject & { type?: string }) | ReferenceObject)[] = []) => {

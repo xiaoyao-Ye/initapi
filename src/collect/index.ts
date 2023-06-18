@@ -1,15 +1,13 @@
 import { OperationObject, PathsObject, TagObject } from "openapi3-ts/dist/oas31";
-import { getCommonPrefix, isNeedCollect } from "./helper";
+import { isNeedCollect } from "./helper";
 import { getParameters } from "./parameters";
 import { getResponses } from "./response";
 import { getRequestBody } from "./body";
-import { Api, ApiMap } from "../type";
+import { Api, ApiMap } from "../typings";
 import { getControllerName } from "./controllerName";
 
 /** 收集 api 信息 */
 const collectAPI = (source: PathsObject, tags: TagObject[], commonPrefix: string) => {
-  if (!commonPrefix) commonPrefix = getCommonPrefix(Object.keys(source));
-
   const apiMap: ApiMap = {};
 
   const recordControllerName = {};
@@ -30,7 +28,7 @@ const collectAPI = (source: PathsObject, tags: TagObject[], commonPrefix: string
 
       if (!apiMap[controllerName]) {
         // 也许可以放到两个for循环外面, 根据recordControllerName去给apiMap赋值description
-        const tag = tags.find(tag => tag.name === API.tags?.[0]);
+        const tag = tags?.find(tag => tag.name === API.tags?.[0]);
         apiMap[controllerName] = { description: tag?.description ?? "", apiList: [] };
       }
 

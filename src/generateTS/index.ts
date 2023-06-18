@@ -1,10 +1,9 @@
-import { ApiMap } from "../type";
-import { getFuncName } from "./getFucnName";
+import { ApiMap } from "../typings";
+import { getFuncName, replaceSpecialChars, transformString, useDescription } from "../utils";
 import { handleData } from "./handleData";
 import { handleParams } from "./handleParams";
 import { handlePath } from "./handlePath";
 import { handleResponse } from "./handleResponse";
-import { useDescription } from "./helper";
 
 type Options = {
   dtoNameList: string[];
@@ -43,15 +42,15 @@ const generateAPI_TS = (apiMap: ApiMap, options: Options) => {
       const hasPath = handlePath(api, importType);
       const hasParams = handleParams(params, importType);
       const hasData = handleData(data, importType);
-
-      const fnName = name || getFuncName(url, commonPrefix, method, nameRepeat);
-      const fnDescription = useDescription(`${summary}${description ? "-" + description : ""}`);
+      let fnName = name || getFuncName(url, controllerName, commonPrefix, method, nameRepeat);
+      fnName = transformString(replaceSpecialChars(fnName));
+      const fnDescription = useDescription(`${summary ?? ""}${description ? "-" + description : ""}`);
       const fnResponse = handleResponse(response, importType);
       const fnMethod = method.toUpperCase();
       const fnArgs = [hasPath, hasParams, hasData].filter(f => f).join(", ");
       const fnRequestBody = [hasParams && "params,", hasData && "data,"].filter(f => f).join("\n ");
 
-      return { url, fnName, fnDescription, fnArgs, fnMethod, fnRequestBody, fnResponse };
+      return { url: api.url, fnName, fnDescription, fnArgs, fnMethod, fnRequestBody, fnResponse };
     });
 
     controllerName = dtoNameList.includes(controllerName) ? `${controllerName}Api` : controllerName;

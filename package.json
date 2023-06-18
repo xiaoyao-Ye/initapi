@@ -46,8 +46,7 @@
     "ora": "5.4.1",
     "prettier": "^2.7.1",
     "semver": "^7.3.7",
-    "shelljs": "^0.8.5",
-    "swagger2openapi": "^7.0.8"
+    "shelljs": "^0.8.5"
   },
   "devDependencies": {
     "@esbuild-kit/esm-loader": "^2.4.1",

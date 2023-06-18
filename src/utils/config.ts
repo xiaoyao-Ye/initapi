@@ -7,11 +7,22 @@ export type UserConfigFn = (env: UserConfig) => UserConfig | Promise<UserConfig>
 
 export interface UserConfig {
   /** 导入请求函数 default: 'import axios from "axios";' */
-  importAxios?: string;
+  importRequest?: string;
   /** 使用请求函数 default: 'axios.request' */
-  useAxios?: string;
-  /** api服务对应的swagger/openapi地址 default: { test: 'https://petstore.swagger.io/v2/swagger.json' } */
-  service?: { [prop: string]: string };
+  useRequest?: string;
+  /**
+   * 后端服务配置
+   * default: { testService: { url: 'https://petstore.swagger.io/v2/swagger.json' } }
+   */
+  service?: Record<
+    string,
+    {
+      /** 后端接口服务对应的 swagger/openapi json地址 */
+      url: string;
+      /** api地址公共前缀-用于创建 controller 名称或者文件名称 */
+      commonPrefix?: string;
+    }
+  >;
   /** TS entity的属性是否可空, false根据文档生成, true 会加上? */
   // nullable?: boolean
   /** 生成文件存放位置 default: './api' */
@@ -31,8 +42,6 @@ export interface UserConfig {
    * type: 生成类型别名
    */
   enumMode?: "enum" | "type";
-  /** api地址公共前缀-用于创建 class 名称或者文件名称 */
-  commonPrefix?: string;
   /**
    * 启用多文件模式 default: false
    * 单文件只创建api文件 多文件会将api拆分出所有controller生成对应文件
@@ -53,16 +62,15 @@ export function defineConfig(config: UserConfigExport): UserConfigExport {
 
 /** 默认配置 */
 const defaultOptions = (): UserConfig => ({
-  importAxios: 'import axios from "axios";',
-  useAxios: "axios.request",
+  importRequest: 'import axios from "axios";',
+  useRequest: "axios.request",
   service: {
-    test: "https://petstore.swagger.io/v2/swagger.json",
+    testService: { url: "https://petstore.swagger.io/v2/swagger.json" },
   },
   outputDir: "./api",
   definition: "interface",
   indexable: false,
   enumMode: "type",
-  commonPrefix: "",
   multipleFiles: false,
 });
 

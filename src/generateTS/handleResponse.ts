@@ -1,4 +1,4 @@
-import { Schema } from "../type";
+import { Schema } from "../typings";
 import { schemaToType } from "./schemaToType";
 
 /** api的返回类型 */
