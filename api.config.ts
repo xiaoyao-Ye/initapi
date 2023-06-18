@@ -1,20 +1,47 @@
 import { defineConfig } from "./src/index";
 
 export default defineConfig({
-  // importAxios: 'import axios from "../index";',
-  useAxios: "axios.request",
+  // importRequest: 'import axios from "../index";',
+  useRequest: "axios.request",
   service: {
-    // TODO test: swagger2openapi 转换为 openapi3 时会有问题，所以出现 UserArray 的class
-    test: "https://petstore.swagger.io/v2/swagger.json",
-    mangosteen: "http://127.0.0.1:3000/api-json",
-    test1: "./test/swagger.json",
-    test2: "./test/swagger2.json",
+    test: {
+      url: "https://petstore.swagger.io/v2/swagger.json",
+      commonPrefix: "",
+    },
+    mangosteen: {
+      url: "./test/mangosteen-service.json",
+      commonPrefix: "",
+    },
+    test1: {
+      url: "./test/swagger.json",
+      commonPrefix: "",
+    },
+    test2: {
+      url: "./test/swagger2.json",
+      commonPrefix: "/web/v1.0",
+    },
+    "y-mg": {
+      url: "./test/y-mg.json",
+      commonPrefix: "/mg/api",
+    },
+    "y-staff": {
+      url: "./test/y-staff.json",
+      commonPrefix: "/Staff/api",
+    },
+    "y-store": {
+      url: "./test/y-store.json",
+      commonPrefix: "/store",
+    },
+    "y-platform": {
+      url: "./test/y-platform.json",
+      commonPrefix: "/platform/api",
+    },
   },
   outputDir: "./src/api",
-  multipleFiles: true,
-  // commonPrefix: "/web/v1.0",
-  // outputType: 'TypeScript',
-  // definition: 'class',
-  // indexable: true
-  // enumMode: 'enum'
+  // multipleFiles: true,
+  outputType: "TypeScript",
+  // outputType: "JavaScript",
+  // definition: "class",
+  // indexable: true,
+  // enumMode: "enum",
 });

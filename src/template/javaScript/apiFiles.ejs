@@ -1,20 +1,20 @@
 /* eslint-disable */
 // 此文件由 initAPI(https://github.com/xiaoyao-Ye/initapi) 自动生成。请不要手动修改此文件！
 
-<% if (desc) { %>
+<% if (description) { %>
 // Current controller description:
-<%= desc %>
+<%= description %>
 <% } %>
 
-<%- importAxios %>
+<%- importRequest %>
 
 <% funcList.forEach((item) => { %>
-<%= item.desc %>
-export const <%= item.funcName %> = (<%- item.args %>) => {
-  return <%= useAxios %>({
+<%= item.fnDescription %>
+export const <%= item.fnName %> = (<%- item.fnArgs %>) => {
+  return <%= useRequest %>({
     url: `<%- item.url %>`,
-    method: '<%= item.method %>',
-    <%- item.req %>
+    method: '<%= item.fnMethod %>',
+    <%- item.fnRequestBody %>
   });
 }
 <% }) %>

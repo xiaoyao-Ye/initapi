@@ -2,7 +2,7 @@
   "compilerOptions": {
     "declaration": true,
     // 指定 ECMAScript 版本
-    "target": "ES6",
+    "target": "ESNext",
     // 指定模块代码生成
     "module": "CommonJS",
     // 启用所有严格类型检查选项
@@ -28,10 +28,11 @@
   },
   // 设置package.json的"type": "module" && tsconfig.json的"module": "esnext" && 告诉ts-node使用esm模式
   // "ts-node": {
-  //     "esm": true,
+  //   "esm": true,
+  //   "experimentalSpecifierResolution": "node"
   // },
   // TypeScript文件应该进行类型检查(两颗星代表所有的子目录./src/**/*.ts)
-  "include": ["src/**/*"],
+  "include": ["src/**/*.ts"],
   // 不进行类型检查
   "exclude": ["node_modules/*", "lib/*", "src/api/*"]
 }
