@@ -27,20 +27,15 @@ jobs:
       #     NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       #   run: npm config set '//registry.npmjs.org/:_authToken' $NODE_AUTH_TOKEN
 
-      - name: Versioning
+      - name: publish
         run: |
           git config --global user.email "yqcyecong@163.com"
           git config --global user.name "_Ghosteye"
           npm version ${{ github.event.release.tag_name }} --no-git-tag-version --force
-
-      - name: Install and Build
-        run: |
           pnpm install --frozen-lockfile
           pnpm run build
-
-      - name: Publish to npm
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: |
           cd lib
           npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
