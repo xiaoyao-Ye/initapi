@@ -22,10 +22,10 @@ jobs:
           node-version: 16
           cache: pnpm
 
-      # - name: Authenticate with the NPM registry
-      #   env:
-      #     NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-      #   run: npm config set '//registry.npmjs.org/:_authToken' $NODE_AUTH_TOKEN
+      - name: Authenticate with the NPM registry
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: npm config set '//registry.npmjs.org/:_authToken' $NODE_AUTH_TOKEN
 
       - name: Versioning
         run: |
