@@ -8,7 +8,6 @@
   "scripts": {
     "dev": "tsx ./src/index.ts create",
     "test": "vitest run",
-    "publish": "cd lib && npm publish",
     "build": "tsup && node ./index.js"
   },
   "bin": {
