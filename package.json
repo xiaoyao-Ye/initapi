@@ -34,15 +34,15 @@
   "homepage": "https://github.com/xiaoyao-Ye/initapi",
   "license": "MIT",
   "dependencies": {
+    "@clack/prompts": "^0.6.3",
     "axios": "^0.27.2",
     "chalk": "4.0.0",
     "commander": "^10.0.0",
+    "consola": "^3.2.3",
     "ejs": "^3.1.9",
     "fs-extra": "^10.1.0",
-    "inquirer": "8.0.0",
     "jiti": "^1.16.0",
     "openapi3-ts": "^4.1.2",
-    "ora": "5.4.1",
     "prettier": "^2.7.1",
     "semver": "^7.3.7",
     "shelljs": "^0.8.5"
@@ -50,7 +50,6 @@
   "devDependencies": {
     "@esbuild-kit/esm-loader": "^2.4.1",
     "@types/fs-extra": "^9.0.13",
-    "@types/inquirer": "^8.2.1",
     "@types/node": "^18.0.3",
     "@types/prettier": "^2.6.3",
     "@types/semver": "^7.3.10",

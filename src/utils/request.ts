@@ -1,6 +1,7 @@
 // import converter from "swagger2openapi";
 import openapiParser from "./openapi-parser.mjs";
 import { OpenAPIObject } from "openapi3-ts/oas31";
+import { consola } from "consola";
 import { isHttp, readJson } from "./index";
 import axios from "axios";
 
@@ -18,7 +19,7 @@ export const getInitData = async (url: string): Promise<OpenAPIObject> => {
 
     return data;
   } catch (error) {
-    throw new Error(error);
+    consola.error(error);
   }
 };
 

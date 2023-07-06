@@ -1,5 +1,6 @@
 import { tryRequire } from "./index";
 import path from "path";
+import { consola } from "consola";
 
 export type UserConfigExport = UserConfig | UserConfigFn;
 
@@ -85,7 +86,6 @@ export const getConfig = async (): Promise<UserConfig> => {
     }
     return Object.assign(defaultOptions(), config);
   } catch (error) {
-    console.error("try require error, please check 'api.config.ts' file.");
-    throw new Error(error);
+    consola.error("try require error, please check 'api.config.ts' file.");
   }
 };

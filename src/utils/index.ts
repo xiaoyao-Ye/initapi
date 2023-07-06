@@ -1,6 +1,7 @@
 import { isAbsolute, join } from "path";
 import fs from "fs";
 import jiti from "jiti";
+import { consola } from "consola";
 
 export const tryRequire = (id: string, rootDir: string = process.cwd()) => {
   const _require = jiti(rootDir, { interopDefault: true });
@@ -8,7 +9,7 @@ export const tryRequire = (id: string, rootDir: string = process.cwd()) => {
     return _require(id);
   } catch (err: any) {
     if (err.code !== "MODULE_NOT_FOUND") {
-      console.error(`Error trying import ${id} from ${rootDir}`, err);
+      consola.error(`Error trying import ${id} from ${rootDir}`, err);
     }
     return {};
   }
