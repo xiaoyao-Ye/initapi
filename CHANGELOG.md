@@ -1,6 +1,10 @@
 # changelog
 
-## 2023-07-06 [v0.1.1]
+## 2023-07-06 [v0.2.0]
+
+- 🐛 fix: index.d.ts is null
+
+## 2023-07-06 [v0.1.2]
 
 - 💄 Add generate log
 - ✏️ Add GitHub issue templates
