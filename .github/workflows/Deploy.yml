@@ -36,8 +36,9 @@ jobs:
 
       - name: Install and Build
         run: |
-          pnpm install --frozen-lockfile
+          pnpm install --no-frozen-lockfile
           pnpm run build
+        # pnpm install --frozen-lockfile
 
       - name: Publish to npm
         env:
