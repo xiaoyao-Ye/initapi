@@ -44,7 +44,7 @@ export interface UserConfig {
    */
   enumMode?: "enum" | "type";
   /**
-   * 启用多文件模式 default: false
+   * 启用多文件模式 default: true
    * 单文件只创建api文件 多文件会将api拆分出所有controller生成对应文件
    */
   multipleFiles?: boolean;
@@ -72,7 +72,7 @@ const defaultOptions = (): UserConfig => ({
   definition: "interface",
   indexable: false,
   enumMode: "type",
-  multipleFiles: false,
+  multipleFiles: true,
 });
 
 export const getConfig = async (): Promise<UserConfig> => {
