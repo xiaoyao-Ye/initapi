@@ -101,7 +101,7 @@ Detailed configuration items for defineConfig
 | enumMode      | How to define enumeration (enum: generate enumeration type. type: generate type alias.)                                                                                                                               | `enum` or `type`             | No       | type                         |
 | multipleFiles | Enable multi file mode - single file only creates API files. Multiple files will split the API into all controllers and generate corresponding files                                                                  | `boolean`                    | No       | true                         |
 
-## Default
+## Prettier
 
 Before creating a file, by default, the data will be formatted using a prettier
 
@@ -147,3 +147,7 @@ const defaultOptions: prettier.Options = {
 ## Last
 
 Welcome to provide feedback and contribute code.
+
+## License
+
+MIT

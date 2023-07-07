@@ -102,7 +102,7 @@ defineConfig 的详细配置项
 | enumMode      | 定义枚举的方式(enum: 生成枚举类型 type: 生成类型别名)                                                               | `enum` or `type`             | 否       | type                         |
 | multipleFiles | 启用多文件模式-单文件只创建api文件 多文件会将api拆分出所有controller生成对应文件                                    | `boolean`                    | 否       | true                         |
 
-## Default
+## Prettier
 
 创建文件之前默认会使用 prettier 对数据进行格式化
 
@@ -166,3 +166,7 @@ const defaultOptions: prettier.Options = {
 ## Last
 
 欢迎提供反馈并贡献代码.
+
+## License
+
+MIT
