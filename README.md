@@ -75,15 +75,11 @@ pnpm run create-api
 
 Generate API Content Example
 
-![Generate API Content Example](https://xiaoyao-ye.github.io/blog/initApi/api.png)
+![Generate API Content Example](https://xiaoyao-ye.github.io/blog/initApi/api_mul.png)
 
 Generate Type Content Example
 
-![Generate Type Content Example](https://xiaoyao-ye.github.io/blog/initApi/type.png)
-
-Usage examples
-
-![Usage examples](https://xiaoyao-ye.github.io/blog/initApi/usage.png)
+![Generate Type Content Example](https://xiaoyao-ye.github.io/blog/initApi/typings.png)
 
 ## Configure
 
