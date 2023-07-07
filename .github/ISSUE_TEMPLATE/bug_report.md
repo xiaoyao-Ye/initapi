@@ -31,5 +31,4 @@ Please only use Codepen, JSFiddle, CodeSandbox or a github repo
 
 - Your OS:
 - Node.js version:
-- Mysql version:
-- Redis version:
+- swagger.json or openapi.json version:
