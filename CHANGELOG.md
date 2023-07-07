@@ -1,5 +1,9 @@
 # changelog
 
+## 2023-07-06 [v0.3.0]
+
+- ⚡️ Changing the default value of the multiple option(更改多文件选项的默认值)
+
 ## 2023-07-06 [v0.2.0]
 
 - 🐛 fix: index.d.ts is null
