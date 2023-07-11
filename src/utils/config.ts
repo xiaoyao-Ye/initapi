@@ -78,14 +78,9 @@ const defaultOptions = (): UserConfig => ({
 export const getConfig = async (): Promise<UserConfig> => {
   try {
     const apiConfig: UserConfigExport = await tryRequire(path.join(process.cwd(), "api.config"));
-    let config: UserConfig = {};
-    if (typeof apiConfig === "function") {
-      config = await apiConfig({});
-    } else {
-      config = apiConfig;
-    }
+    let config: UserConfig = typeof apiConfig === "function" ? await apiConfig({}) : apiConfig;
     return Object.assign(defaultOptions(), config);
   } catch (error) {
-    consola.error("try require error, please check 'api.config.ts' file.");
+    consola.error("try require error, please check 'api.config.{ts,js}' file.");
   }
 };
