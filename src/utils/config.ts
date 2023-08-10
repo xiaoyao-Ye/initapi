@@ -62,7 +62,7 @@ export function defineConfig(config: UserConfigExport): UserConfigExport {
 }
 
 /** 默认配置 */
-const defaultOptions = (): UserConfig => ({
+export const defaultOptions = (): UserConfig => ({
   importRequest: 'import axios from "axios";',
   useRequest: "axios.request",
   service: {
