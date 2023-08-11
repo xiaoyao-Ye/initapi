@@ -5,26 +5,28 @@ import { handleParams } from "./handleParams";
 import { handlePath } from "./handlePath";
 import { handleResponse } from "./handleResponse";
 
-type Options = {
+interface Options {
   dtoNameList: string[];
   commonPrefix?: string;
   multipleFiles?: boolean;
-};
+}
 
-type ControllerInfo = {
+interface ControllerInfo {
   controllerName: string;
   description: string;
-  funcList: {
-    url: string;
-    fnName: string;
-    fnDescription: string;
-    fnArgs: string;
-    fnMethod: string;
-    fnRequestBody: string;
-    fnResponse: string;
-  }[];
+  funcList: FunctionInfo[];
   importType: string;
-};
+}
+
+interface FunctionInfo {
+  url: string;
+  fnName: string;
+  fnDescription: string;
+  fnArgs: string;
+  fnMethod: string;
+  fnRequestBody: string;
+  fnResponse: string;
+}
 
 const generateAPI_TS = (apiMap: ApiMap, options: Options) => {
   const { dtoNameList, commonPrefix, multipleFiles } = options;
@@ -36,7 +38,7 @@ const generateAPI_TS = (apiMap: ApiMap, options: Options) => {
     const nameRepeat: Record<string, number> = {};
     const importType = new Set<string>();
 
-    const funcList = apiList.map(api => {
+    const funcList: FunctionInfo[] = apiList.map(api => {
       const { name, url, summary, description, method, params, data, response } = api;
 
       const hasPath = handlePath(api, importType);
