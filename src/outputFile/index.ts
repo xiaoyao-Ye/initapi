@@ -1,6 +1,7 @@
 import format from "./prettier";
 import fs from "fs-extra";
 import path from "path";
+import { consola } from "consola";
 
 /**
  * 根据文件名和数据输入文件
@@ -13,7 +14,7 @@ export const outputFile = async (outputDir: string, fileName: string, data: stri
   try {
     data = await format(data);
   } catch (error) {
-    console.log("error", error);
+    consola.error(error);
   }
   await fs.outputFile(filePath, data);
 };

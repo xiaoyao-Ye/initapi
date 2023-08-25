@@ -75,33 +75,29 @@ pnpm run create-api
 
 Generate API Content Example
 
-![Generate API Content Example](https://xiaoyao-ye.github.io/blog/initApi/api.png)
+![Generate API Content Example](https://xiaoyao-ye.github.io/blog/initApi/api_mul.png)
 
 Generate Type Content Example
 
-![Generate Type Content Example](https://xiaoyao-ye.github.io/blog/initApi/type.png)
-
-Usage examples
-
-![Usage examples](https://xiaoyao-ye.github.io/blog/initApi/usage.png)
+![Generate Type Content Example](https://xiaoyao-ye.github.io/blog/initApi/typings.png)
 
 ## Configure
 
 Detailed configuration items for defineConfig
 
-| Name         | Description                                                  | Type                         | Required | Default                      |
-| ------------ | ------------------------------------------------------------ | ---------------------------- | -------- | ---------------------------- |
-| importRequest  | Import axios or axios encapsulation                          | `string`                     | No       | 'import axios from "axios";' |
-| useRequest     | Using axios                                                  | `string`                     | No       | 'axios.request'              |
-| service      | The JSON (`swagger/openapi3`specification) file address corresponding to the API service | `object`                     | Yes      | —                            |
-| outputDir    | Output file storage location                                 | `string`                     | No       | './api'                      |
-| outputType   | Output File Type - When there is no configuration, a command line interaction will pop up for selection | `TypeScript` or `JavaScript` | No       | —                            |
-| definition   | How to define types                                          | `class` or `interface`       | No       | interface                    |
-| indexable    | The advantage of using index signature is that it can add any number of attributes, making `interface` or `class` more flexible; The disadvantage is that it may cause uncertainty in the value type of the attribute | `boolean`                    | No       | false                        |
-| enumMode     | How to define enumeration (enum: generate enumeration type. type: generate type alias.) | `enum` or `type`             | No       | type                         |
-| multipleFiles | Enable multi file mode - single file only creates API files. Multiple files will split the API into all controllers and generate corresponding files | `boolean`                     | No       | false                           |
+| Name          | Description                                                                                                                                                                                                           | Type                         | Required | Default                      |
+| ------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------- | -------- | ---------------------------- |
+| importRequest | Import axios or axios encapsulation                                                                                                                                                                                   | `string`                     | No       | 'import axios from "axios";' |
+| useRequest    | Using axios                                                                                                                                                                                                           | `string`                     | No       | 'axios.request'              |
+| service       | The JSON (`swagger/openapi3`specification) file address corresponding to the API service                                                                                                                              | `object`                     | Yes      | —                            |
+| outputDir     | Output file storage location                                                                                                                                                                                          | `string`                     | No       | './api'                      |
+| outputType    | Output File Type - When there is no configuration, a command line interaction will pop up for selection                                                                                                               | `TypeScript` or `JavaScript` | No       | —                            |
+| definition    | How to define types                                                                                                                                                                                                   | `class` or `interface`       | No       | interface                    |
+| indexable     | The advantage of using index signature is that it can add any number of attributes, making `interface` or `class` more flexible; The disadvantage is that it may cause uncertainty in the value type of the attribute | `boolean`                    | No       | false                        |
+| enumMode      | How to define enumeration (enum: generate enumeration type. type: generate type alias.)                                                                                                                               | `enum` or `type`             | No       | type                         |
+| multipleFiles | Enable multi file mode - single file only creates API files. Multiple files will split the API into all controllers and generate corresponding files                                                                  | `boolean`                    | No       | true                         |
 
-## Default
+## Prettier
 
 Before creating a file, by default, the data will be formatted using a prettier
 
@@ -147,3 +143,7 @@ const defaultOptions: prettier.Options = {
 ## Last
 
 Welcome to provide feedback and contribute code.
+
+## License
+
+MIT

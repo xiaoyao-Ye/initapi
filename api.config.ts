@@ -39,7 +39,7 @@ export default defineConfig({
   },
   outputDir: "./src/api",
   // multipleFiles: true,
-  outputType: "TypeScript",
+  // outputType: "TypeScript",
   // outputType: "JavaScript",
   // definition: "class",
   // indexable: true,

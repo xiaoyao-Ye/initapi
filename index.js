@@ -1,5 +1,6 @@
 const fs = require("fs");
 const path = require("path");
+const { consola } = require("consola");
 
 const sourceFiles = [
   ["./package.json", "./lib/package.json"],
@@ -14,16 +15,16 @@ const sourceFiles = [
 
 fs.mkdirSync(path.join(__dirname, "./lib/template/typeScript"), { recursive: true }, err => {
   if (err) throw err;
-  console.log("Directory created successfully");
+  consola.info("Directory created successfully");
 });
 fs.mkdirSync(path.join(__dirname, "./lib/template/javaScript"), { recursive: true }, err => {
   if (err) throw err;
-  console.log("Directory created successfully");
+  consola.info("Directory created successfully");
 });
 
 for (let [sourcePath, targetPath] of sourceFiles) {
   fs.copyFile(sourcePath, targetPath, err => {
     if (err) throw err;
-    console.log(`${sourcePath} was copied to ${targetPath}`);
+    consola.success(`${sourcePath} was copied to ${targetPath}`);
   });
 }

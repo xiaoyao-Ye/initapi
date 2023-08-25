@@ -19,9 +19,7 @@ const generateDTO = (enumList: Enum[] = [], interfaceList: Interface[] = []) => 
   const generateInterfaceList = interfaceList.map(item => {
     const description = useDescription(item.description);
     const name = wordToUpperCase(replaceSpecialChars(item.name));
-    if (name === "0") {
-      console.log(name);
-    }
+
     const propList: PropList[] = item.propList.map(property => {
       return {
         name: replaceSpecialChars(property.name),

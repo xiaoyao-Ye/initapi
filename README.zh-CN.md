@@ -76,33 +76,29 @@ pnpm run create-api
 
 生成 api 内容示例
 
-![Generate API Content Example](https://xiaoyao-ye.github.io/blog/initApi/api.png)
+![Generate API Content Example](https://xiaoyao-ye.github.io/blog/initApi/api_mul.png)
 
 生成类型内容示例
 
-![Generate Type Content Example](https://xiaoyao-ye.github.io/blog/initApi/type.png)
-
-使用示例
-
-![Usage examples](https://xiaoyao-ye.github.io/blog/initApi/usage.png)
+![Generate Type Content Example](https://xiaoyao-ye.github.io/blog/initApi/typings.png)
 
 ## Configure
 
 defineConfig 的详细配置项
 
-| 属性         | 说明                                                         | 类型                         | 是否必填 | 默认值                       |
-| ------------ | ------------------------------------------------------------ | ---------------------------- | -------- | ---------------------------- |
-| importRequest  | 导入 axios 或 axios 封装                                     | `string`                     | 否       | 'import axios from "axios";' |
-| useRequest     | 使用请求函数                                                 | `string`                     | 否       | 'axios.request'              |
-| service      | API 服务对应的 json(`swagger/openapi3`规范)文件地址          | `object`                     | 是       | —                            |
-| outputDir    | 输出文件存放位置                                             | `string`                     | 否       | './api'                      |
-| outputType   | 输出文件类型-无配置时会弹出命令行交互让选择                  | `TypeScript` or `JavaScript` | 否       | —                            |
-| definition   | 定义类型的方式                                               | `class` or `interface`       | 否       | interface                    |
-| indexable    | 使用索引签名的优点是可以添加任意数量的属性，使得`interface` or `class` 更加灵活；缺点是可能会导致属性的值类型不确定 | `boolean`                    | 否       | false                        |
-| enumMode     | 定义枚举的方式(enum: 生成枚举类型 type: 生成类型别名)        | `enum` or `type`             | 否       | type                         |
-| multipleFiles | 启用多文件模式-单文件只创建api文件 多文件会将api拆分出所有controller生成对应文件 | `boolean`                     | 否       | false                           |
+| 属性          | 说明                                                                                                                | 类型                         | 是否必填 | 默认值                       |
+| ------------- | ------------------------------------------------------------------------------------------------------------------- | ---------------------------- | -------- | ---------------------------- |
+| importRequest | 导入 axios 或 axios 封装                                                                                            | `string`                     | 否       | 'import axios from "axios";' |
+| useRequest    | 使用请求函数                                                                                                        | `string`                     | 否       | 'axios.request'              |
+| service       | API 服务对应的 json(`swagger/openapi3`规范)文件地址                                                                 | `object`                     | 是       | —                            |
+| outputDir     | 输出文件存放位置                                                                                                    | `string`                     | 否       | './api'                      |
+| outputType    | 输出文件类型-无配置时会弹出命令行交互让选择                                                                         | `TypeScript` or `JavaScript` | 否       | —                            |
+| definition    | 定义类型的方式                                                                                                      | `class` or `interface`       | 否       | interface                    |
+| indexable     | 使用索引签名的优点是可以添加任意数量的属性，使得`interface` or `class` 更加灵活；缺点是可能会导致属性的值类型不确定 | `boolean`                    | 否       | false                        |
+| enumMode      | 定义枚举的方式(enum: 生成枚举类型 type: 生成类型别名)                                                               | `enum` or `type`             | 否       | type                         |
+| multipleFiles | 启用多文件模式-单文件只创建api文件 多文件会将api拆分出所有controller生成对应文件                                    | `boolean`                    | 否       | true                         |
 
-## Default
+## Prettier
 
 创建文件之前默认会使用 prettier 对数据进行格式化
 
@@ -166,3 +162,7 @@ const defaultOptions: prettier.Options = {
 ## Last
 
 欢迎提供反馈并贡献代码.
+
+## License
+
+MIT

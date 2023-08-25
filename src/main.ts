@@ -1,6 +1,5 @@
 import { outputFile } from "./outputFile/index";
 import { getInitData } from "./utils/request";
-import { useInquirer } from "./utils/inquirer";
 import { getConfig } from "./utils/config";
 import { collectAPI } from "./collect";
 import { generateAPI_TS } from "./generateTS";
@@ -11,18 +10,30 @@ import { ejsRender } from "./outputFile/render";
 import { resolve } from "path";
 import { generateAPI_JS } from "./generateJS";
 import { getCommonPrefix } from "./utils";
+import { useCommandLine } from "./utils/commandLine";
+import { intro, outro, spinner, note } from "@clack/prompts";
+import chalk from "chalk";
+
+const Spinner = spinner();
 
 export const main = async () => {
+  intro(`Generate API start:`);
+
   const { service, importRequest, useRequest, outputDir, outputType, definition, indexable, enumMode, multipleFiles } =
     await getConfig();
 
-  let { url, fileSuffix, serviceName, commonPrefix } = await useInquirer(service, outputType);
+  let { url, fileSuffix, serviceName, commonPrefix } = await useCommandLine(service, outputType);
 
+  Spinner.start("正在获取API数据...");
   const { paths, components, tags }: OpenAPIObject = await getInitData(url);
+  Spinner.stop(chalk.gray("API数据获取成功."));
 
+  Spinner.start("正在处理API数据...");
   if (!commonPrefix) commonPrefix = getCommonPrefix(Object.keys(paths));
   const apiMap = collectAPI(paths, tags, commonPrefix);
+  Spinner.stop(chalk.gray("处理API数据成功."));
 
+  Spinner.start("正在生成API文件...");
   if (fileSuffix === "ts") {
     const indexableTemplate = indexable ? "[key: string]: any" : "";
 
@@ -68,4 +79,8 @@ export const main = async () => {
       outputFile(outputDir, `${serviceName}/api.${fileSuffix}`, template_Api);
     }
   }
+
+  Spinner.stop(chalk.gray("生成API文件成功."));
+  note(chalk.yellowBright(`Go to ${outputDir}/${serviceName} path to view`), "Next steps.");
+  outro(chalk.yellowBright(`Generate API successfully!`));
 };

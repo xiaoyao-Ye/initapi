@@ -1,0 +1,48 @@
+name: Publish npm
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: pnpm/action-setup@v2.2.4
+        with:
+          version: latest
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: pnpm
+
+      - name: Authenticate with the NPM registry
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: npm config set '//registry.npmjs.org/:_authToken' $NODE_AUTH_TOKEN
+
+      - name: Versioning
+        run: |
+          git config --global user.email "yqcyecong@163.com"
+          git config --global user.name "_Ghosteye"
+          npm version ${{ github.event.release.tag_name }} --no-git-tag-version --force
+        # npm version ${{ github.event.release.tag_name }}
+
+      - name: Install and Build
+        run: |
+          pnpm install --no-frozen-lockfile
+          pnpm run build
+        # pnpm install --frozen-lockfile
+
+      - name: Publish to npm
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          cd lib
+          npm publish

@@ -1,5 +1,6 @@
 import { tryRequire } from "./index";
 import path from "path";
+import { consola } from "consola";
 
 export type UserConfigExport = UserConfig | UserConfigFn;
 
@@ -43,7 +44,7 @@ export interface UserConfig {
    */
   enumMode?: "enum" | "type";
   /**
-   * 启用多文件模式 default: false
+   * 启用多文件模式 default: true
    * 单文件只创建api文件 多文件会将api拆分出所有controller生成对应文件
    */
   multipleFiles?: boolean;
@@ -61,7 +62,7 @@ export function defineConfig(config: UserConfigExport): UserConfigExport {
 }
 
 /** 默认配置 */
-const defaultOptions = (): UserConfig => ({
+export const defaultOptions = (): UserConfig => ({
   importRequest: 'import axios from "axios";',
   useRequest: "axios.request",
   service: {
@@ -71,21 +72,15 @@ const defaultOptions = (): UserConfig => ({
   definition: "interface",
   indexable: false,
   enumMode: "type",
-  multipleFiles: false,
+  multipleFiles: true,
 });
 
 export const getConfig = async (): Promise<UserConfig> => {
   try {
     const apiConfig: UserConfigExport = await tryRequire(path.join(process.cwd(), "api.config"));
-    let config: UserConfig = {};
-    if (typeof apiConfig === "function") {
-      config = await apiConfig({});
-    } else {
-      config = apiConfig;
-    }
+    let config: UserConfig = typeof apiConfig === "function" ? await apiConfig({}) : apiConfig;
     return Object.assign(defaultOptions(), config);
   } catch (error) {
-    console.error("try require error, please check 'api.config.ts' file.");
-    throw new Error(error);
+    consola.error("try require error, please check 'api.config.{ts,js}' file.");
   }
 };
