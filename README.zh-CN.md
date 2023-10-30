@@ -8,7 +8,7 @@
 <br />
 
 <p align="center">
-  <a href="https://github.com/xiaoyao-Ye/initapi/blob/main/README.md">English</a> | Chinese
+  <a href="https://github.com/xiaoyao-Ye/initapi/blob/main/README.md">English</a> | 中文
 </p>
 
 <p align="center">
