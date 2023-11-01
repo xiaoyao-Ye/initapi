@@ -24,16 +24,21 @@ export const main = async () => {
 
   let { url, fileSuffix, serviceName, commonPrefix } = await useCommandLine(service, outputType);
 
-  Spinner.start("正在获取API数据...");
+  // Spinner.start("正在获取API数据...");
+  Spinner.start("Getting API data...");
   const { paths, components, tags }: OpenAPIObject = await getInitData(url);
-  Spinner.stop(chalk.gray("API数据获取成功."));
+  // Spinner.stop(chalk.gray("获取API数据成功."));
+  Spinner.stop(chalk.gray("Get API data successfully."));
 
-  Spinner.start("正在处理API数据...");
+  // Spinner.start("正在处理API数据...");
+  Spinner.start("Processing API data...");
   if (!commonPrefix) commonPrefix = getCommonPrefix(Object.keys(paths));
   const apiMap = collectAPI(paths, tags, commonPrefix);
-  Spinner.stop(chalk.gray("处理API数据成功."));
+  // Spinner.stop(chalk.gray("处理API数据成功."));
+  Spinner.stop(chalk.gray("Processing API data successfully."));
 
-  Spinner.start("正在生成API文件...");
+  // Spinner.start("正在生成API文件...");
+  Spinner.start("Generating API files...");
   if (fileSuffix === "ts") {
     const indexableTemplate = indexable ? "[key: string]: any" : "";
 
@@ -80,7 +85,8 @@ export const main = async () => {
     }
   }
 
-  Spinner.stop(chalk.gray("生成API文件成功."));
+  // Spinner.stop(chalk.gray("生成API文件成功."));
+  Spinner.stop(chalk.gray("Generate API file successfully."));
   note(chalk.yellowBright(`Go to ${outputDir}/${serviceName} path to view`), "Next steps.");
   outro(chalk.yellowBright(`Generate API successfully!`));
 };
