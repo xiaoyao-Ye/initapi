@@ -12,18 +12,30 @@ type Response = Promise<{
 
 const useCommandLine = async (swagger: Swagger, outputType: string | symbol = ""): Response => {
   const serviceNameList = Object.entries(swagger);
-
-  const serviceName = (await select({
-    message: "请选择 API 文档json地址:",
-    options: serviceNameList.map(([name, { url }]) => ({ value: name, label: name, hint: url })),
-  })) as string;
+  let serviceName: string;
+  if (serviceNameList.length === 1) {
+    serviceName = serviceNameList[0][0];
+  } else {
+    serviceName = (await select({
+      // message: "请选择 API 文档json地址:",
+      message: "Please select the API documentation json address:",
+      options: serviceNameList.map(([name, { url }]) => ({ value: name, label: name, hint: url })),
+    })) as string;
+  }
 
   if (!outputType) {
     outputType = await select({
-      message: "请选择您需要生成的 API 类型:",
+      // message: "请选择需要生成的 API 类型:",
+      message: "Please select the type of API to generate:",
       options: [
-        { value: "ts", label: "TypeScript", hint: "将会生成API接口的ts文件以及接口对应的类型" },
-        { value: "js", label: "JavaScript", hint: "仅生成API接口文件" },
+        {
+          value: "ts",
+          label: "TypeScript",
+          hint: "The ts file for the API interface and the corresponding type of the interface will be generated.",
+        },
+        { value: "js", label: "JavaScript", hint: "Generate API interface files only" },
+        // { value: "ts", label: "TypeScript", hint: "将会生成API接口的ts文件以及接口对应的类型" },
+        // { value: "js", label: "JavaScript", hint: "仅生成API接口文件" },
       ],
     });
   }
