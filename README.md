@@ -1,4 +1,5 @@
-<div align="center"><img src="https://xiaoyao-ye.github.io/blog/initApi/light.svg" /></div>
+<div align="center"><img src="https://xiaoyao-ye.github.io/blog/initApi/light.svg#gh-light-mode-only" /></div>
+<div align="center"><img src="https://xiaoyao-ye.github.io/blog/initApi/dark-bg.svg#gh-dark-mode-only" /></div>
 
 <br />
 <br />
@@ -36,50 +37,54 @@ pnpm i initapi -D
 > configure `api.config.ts` or `api.config.js`
 
 ```ts
-import { defineConfig } from 'initapi'
+import { defineConfig } from "initapi";
 // you can use the `defineConfig` helper which should provide intellisense without the need for jsdoc annotations:
 export default defineConfig({
   // Path related configurations are all based on the working directory of the nodejs process
   // Supports Openapi3 and Swagger specifications, with content created based on specified JSON
   service: {
     pets: {
-      url: 'https://petstore.swagger.io/v2/swagger.json',
+      url: "https://petstore.swagger.io/v2/swagger.json",
     },
     platform: {
-      url: 'http://127.0.0.1:3000/api-json',
-      commonPrefix: "/api/v1"
+      url: "http://127.0.0.1:3000/api-json",
+      commonPrefix: "/api/v1",
     },
     // Can convert local JSON
     local: {
-      url: './assets/openapi.json',
+      url: "./assets/openapi.json",
       // API address public prefix, used to generate class names and file names. When not configured, it will automatically attempt to find the public prefix
-      commonPrefix: "/mg/api"
+      commonPrefix: "/mg/api",
     },
   },
-  outputDir: './src/api',
-  outputType: 'TypeScript',
+  outputDir: "./src/api",
+  outputType: "TypeScript",
   // ...
-})
+});
 ```
 
 ```json
 // package.json
 "scripts": {
-  "create-api": "initapi create"
+  "api": "initapi create"
 }
 ```
 
 ```bash
-pnpm run create-api
+pnpm run api
 ```
 
-Generate API Content Example
+Generate API Workflows Example
 
-![Generate API Content Example](https://xiaoyao-ye.github.io/blog/initApi/api_mul.png)
+![Generate API Workflows Example](https://xiaoyao-ye.github.io/blog/initApi/workflow-en.png.png)
 
-Generate Type Content Example
+Generate API content example
 
-![Generate Type Content Example](https://xiaoyao-ye.github.io/blog/initApi/typings.png)
+![Generate API content example](https://xiaoyao-ye.github.io/blog/initApi/api_mul.png)
+
+Generate Type content example
+
+![Generate Type content example](https://xiaoyao-ye.github.io/blog/initApi/typings.png)
 
 ## Configure
 

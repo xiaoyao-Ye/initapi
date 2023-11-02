@@ -1,10 +1,11 @@
-# changelog
+# Changelog
 
 ## v0.4.0
 
 - 🎸 feat: Checked by default when only one service
 - 💄 style: Unified prompt language
 - ⚡️ perf: Add operation cancellation prompt
+- ✏️ docs: Update docs
 
 ## 2023-07-06 [v0.3.0]
 
