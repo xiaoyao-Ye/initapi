@@ -1,5 +1,11 @@
 # changelog
 
+## v0.4.0
+
+- 🎸 feat: Checked by default when only one service
+- 💄 style: Unified prompt language
+- ⚡️ perf: Add operation cancellation prompt
+
 ## 2023-07-06 [v0.3.0]
 
 - ⚡️ Changing the default value of the multiple option(更改多文件选项的默认值)

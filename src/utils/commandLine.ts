@@ -1,5 +1,6 @@
-import { select } from "@clack/prompts";
+import { cancel, isCancel, select } from "@clack/prompts";
 import { Indexable } from "../typings";
+import { consola } from "consola";
 
 type Swagger = Indexable<{ url: string; commonPrefix?: string }>;
 
@@ -15,6 +16,7 @@ const useCommandLine = async (swagger: Swagger, outputType: string | symbol = ""
   let serviceName: string;
   if (serviceNameList.length === 1) {
     serviceName = serviceNameList[0][0];
+    consola.info(` Selected ${serviceName} API documentation json address!`);
   } else {
     serviceName = (await select({
       // message: "请选择 API 文档json地址:",
@@ -38,6 +40,11 @@ const useCommandLine = async (swagger: Swagger, outputType: string | symbol = ""
         // { value: "js", label: "JavaScript", hint: "仅生成API接口文件" },
       ],
     });
+  }
+
+  if (isCancel(serviceName) || isCancel(outputType)) {
+    cancel("Operation cancelled.");
+    process.exit(0);
   }
 
   const url = swagger[serviceName].url;
