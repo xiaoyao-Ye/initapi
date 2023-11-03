@@ -9,7 +9,9 @@ const interfaceToType = (schema: Schema | InterfaceProp): string => {
 
   if (Array.isArray(schema.type)) return;
 
-  if (schema.type === "string" || schema.type === "boolean") {
+  if (schema.enum) {
+    return `"${schema.enum.join('" | "')}"`;
+  } else if (schema.type === "string" || schema.type === "boolean") {
     return schema.type;
   } else if (["integer", "long", "float", "double", "number", "int", "int32", "int64"].includes(schema.type)) {
     return "number";

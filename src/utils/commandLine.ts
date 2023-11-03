@@ -11,6 +11,11 @@ type Response = Promise<{
   commonPrefix: string;
 }>;
 
+function cancelOperation() {
+  cancel("Operation cancelled.");
+  process.exit(0);
+}
+
 const useCommandLine = async (swagger: Swagger, outputType: string | symbol = ""): Response => {
   const serviceNameList = Object.entries(swagger);
   let serviceName: string;
@@ -23,6 +28,7 @@ const useCommandLine = async (swagger: Swagger, outputType: string | symbol = ""
       message: "Please select the API documentation json address:",
       options: serviceNameList.map(([name, { url }]) => ({ value: name, label: name, hint: url })),
     })) as string;
+    if (isCancel(serviceName)) cancelOperation();
   }
 
   if (!outputType) {
@@ -40,11 +46,7 @@ const useCommandLine = async (swagger: Swagger, outputType: string | symbol = ""
         // { value: "js", label: "JavaScript", hint: "仅生成API接口文件" },
       ],
     });
-  }
-
-  if (isCancel(serviceName) || isCancel(outputType)) {
-    cancel("Operation cancelled.");
-    process.exit(0);
+    if (isCancel(outputType)) cancelOperation();
   }
 
   const url = swagger[serviceName].url;

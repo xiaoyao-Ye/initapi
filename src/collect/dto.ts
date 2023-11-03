@@ -3,20 +3,31 @@ import { Interface, Enum, InterfaceProp, isReferenceObject } from "../typings";
 
 type Properties = Record<string, SchemaObject | ReferenceObject>;
 
-const getInterfaceProp = (properties: Properties = {}): InterfaceProp[] => {
+const getInterfaceProp = (properties: Properties = {}, required: string[] = []): InterfaceProp[] => {
   const interfacePropList: InterfaceProp[] = [];
   for (const [interfacePropName, interfaceProp] of Object.entries(properties)) {
     if (!properties.hasOwnProperty(interfacePropName)) continue;
 
     let interfacePropItem: InterfaceProp;
 
+    const isRequired = required.includes(interfacePropName) || !interfaceProp.nullable!;
+
     if (isReferenceObject(interfaceProp)) {
       const { $ref, description } = interfaceProp;
-      interfacePropItem = { name: interfacePropName, description, $ref };
+      interfacePropItem = { name: interfacePropName, description, $ref, required: isRequired };
     } else {
       if (Array.isArray(interfaceProp.type)) continue;
       const { type, description, items, additionalProperties, allOf, oneOf, anyOf } = interfaceProp;
-      interfacePropItem = { name: interfacePropName, description, type, items, additionalProperties };
+      interfacePropItem = {
+        name: interfacePropName,
+        description,
+        type,
+        items,
+        additionalProperties,
+        required: isRequired,
+      };
+
+      if (interfaceProp.enum) interfacePropItem.enum = interfaceProp.enum;
 
       //   if (allOf || oneOf || anyOf) {
       if (isReferenceObject(allOf?.[0])) interfacePropItem.$ref = allOf?.["0"].$ref;
@@ -54,7 +65,7 @@ const collectDto = (schemas: { [schema: string]: SchemaObject | ReferenceObject 
       const InterfaceItem: Interface = {
         name: dtoName,
         description: dto.description,
-        propList: getInterfaceProp(dto.properties),
+        propList: getInterfaceProp(dto.properties, dto.required),
       };
       interfaceList.push(InterfaceItem);
       interfaceNameList.push(dtoName);

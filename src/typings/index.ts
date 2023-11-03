@@ -59,9 +59,11 @@ interface Interface {
 interface InterfaceProp {
   name: string;
   description: string;
+  required: boolean;
   type?: string;
   $ref?: string;
   items?: Schema;
+  enum?: any[];
   additionalProperties?: Schema | boolean;
   propList?: InterfaceProp[];
 }
