@@ -1,5 +1,4 @@
-<div align="center"><img src="https://xiaoyao-ye.github.io/blog/initApi/light.svg#gh-light-mode-only" /></div>
-<div align="center"><img src="https://xiaoyao-ye.github.io/blog/initApi/dark-bg.svg#gh-dark-mode-only" /></div>
+<div align="center"><img src="https://xiaoyao-ye.github.io/blog/initApi/light.svg" /></div>
 
 <br />
 <br />
@@ -76,7 +75,7 @@ pnpm run api
 
 Generate API Workflows Example
 
-![Generate API Workflows Example](https://xiaoyao-ye.github.io/blog/initApi/workflow-en.png.png)
+![Generate API Workflows Example](https://xiaoyao-ye.github.io/blog/initApi/workflow-en.png)
 
 Generate API content example
 
