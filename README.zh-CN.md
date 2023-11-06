@@ -3,7 +3,7 @@
 <br />
 <br />
 
-<div align="center"> 一个用于生成 `API` 和 `类型` 的工具 </div>
+<div align="center"> 一个用于生成 API 接口和类型的工具 </div>
 
 <br />
 
@@ -37,30 +37,30 @@ pnpm i initapi -D
 > 配置 `api.config.ts` 或者 `api.config.js`
 
 ```ts
-import { defineConfig } from 'initapi'
+import { defineConfig } from "initapi";
 
 export default defineConfig({
   // 与路径相关的配置都基于nodejs进程的工作目录
   // 支持 openapi3 和 swagger 规范, 内容根据指定的 json 创建
   service: {
     pets: {
-      url: 'https://petstore.swagger.io/v2/swagger.json',
+      url: "https://petstore.swagger.io/v2/swagger.json",
     },
     platform: {
-      url: 'http://127.0.0.1:3000/api-json',
+      url: "http://127.0.0.1:3000/api-json",
       // 配置接口请求的公共前缀, api地址公共前缀, 用于生成class名称和文件名称, 未配置时会自动尝试找出公共前缀
-      commonPrefix: "/api/v1"
+      commonPrefix: "/api/v1",
     },
     // 可以转换本地json
     local: {
-      url: './assets/openapi.json',
-      commonPrefix: "/mg/api"
+      url: "./assets/openapi.json",
+      commonPrefix: "/mg/api",
     },
   },
-  outputDir: './src/api',
-  outputType: 'TypeScript',
+  outputDir: "./src/api",
+  outputType: "TypeScript",
   // ...
-})
+});
 ```
 
 ```json
@@ -73,6 +73,10 @@ export default defineConfig({
 ```bash
 pnpm run create-api
 ```
+
+生成 api 流程示例
+
+![Generate API Workflows Example](https://xiaoyao-ye.github.io/blog/initApi/workflow-en.png)
 
 生成 api 内容示例
 
@@ -96,7 +100,7 @@ defineConfig 的详细配置项
 | definition    | 定义类型的方式                                                                                                      | `class` or `interface`       | 否       | interface                    |
 | indexable     | 使用索引签名的优点是可以添加任意数量的属性，使得`interface` or `class` 更加灵活；缺点是可能会导致属性的值类型不确定 | `boolean`                    | 否       | false                        |
 | enumMode      | 定义枚举的方式(enum: 生成枚举类型 type: 生成类型别名)                                                               | `enum` or `type`             | 否       | type                         |
-| multipleFiles | 启用多文件模式-单文件只创建api文件 多文件会将api拆分出所有controller生成对应文件                                    | `boolean`                    | 否       | true                         |
+| multipleFiles | 启用多文件模式-单文件只创建 api 文件 多文件会将 api 拆分出所有 controller 生成对应文件                              | `boolean`                    | 否       | true                         |
 
 ## Prettier
 
