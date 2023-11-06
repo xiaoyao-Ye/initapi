@@ -1,10 +1,9 @@
-<div align="center"><img src="https://xiaoyao-ye.github.io/blog/initApi/light.svg#gh-light-mode-only" /></div>
-<div align="center"><img src="https://xiaoyao-ye.github.io/blog/initApi/dark-bg.svg#gh-dark-mode-only" /></div>
+<div align="center"><img src="https://xiaoyao-ye.github.io/blog/initApi/light.svg" /></div>
 
 <br />
 <br />
 
-<div align="center"> 一个用于生成 `API` 和 `类型` 的工具 </div>
+<div align="center"> 一个用于生成 API 接口和类型的工具 </div>
 
 <br />
 
@@ -77,7 +76,7 @@ pnpm run create-api
 
 生成 api 流程示例
 
-![Generate API Workflows Example](https://xiaoyao-ye.github.io/blog/initApi/workflow-en.png.png)
+![Generate API Workflows Example](https://xiaoyao-ye.github.io/blog/initApi/workflow-en.png)
 
 生成 api 内容示例
 
