@@ -10,7 +10,10 @@ const getInterfaceProp = (properties: Properties = {}, required: string[] = []):
 
     let interfacePropItem: InterfaceProp;
 
-    const isRequired = required.includes(interfacePropName) || !interfaceProp.nullable!;
+    // required 是否必填, 意味着是否必须传递这个属性.
+    // nullable 是否允许为 null, 意味着值是否允许为 null
+    // const isRequired = required.includes(interfacePropName) || !interfaceProp.nullable!;
+    const isRequired = required.includes(interfacePropName);
 
     if (isReferenceObject(interfaceProp)) {
       const { $ref, description } = interfaceProp;
