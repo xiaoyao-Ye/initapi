@@ -6,7 +6,7 @@
 export <%= definition %> <%= item.name %> {
   <% item.propList.forEach(prop => { -%>
     <%= prop.description %>
-    <%= prop.name %>?: <%- prop.type %>
+    <%= prop.name %><%= prop.required ? '' : '?' %>: <%- prop.type %>
   <%  }); %>
   <%- indexableTemplate -%>
 };

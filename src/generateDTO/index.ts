@@ -6,6 +6,7 @@ type PropList = {
   name: string;
   description: string;
   type: string;
+  required: boolean;
 };
 
 const generateDTO = (enumList: Enum[] = [], interfaceList: Interface[] = []) => {
@@ -25,6 +26,7 @@ const generateDTO = (enumList: Enum[] = [], interfaceList: Interface[] = []) => 
         name: replaceSpecialChars(property.name),
         description: useDescription(property.description),
         type: interfaceToType(property),
+        required: property.required,
       };
     });
     return { name, description, propList };

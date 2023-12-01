@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.5.0
+
+- 🎸 feat: Generate optional type
+
 ## v0.4.0
 
 - 🎸 feat: Checked by default when only one service
