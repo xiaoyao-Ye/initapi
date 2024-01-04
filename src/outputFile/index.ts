@@ -1,7 +1,8 @@
-import format from "./prettier";
+import { format } from "./prettier";
 import fs from "fs-extra";
 import path from "path";
 import { consola } from "consola";
+import prettier from "prettier";
 
 /**
  * 根据文件名和数据输入文件
@@ -9,10 +10,10 @@ import { consola } from "consola";
  * @param fileName 文件名(带文件类型)
  * @param data 数据
  */
-export const outputFile = async (outputDir: string, fileName: string, data: string) => {
+export const outputFile = async (outputDir: string, fileName: string, data: string, prettierOptions: prettier.Options) => {
   const filePath = path.join(process.cwd(), outputDir, fileName);
   try {
-    data = await format(data);
+    data = await format(data, prettierOptions);
   } catch (error) {
     consola.error(error);
   }
