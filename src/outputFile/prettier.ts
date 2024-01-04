@@ -1,5 +1,6 @@
 import prettier from "prettier";
-import path from "path";
+import fs from "fs";
+import path, { join } from "path";
 import { tryRequire } from "../utils/index";
 
 const defaultOptions: prettier.Options = {
@@ -49,15 +50,34 @@ const defaultOptions: prettier.Options = {
  * @param options 格式化规则
  * @returns 格式化后的数据
  */
-export default async function format(code: string): Promise<string> {
-  const prettierConfig = await getOptions();
+async function format(code: string, prettierConfig: prettier.Options): Promise<string> {
   return prettier.format(code, prettierConfig);
 }
 
 /**
  * 获取当前node运行目录下的 .prettier 文件的配置进行格式化
  */
-async function getOptions(): Promise<prettier.Options> {
-  const options = await Promise.resolve(tryRequire(path.join(process.cwd(), ".prettierrc")));
+async function getPrettierOptions(): Promise<prettier.Options> {
+  const options = await loadPrettierConfig();
   return Object.assign({}, defaultOptions, options);
 }
+
+async function loadPrettierConfig() {
+  const rootDir = process.cwd();
+  const fileName = fs.readdirSync(rootDir).filter(f => f.startsWith(".prettierrc"))[0];
+  if (!fileName) return {};
+
+  let prettierrcConfig = {};
+  const fileExt = path.extname(fileName);
+  const filePath = join(rootDir, fileName);
+  if ([".js", ".cjs", ".json"].includes(fileExt)) {
+    prettierrcConfig = await Promise.resolve(tryRequire(path.join(process.cwd(), ".prettierrc")));
+  } else if (fileExt === "") {
+    const prettierrcContent = fs.readFileSync(filePath, "utf8");
+    prettierrcConfig = JSON.parse(prettierrcContent);
+  }
+
+  return prettierrcConfig;
+}
+
+export { format, getPrettierOptions };

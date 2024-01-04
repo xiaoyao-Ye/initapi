@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.6.0
+
+- 🐛 fix: Parse .prettier fail
+
 ## v0.5.0
 
 - 🎸 feat: Generate optional type

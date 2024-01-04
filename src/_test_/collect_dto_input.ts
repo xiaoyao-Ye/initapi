@@ -57,7 +57,7 @@ export const mock_collect_output = [
         type: "integer",
         items: undefined,
         additionalProperties: undefined,
-        required: true,
+        required: false,
       },
       {
         name: "identity_type",
@@ -109,7 +109,7 @@ export const mock_collect_output = [
         type: "number",
         items: undefined,
         additionalProperties: undefined,
-        required: true,
+        required: false,
       },
       {
         name: "created_at",
@@ -117,7 +117,7 @@ export const mock_collect_output = [
         type: "string",
         items: undefined,
         additionalProperties: undefined,
-        required: true,
+        required: false,
       },
       {
         name: "updated_at",
@@ -125,7 +125,7 @@ export const mock_collect_output = [
         type: "string",
         items: undefined,
         additionalProperties: undefined,
-        required: true,
+        required: false,
       },
       {
         name: "deleted_at",
@@ -133,7 +133,7 @@ export const mock_collect_output = [
         type: "string",
         items: undefined,
         additionalProperties: undefined,
-        required: true,
+        required: false,
       },
       {
         name: "category",
@@ -141,7 +141,7 @@ export const mock_collect_output = [
         type: "string",
         items: undefined,
         additionalProperties: undefined,
-        required: true,
+        required: false,
         enum: ["收入", "支出"],
       },
       {
@@ -150,7 +150,7 @@ export const mock_collect_output = [
         type: "string",
         items: undefined,
         additionalProperties: undefined,
-        required: true,
+        required: false,
       },
       {
         name: "sign",
@@ -158,7 +158,7 @@ export const mock_collect_output = [
         type: "string",
         items: undefined,
         additionalProperties: undefined,
-        required: true,
+        required: false,
       },
     ],
   },
@@ -172,7 +172,7 @@ export const mock_collect_output = [
         type: "array",
         items: { $ref: "#/components/schemas/BillItemsVo" },
         additionalProperties: undefined,
-        required: true,
+        required: false,
       },
       {
         name: "total",
@@ -180,7 +180,7 @@ export const mock_collect_output = [
         type: "number",
         items: undefined,
         additionalProperties: undefined,
-        required: true,
+        required: false,
       },
     ],
   },
